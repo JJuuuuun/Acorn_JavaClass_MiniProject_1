@@ -18,6 +18,7 @@ public class VersionServiceAndController extends Controller implements Initializ
     }
 
     private void showVersion() {
+        // version check to github.
         Version_Lbl.setText("1.00");
     }
 

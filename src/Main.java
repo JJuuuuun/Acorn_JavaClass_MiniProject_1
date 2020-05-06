@@ -11,7 +11,6 @@ public class Main extends Application {
         commonService = new CommonService();
         commonService.openWindow("");
     }
-
     public static void main(String[] args) {
         launch(args);
     }
