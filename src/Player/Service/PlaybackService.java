@@ -16,8 +16,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -94,13 +92,8 @@ public class PlaybackService implements IPlaybackService {
                          * 재생 중 :
                          * 일시정지 이미지 표시
                          * */
-                        try {
-                            System.out.println(playback.getTotalDuration());
-                            String time = String.format("%d", (int)playback.getTotalDuration().toSeconds());
-                            lblTotal.setText(String.valueOf(new SimpleDateFormat("mm:ss").parse(time)));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                        int time = (int) playback.getTotalDuration().toSeconds();
+                        lblTotal.setText(String.format("%02d", time / 60) + ":" + String.format("%02d", time % 60));
                         imageService.btnImage(btnPlay, "/img/pause.png", 30, 30);
                         addPlays();
                         mps = new Thread(() -> {
@@ -112,8 +105,12 @@ public class PlaybackService implements IPlaybackService {
                                     System.out.println(e.getMessage());
                                 }
                                 // 음악 현재시간 설정
-                                double val = playback.getCurrentTime().toSeconds() / playback.getTotalDuration().toSeconds();
-                                Platform.runLater(() -> setProgress(event, val));
+                                double current = playback.getCurrentTime().toSeconds();
+                                double val = current / playback.getTotalDuration().toSeconds();
+                                Platform.runLater(() -> {
+                                    lblCurrent.setText(String.format("%02d", (int) (current / 60)) + ":" + String.format("%02d", (int) (current % 60)));
+                                    setProgress(event, val);
+                                });
                             }
                         });
                         mps.start();
