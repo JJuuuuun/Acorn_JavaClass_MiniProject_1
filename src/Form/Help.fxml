@@ -9,16 +9,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HelpController">
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HelpController">
     <children>
-        <ImageView fitHeight="154.0" fitWidth="200.0" layoutX="27.0" layoutY="23.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
+        <ImageView fitHeight="154.0" fitWidth="200.0" layoutX="47.0" layoutY="73.0" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="73.0">
          <image>
             <Image url="@../img/pngwave.png" />
          </image>
         </ImageView>
-        <Button fx:id="DirectQuestion_Btn" layoutX="267.0" layoutY="62.0" mnemonicParsing="false" onAction="#eventProc" text="이동" AnchorPane.topAnchor="60.0" />
-        <Button fx:id="QnA_Btn" layoutX="268.0" layoutY="135.0" mnemonicParsing="false" onAction="#eventProc" text="이동" AnchorPane.topAnchor="135.0" />
-        <Label layoutX="252.0" layoutY="39.0" text="1:1 문의하기" AnchorPane.topAnchor="35.0" />
-        <Label layoutX="252.0" layoutY="112.0" text="자주 묻는 질문" AnchorPane.topAnchor="110.0" />
+        <Button fx:id="DirectQuestion_Btn" layoutX="289.0" layoutY="108.0" mnemonicParsing="false" onAction="#eventProc" text="이동" AnchorPane.topAnchor="108.0" />
+        <Button fx:id="QnA_Btn" layoutX="290.0" layoutY="183.0" mnemonicParsing="false" onAction="#eventProc" text="이동" AnchorPane.topAnchor="183.0" />
+        <Label layoutX="274.0" layoutY="83.0" text="1:1 문의하기" AnchorPane.topAnchor="83.0" />
+        <Label layoutX="274.0" layoutY="158.0" text="자주 묻는 질문" AnchorPane.topAnchor="158.0" />
     </children>
 </AnchorPane>

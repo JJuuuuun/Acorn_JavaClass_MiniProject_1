@@ -45,7 +45,7 @@ public class CommonService implements ICommonService {
         Scene scene = getScene(btnId);
         Stage s = new Stage();
 
-        s.setTitle("About");
+        s.setTitle("MusicWebPlayer");
         s.setScene(scene);
         s.show();
     }
