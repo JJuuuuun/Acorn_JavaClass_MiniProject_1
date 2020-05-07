@@ -4,66 +4,76 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<BorderPane prefHeight="480.0" prefWidth="680.0" style="-fx-background-color:white ;"
-            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Player.MainController">
-   <right>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="400.0" prefWidth="129.0" BorderPane.alignment="CENTER">
-         <content>
-            <ListView prefHeight="400.0" prefWidth="130.0" />
-         </content>
-      </ScrollPane>
-   </right>
-   <center>
-      <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="89.0" prefWidth="160.0" />
-                  <VBox alignment="CENTER" prefHeight="89.0" prefWidth="160.0">
-                     <children>
-                        <Label fx:id="songId" alignment="CENTER" prefHeight="25.0" prefWidth="71.0" text="노래제목" />
-                        <Label fx:id="artist" alignment="CENTER" prefHeight="24.0" prefWidth="91.0" text="아티스트 명" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_RIGHT" prefHeight="89.0" prefWidth="160.0">
-                     <children>
-                        <Button onAction="#settings" fx:id="setBtn" alignment="TOP_CENTER" mnemonicParsing="false" style="-fx-background-color:white ;"/>
-                        <Label text="환경설정" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox prefHeight="323.0" prefWidth="473.0">
-               <children>
-                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="217.0" prefWidth="226.0">
-                     <children>
-                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="217.0" prefWidth="226.0">
-                           <StackPane.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </StackPane.margin>
-                           <children>
-                              <ImageView fx:id="album" fitHeight="217.0" fitWidth="226.0" pickOnBounds="true" preserveRatio="true" />
-                              <Button onAction="#about" fx:id="aboutBtn" layoutX="212.0" layoutY="1.0" mnemonicParsing="false" style="-fx-background-color:white ;"/>
-                              <Button onAction="#like" fx:id="likeBtn" prefHeight="40.0" prefWidth="40.0" layoutY="1.0" mnemonicParsing="false" style="-fx-background-color:white ;"/>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </StackPane>
-                  <TextArea fx:id="Lyrics" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="217.0" prefWidth="200.0">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </TextArea>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-            </HBox>
-         </children>
-      </VBox>
-   </center>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="480.0" prefWidth="680.0"
+            style="-fx-background-color:gray ;" xmlns="http://javafx.com/javafx/8"
+            fx:controller="Player.MainController" stylesheets="@layout.css">
+    <right>
+        <ScrollPane hbarPolicy="NEVER" prefHeight="400.0" prefWidth="129.0" BorderPane.alignment="CENTER">
+            <content>
+                <ListView prefHeight="400.0" prefWidth="130.0"/>
+            </content>
+        </ScrollPane>
+    </right>
+    <center>
+        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <VBox prefHeight="89.0" prefWidth="160.0"/>
+                        <VBox alignment="CENTER" prefHeight="89.0" prefWidth="160.0">
+                            <children>
+                                <Label fx:id="songId" alignment="CENTER" prefHeight="25.0" prefWidth="71.0"
+                                       text="노래제목"/>
+                                <Label fx:id="artist" alignment="CENTER" prefHeight="24.0" prefWidth="91.0"
+                                       text="아티스트 명"/>
+                            </children>
+                        </VBox>
+                        <VBox alignment="TOP_RIGHT" prefHeight="89.0" prefWidth="160.0">
+                            <children>
+                                <Button onAction="#settings" fx:id="setBtn" alignment="TOP_CENTER"
+                                        mnemonicParsing="false" style="-fx-background-color:white ;"/>
+                                <Label text="환경설정"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <HBox prefHeight="323.0" prefWidth="473.0">
+                    <children>
+                        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                   prefHeight="217.0" prefWidth="226.0">
+                            <children>
+                                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                            minWidth="-Infinity" prefHeight="217.0" prefWidth="226.0">
+                                    <StackPane.margin>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    </StackPane.margin>
+                                    <children>
+                                        <ImageView fx:id="album" fitHeight="217.0" fitWidth="226.0" pickOnBounds="true"
+                                                   preserveRatio="true"/>
+                                        <Button onAction="#about" fx:id="aboutBtn" layoutX="212.0" layoutY="1.0"
+                                                mnemonicParsing="false" style="-fx-background-color:white ;"/>
+                                        <ToggleButton onAction="#like" fx:id="likeBtn" prefHeight="40.0" prefWidth="40.0"
+                                                layoutY="1.0" mnemonicParsing="false"
+                                                style="-fx-background-color:white ;"/>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </HBox.margin>
+                        </StackPane>
+                        <TextArea fx:id="Lyrics" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                  minWidth="-Infinity" prefHeight="217.0" prefWidth="200.0">
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </HBox.margin>
+                        </TextArea>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
 </BorderPane>

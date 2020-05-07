@@ -132,6 +132,32 @@ public class DataManager implements IDataManager {
     }
 
     /**
+     *
+     * @param id 해당 음악 id
+     * @return liked
+     */
+    @Override
+    public boolean getLiked(int id) {
+        boolean liked = false;
+        String sql = "select * from userLovedInfo where user_id = 1 and music_id = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, id);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next())
+                if (result.getInt("user_loved") == 1) liked = true;
+
+            result.close();
+            statement.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return liked;
+    }
+
+    /**
      * 좋아요 값을 변경함.
      * 조건 : 좋아요 버튼 액션
      *

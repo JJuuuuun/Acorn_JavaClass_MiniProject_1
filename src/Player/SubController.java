@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 
 public class SubController extends Controller implements Initializable {
     IPlaybackService playbackService;
+    MainController mainController;
     Parent root;
 
     @Override
@@ -43,10 +44,11 @@ public class SubController extends Controller implements Initializable {
         playbackService.setMute(event);
     }
 
-    public void Main() {
+    public void callMain() {
         ICommonService comServ = new CommonServiceImpl();
         Stage mForm = new Stage();
-        comServ.showWindow(mForm, "../PlayerMain.fxml");
+        mainController = (MainController) comServ.showWindow(mForm, "../PlayerMain.fxml");
+        mainController.setPlaybackService(playbackService);
     }
 
     @Override

@@ -1,4 +1,5 @@
-.button {
+.button,
+.toggle-button {
     -fx-background-color: gray;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -22,7 +23,6 @@
 #muteBtn {
     -fx-background-image: url("../img/sound.png");
     -fx-background-size: 30px 30px;
-    -fx-background-color: gray;
 }
 
 #shuffleBtn {

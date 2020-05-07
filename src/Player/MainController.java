@@ -1,14 +1,12 @@
 package Player;
 
-import Player.Service.CommonServiceImpl;
-import Player.Service.ICommonService;
-import Player.Service.ImageService;
-import Player.Service.ImageServiceimpl;
+import Player.Service.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -16,19 +14,29 @@ import java.util.ResourceBundle;
 
 public class MainController extends Controller implements Initializable {
     Parent root;
-    ICommonService comServ = new CommonServiceImpl();
-    ImageService imgbtn = new ImageServiceimpl();
+    ICommonService comServ;
+    ImageService imgbtn;
+    IPlaybackService playbackService;
     @FXML
     Button setBtn;
     @FXML
-    Button likeBtn;
+    ToggleButton likeBtn;
     @FXML
     Button aboutBtn;
     int like = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        comServ = new CommonServiceImpl();
+        imgbtn = new ImageServiceimpl();
         imgbtn();
+
+    }
+
+    public void setPlaybackService(IPlaybackService playbackService) {
+        this.playbackService = playbackService;
+        likeBtn.setSelected(playbackService.getLiked());
+        System.out.println(likeBtn.isSelected());
     }
 
     public void settings() {
@@ -37,6 +45,8 @@ public class MainController extends Controller implements Initializable {
     }
 
     public void like(ActionEvent event) {
+        playbackService.setLiked(event);
+
         if (like == 1) {
             imgbtn.btnImage(likeBtn, "/img/like.png", 40, 40);
             like = 0;

@@ -230,13 +230,24 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
+    public boolean getLiked(ActionEvent event) {
+        ToggleButton button = (ToggleButton) getNode(event, "#likeBtn");
+        boolean liked = dataManager.getLiked(idMap.get(playback));
+        if (liked) {
+            imageService.btnImage(button, "/img/like2.png", 40, 40);
+        } else
+            imageService.btnImage(button, "/img/like.png", 40, 40);
+        return liked;
+    }
+
+    @Override
     public void setLiked(ActionEvent event) {
         /*
          * 좋아요 변경:
          * 좋아요 버튼에 상태에 따라 처리.
          *
          * */
-        ToggleButton button = (ToggleButton) getNode(event, "#");
+        ToggleButton button = (ToggleButton) getNode(event, "#likeBtn");
         if (button.isSelected()) {
             imageService.btnImage(button, "/img/like2.png", 40, 40);
         } else

@@ -12,7 +12,7 @@ import java.io.IOException;
 public class CommonServiceImpl implements ICommonService {
 
     @Override
-    public void showWindow(Stage s, String formPath) {
+    public Controller showWindow(Stage s, String formPath) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(formPath));
         Parent root = null;
         try {
@@ -27,8 +27,7 @@ public class CommonServiceImpl implements ICommonService {
         s.setTitle("Test");
         s.setScene(new Scene(root));
         s.show();
-
-
+        return ctrler;
     }
 
 

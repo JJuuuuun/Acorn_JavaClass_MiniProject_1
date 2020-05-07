@@ -1,7 +1,8 @@
 package Player.Service;
 
+import Player.Controller;
 import javafx.stage.Stage;
 
 public interface ICommonService {
-    void showWindow(Stage s, String formPath);
+    Controller showWindow(Stage s, String formPath);
 }

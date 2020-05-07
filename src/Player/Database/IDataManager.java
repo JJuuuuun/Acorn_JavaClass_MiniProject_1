@@ -22,5 +22,7 @@ public interface IDataManager {
 
     void updateMusic(int id, Duration duration);
 
+    boolean getLiked(int id);
+
     void setLiked(int id, boolean activated);
 }

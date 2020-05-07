@@ -60,6 +60,9 @@ public interface IPlaybackService {
      */
     String getLyrics();
 
+
+    boolean getLiked(ActionEvent event);
+
     /**
      * 좋아요 상태를 설정함
      *
