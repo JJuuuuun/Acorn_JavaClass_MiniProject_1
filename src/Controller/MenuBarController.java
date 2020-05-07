@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 public class MenuBarController extends AbstractController implements Initializable {
     IMenuBarService menuBarService;
 
-    // ë¡œê·¸ì¸í•œ ì‚¬ìš©ìë¥¼ ì°¾ì•„ë‚´ê¸° ìœ„í•œ form
+    // ·Î±×ÀÎÇÑ »ç¿ëÀÚ¸¦ Ã£¾Æ³»±â À§ÇÑ form
     Parent parent;
 
     @Override

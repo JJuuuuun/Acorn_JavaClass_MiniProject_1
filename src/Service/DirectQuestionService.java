@@ -13,8 +13,8 @@ import java.util.List;
 
 public class DirectQuestionService implements IDirectQuestionService {
 
-    final String SUCCESS = "ì„±ê³µ";
-    final String FAIL = "ì‹¤íŒ¨";
+    final String SUCCESS = "¼º°ø";
+    final String FAIL = "½ÇÆĞ";
     final int TITLE = 0;
     final int QUESTION = 1;
 
@@ -29,22 +29,22 @@ public class DirectQuestionService implements IDirectQuestionService {
     @Override
     public boolean eventProc(ActionEvent event) {
         String btnId = eventCheck(event);
-        String userID = getIdFromDB();  // **í™•ì¸í•„ìš”**
+        String userID = getIdFromDB();  // **È®ÀÎÇÊ¿ä**
 
         if (btnId.equals("History_Btn")) {
             List<String> historyData = db.getData(userID);
             if (showHistory(event, historyData))
-                showAlert(SUCCESS, "ì´ì „ ê¸°ë¡ì„ ê°€ì ¸ì™”ìŠµë‹ˆë‹¤.");
+                showAlert(SUCCESS, "ÀÌÀü ±â·ÏÀ» °¡Á®¿Ô½À´Ï´Ù.");
             else
-                showAlert(FAIL, "ë¬¸ì˜í•˜ì‹  ê¸°ë¡ì´ ì—†ìŠµë‹ˆë‹¤.");
+                showAlert(FAIL, "¹®ÀÇÇÏ½Å ±â·ÏÀÌ ¾ø½À´Ï´Ù.");
         } else if (btnId.equals("Send_Btn")) {
             List<String> sendData = sendToDB(event, userID);
             if (db.storeData(sendData)) {
-                showAlert(SUCCESS, "ì´ìš©í•´ ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤.");
+                showAlert(SUCCESS, "ÀÌ¿ëÇØ ÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù.");
                 return true;
             }
             else
-                showAlert(FAIL, "ì£„ì†¡í•©ë‹ˆë‹¤. ì „ì†¡ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤");
+                showAlert(FAIL, "ÁË¼ÛÇÕ´Ï´Ù. Àü¼Û¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù");
         }
 
         return false;
@@ -92,7 +92,7 @@ public class DirectQuestionService implements IDirectQuestionService {
             ComboBox<String> combo = (ComboBox) form.lookup("#Title_ComboBox");
             TextArea txt = (TextArea) form.lookup("#Question_TxtArea");
 
-            combo.setPromptText("ì´ì „ì— ë¬¸ì˜í•˜ì‹  ë‚´ìš©ì…ë‹ˆë‹¤.");
+            combo.setPromptText("ÀÌÀü¿¡ ¹®ÀÇÇÏ½Å ³»¿ëÀÔ´Ï´Ù.");
             combo.setValue(null);
             String history = "";
             for (int i = 0; i < historyData.size(); i += 2) {
@@ -118,7 +118,7 @@ public class DirectQuestionService implements IDirectQuestionService {
     }
 
     private void showAlert(String head, String content) {
-        showAlert("ê²°ê³¼", head, content);
+        showAlert("°á°ú", head, content);
     }
 
 }

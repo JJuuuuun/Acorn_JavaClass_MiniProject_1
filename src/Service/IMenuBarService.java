@@ -11,7 +11,7 @@ public interface IMenuBarService {
     // private void eventCheck();
     // ICommon's method : open, change
 
-    // 0428, í˜„ì¬ ì‚¬ìš©ìë¥¼ ì•Œê¸° ìœ„í•´ ì¶”ê°€ë¨
+    // 0428, ÇöÀç »ç¿ëÀÚ¸¦ ¾Ë±â À§ÇØ Ãß°¡µÊ
     String getUserId();
     void isCurrentUser(Parent root);
 }

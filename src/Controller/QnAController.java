@@ -17,11 +17,11 @@ public class QnAController extends AbstractController implements Initializable {
     @FXML Label title_4;
     @FXML Label title_5;
 
-    private final String titleStr_1 = "ë©”ë‰´ë°”ì— íšŒì›ê°€ì… ë²„íŠ¼ì„ í´ë¦­í•˜ì„¸ìš”.";
-    private final String titleStr_2 = "ì•„ì§ êµ¬í˜„ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤..^^";
-    private final String titleStr_3 = "ì°¨ë¹ˆì´ì—ê²Œ ë¬¼ì–´ë³´ì„¸ìš”!";
-    private final String titleStr_4 = "ë‹´ë‹¹ìë¥¼ ë¶ˆëŸ¬ì˜¤ê² ìŠµë‹ˆë‹¤.";
-    private final String titleStr_5 = "ì„œë¸Œì›¨ì´ê°€ ë•¡ê¸°ëŠ”êµ¬ë‚˜.";
+    private final String titleStr_1 = "¸Ş´º¹Ù¿¡ È¸¿ø°¡ÀÔ ¹öÆ°À» Å¬¸¯ÇÏ¼¼¿ä.";
+    private final String titleStr_2 = "¾ÆÁ÷ ±¸ÇöµÇÁö ¾Ê¾Ò½À´Ï´Ù..^^";
+    private final String titleStr_3 = "Â÷ºóÀÌ¿¡°Ô ¹°¾îº¸¼¼¿ä!";
+    private final String titleStr_4 = "´ã´çÀÚ¸¦ ºÒ·¯¿À°Ú½À´Ï´Ù.";
+    private final String titleStr_5 = "¼­ºê¿şÀÌ°¡ ¶¯±â´Â±¸³ª.";
 
     IQnAService QnAService;
 
