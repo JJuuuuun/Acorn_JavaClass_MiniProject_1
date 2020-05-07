@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="Menu_Border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MenuBarController">
+   <left>
+      <AnchorPane prefHeight="385.0" prefWidth="125.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="Help_Btn" layoutX="25.0" layoutY="131.0" mnemonicParsing="false" onAction="#eventProc" prefWidth="70.0" text="Help" AnchorPane.leftAnchor="25.0" />
+            <Button fx:id="Version_Btn" layoutX="14.0" layoutY="89.0" mnemonicParsing="false" onAction="#eventProc" prefWidth="70.0" text="Version" AnchorPane.leftAnchor="25.0" />
+            <Label layoutX="44.0" layoutY="39.0" text="Menu" AnchorPane.leftAnchor="45.0" />
+         </children>
+      </AnchorPane>
+   </left>
+   <top>
+      <Label alignment="CENTER" prefHeight="59.0" prefWidth="183.0" text="Rest In Music" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+   </top>
+</BorderPane>
