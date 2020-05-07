@@ -16,7 +16,26 @@ public class CommonService implements ICommonService {
     private Map<String, String> urlMap = new HashMap<>();
 
     public CommonService() {
-        urlMap.put("", "../Form/MenuBar.fxml");
+//        urlMap.put("", "../Form/MenuBar.fxml");
+
+        // HomePage Main Form
+        urlMap.put("", "../FXML/main.fxml");
+        urlMap.put("btnhome", "../FXML/main.fxml");
+        urlMap.put("btnlogin", "../FXML/login.fxml");
+        urlMap.put("btnjoin", "../FXML/join.fxml");
+        urlMap.put("btnchart", "../FXML/chart.fxml");
+        urlMap.put("btnmagazine", "../FXML/magazine.fxml");
+        urlMap.put("btnmv", "../FXML/mv.fxml");
+
+        // login page Form
+        urlMap.put("btncancel", "../FXML/main.fxml");
+        urlMap.put("LoginSuccess", "../FXML/loginmain.fxml");
+        urlMap.put("btnlogout", "../FXML/main.fxml");
+
+        // loginMain page Form
+        urlMap.put("btnhome1", "../FXML/loginmain.fxml");
+
+        // Help & Version Form
         urlMap.put("Help_Btn", "../Form/Help.fxml");
         urlMap.put("Version_Btn", "../Form/Version.fxml");
         urlMap.put("DirectQuestion_Btn", "../Form/DirectQuestion.fxml");
@@ -26,6 +45,7 @@ public class CommonService implements ICommonService {
 
     private Scene getScene(String btnId) {
         String url = urlMap.get(btnId);
+//        System.out.println(url);
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Parent root = null;
         try {
@@ -57,6 +77,13 @@ public class CommonService implements ICommonService {
         BorderPane border = (BorderPane)root.getScene().getRoot();
 
         border.setCenter(scene.getRoot());
+    }
+
+    @Override
+    public void closeWindow(ActionEvent event) {
+        Parent root = (Parent)event.getSource();
+        Stage stage = (Stage) root.getScene().getWindow();
+        stage.close();
     }
 
 
