@@ -30,6 +30,7 @@ public class SubController extends Controller implements Initializable {
 
     public void next(ActionEvent event) {
         playbackService.playNextMusic(event);
+        mainController.setup();
     }
 
     public void repeat(ActionEvent event) {
@@ -59,6 +60,7 @@ public class SubController extends Controller implements Initializable {
 
     public void prev(ActionEvent event) {
         playbackService.playPrevMusic(event);
+        mainController.setup();
     }
 
     public void seek(MouseEvent event) {

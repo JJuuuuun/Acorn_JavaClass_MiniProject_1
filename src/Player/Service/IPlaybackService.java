@@ -1,8 +1,9 @@
 package Player.Service;
 
+import Player.MusicInfo;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.scene.media.Media;
+import javafx.scene.Parent;
 
 public interface IPlaybackService {
     /**
@@ -55,13 +56,10 @@ public interface IPlaybackService {
 
     void seek(Event event);
 
-    /**
-     * 가사를 전달함
-     */
-    String getLyrics();
+    void getInfos(Parent parent);
 
 
-    boolean getLiked(ActionEvent event);
+    void getLiked(Parent parent);
 
     /**
      * 좋아요 상태를 설정함
@@ -76,6 +74,6 @@ public interface IPlaybackService {
      *
      * @return media
      */
-    Media getMedia();
+    MusicInfo getMusicInfo();
 
 }

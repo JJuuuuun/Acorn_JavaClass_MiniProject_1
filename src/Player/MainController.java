@@ -35,8 +35,12 @@ public class MainController extends Controller implements Initializable {
 
     public void setPlaybackService(IPlaybackService playbackService) {
         this.playbackService = playbackService;
-        likeBtn.setSelected(playbackService.getLiked());
-        System.out.println(likeBtn.isSelected());
+        setup();
+    }
+
+    public void setup() {
+        playbackService.getLiked(root);
+        playbackService.getInfos(root);
     }
 
     public void settings() {

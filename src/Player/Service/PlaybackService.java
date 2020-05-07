@@ -8,11 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.media.Media;
+import javafx.scene.control.*;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
@@ -188,11 +184,6 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public String getLyrics() {
-        return dataManager.getLyrics(idMap.get(playback));
-    }
-
-    @Override
     public void setRepeat(ActionEvent event) {
         /*
          * 반복 모드 변경:
@@ -230,14 +221,25 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public boolean getLiked(ActionEvent event) {
-        ToggleButton button = (ToggleButton) getNode(event, "#likeBtn");
+    public void getInfos(Parent parent) {
+        Label titleLabel = (Label) parent.lookup("#title");
+        Label artistLabel = (Label) parent.lookup("#artist");
+        TextArea textArea = (TextArea) parent.lookup("#lyrics");
+        titleLabel.setText(currentMusicInfo.getTitle());
+        artistLabel.setText(currentMusicInfo.getArtist());
+        textArea.setText(currentMusicInfo.getLyrics());
+    }
+
+    @Override
+    public void getLiked(Parent parent) {
+        ToggleButton button = (ToggleButton) parent.lookup("#likeBtn");
         boolean liked = dataManager.getLiked(idMap.get(playback));
         if (liked) {
             imageService.btnImage(button, "/img/like2.png", 40, 40);
         } else
             imageService.btnImage(button, "/img/like.png", 40, 40);
-        return liked;
+        button.setSelected(liked);
+        System.out.println(liked);
     }
 
     @Override
@@ -283,8 +285,8 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public Media getMedia() {
-        return playback.getMedia();
+    public MusicInfo getMusicInfo() {
+        return currentMusicInfo;
     }
 
     /**
