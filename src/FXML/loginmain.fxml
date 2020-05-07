@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="brdPane2" prefHeight="400.0" prefWidth="600.0"
+			xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="Main.LoginMainController">
+   <left>
+      <VBox prefHeight="362.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="79.0" prefWidth="160.0" spacing="10.0">
+               <children>
+                  <Button fx:id="btnhome1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="홈" />
+                  <TextField fx:id="textsearch1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="140.0" promptText="검색" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="331.0" prefWidth="160.0" spacing="10.0">
+               <children>
+                  <Label fx:id="lblinfo" />
+                  <Label fx:id="lblinfo2" />
+                  <Label fx:id="lblinfo3" alignment="CENTER" />
+                  <Button fx:id="btninfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="회원정보 보기" />
+                  <HBox prefHeight="27.0" prefWidth="140.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="btnlogout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="로그아웃" />
+                        <Button fx:id="btnout" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="회원탈퇴" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </HBox>
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="이용권 구매" />
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="My 라이브러리" />
+                  <Button fx:id="btnchart1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="차트" />
+                  <Button fx:id="btnmagazine1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="매거진" />
+                  <Button fx:id="btnmv1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="뮤비" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
