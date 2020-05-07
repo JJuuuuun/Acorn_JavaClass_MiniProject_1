@@ -78,10 +78,4 @@ public interface IPlaybackService {
      */
     Media getMedia();
 
-    /**
-     * 음악 정보를 가져옴
-     *
-     * @param id 음악의 id
-     */
-    void getMusicInfo(int id);
 }

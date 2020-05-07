@@ -35,7 +35,13 @@ public class DataManager implements IDataManager {
             if (resultSet.next()) {
                 result = new MusicInfo(
                         resultSet.getInt("id"),
-                        resultSet.getString("fileurl")
+                        resultSet.getString("fileurl"),
+                        resultSet.getInt("track"),
+                        resultSet.getInt("year"),
+                        resultSet.getString("title"),
+                        resultSet.getString("artist"),
+                        resultSet.getString("album"),
+                        resultSet.getString("lyrics")
                 );
             }
             resultSet.close();

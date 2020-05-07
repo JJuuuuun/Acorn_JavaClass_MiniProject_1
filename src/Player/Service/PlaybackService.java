@@ -4,9 +4,6 @@ import Player.Database.DataManager;
 import Player.Database.IDataManager;
 import Player.MusicInfo;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Node;
@@ -17,13 +14,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PlaybackService implements IPlaybackService {
-    private static final String TAG_COLUMN_NAME = "tag";
-    private static final String VALUE_COLUMN_NAME = "value";
     private final List<MediaPlayer> players = new ArrayList<>();
     // 플레이어 구성요소
     private final ImageService imageService;
@@ -78,22 +72,20 @@ public class PlaybackService implements IPlaybackService {
     public void play(ActionEvent event) {
         if (!isPlaying) {
             isPlaying = true;
+            currentMusicInfo = dataManager.getMusicInfo(idMap.get(playback));
             if (playback != null) {
                 Button btnPlay = (Button) getNode(event, "#playBtn");
                 Label lblCurrent = (Label) getNode(event, "#sTime");
                 Label lblTotal = (Label) getNode(event, "#eTime");
                 if (playback.getOnReady() == null)
-                    playback.setOnReady(() -> {
-                        dataManager.updateMusic(idMap.get(playback), playback.getTotalDuration());
-                        playback.setVolume(volume);
-                        // 음악 총 재생시간 설정
-                    });
+                    playback.setOnReady(() -> playback.setVolume(volume));
                 if (playback.getOnPlaying() == null)
                     playback.setOnPlaying(() -> {
                         /*
                          * 재생 중 :
                          * 일시정지 이미지 표시
                          * */
+                        dataManager.updateMusic(idMap.get(playback), playback.getTotalDuration());
                         int time = (int) playback.getTotalDuration().toSeconds();
                         lblTotal.setText(String.format("%02d", time / 60) + ":" + String.format("%02d", time % 60));
                         imageService.btnImage(btnPlay, "/img/pause.png", 30, 30);
@@ -280,13 +272,6 @@ public class PlaybackService implements IPlaybackService {
         return playback.getMedia();
     }
 
-    @Override
-    public void getMusicInfo(int id) {
-        currentMusicInfo = dataManager.getMusicInfo(id);
-        players.add(new MediaPlayer(currentMusicInfo.getMedia()));
-        playback = players.get(index);
-    }
-
     /**
      * Add plays to MusicInfo
      */
@@ -294,17 +279,4 @@ public class PlaybackService implements IPlaybackService {
         dataManager.addPlays(idMap.get(playback));
     }
 
-    private ObservableList<Map<String, Object>> convertMetadataToTableData(ObservableMap<String, Object> metadata) {
-        ObservableList<Map<String, Object>> allData = FXCollections.observableArrayList();
-
-        for (String key : metadata.keySet()) {
-            Map<String, Object> dataRow = new HashMap<>();
-
-            dataRow.put(TAG_COLUMN_NAME, key);
-            dataRow.put(VALUE_COLUMN_NAME, metadata.get(key));
-
-            allData.add(dataRow);
-        }
-        return allData;
-    }
 }
