@@ -28,22 +28,19 @@ public class PlaybackService implements IPlaybackService {
     // 플레이어 구성요소
     private final ImageService imageService;
     private final Map<MediaPlayer, Integer> idMap;
+    private final int REPEAT_ONLY = 1;
+    private final int REPEAT_ALL = 2;
     IDataManager dataManager;
     Thread mps;
-
     // 현재 음악 정보
     MusicInfo currentMusicInfo;
     private int index = 0;
-
     // isPlaying
     private boolean isPlaying = false;
-
     // Volume
     private double volume = 100;
-
     // repeat mode : 0 => N/A, 1 => 1곡, 2 => 전체
     private int repeatMode = 0;
-
     // shuffle mode : false => N/A, true => Shuffle
     private boolean shuffle = false;
 
@@ -64,12 +61,17 @@ public class PlaybackService implements IPlaybackService {
 
     @Override
     public void playPrevMusic(ActionEvent event) {
-        if ((playback.getCurrentTime().toSeconds() / playback.getMedia().getDuration().toSeconds()) < 0.15) {
-            if (index > 0) index--;
-            else index = players.size() - 1;
+        if ((playback.getCurrentTime().toSeconds() / playback.getMedia().getDuration().toSeconds()) < 0.2) {
+            if (index > 0 && repeatMode != REPEAT_ONLY) index--;
+            else if (repeatMode == REPEAT_ALL) index = players.size() - 1;
+
+            stop();
             playback = players.get(index);
-            play(event);
-        } else playback.seek(Duration.ZERO);
+            isPlaying = false;
+        } else {
+            stop();
+        }
+        play(event);
     }
 
     @Override
@@ -136,7 +138,6 @@ public class PlaybackService implements IPlaybackService {
                 if (playback.getOnEndOfMedia() == null)
                     playback.setOnEndOfMedia(() -> {
                         // 재생 종료시 : 되감은 뒤 현재 미디어 정지, 다음 미디어
-                        playback.seek(Duration.ZERO);
                         stop();
                         playNextMusic(event);
                     });
@@ -171,10 +172,12 @@ public class PlaybackService implements IPlaybackService {
     @Override
     public void playNextMusic(ActionEvent event) {
         // 현재 List index 를 증가시키고, 새로운 인스턴스 로드
-        if (index < players.size()) {
+        if (index < players.size() - 1) {
+            stop();
             playback = players.get(++index);
+            isPlaying = false;
             play(event);
-        }
+        } else System.out.println("No more songs");
     }
 
     @Override
@@ -201,8 +204,7 @@ public class PlaybackService implements IPlaybackService {
          * 1곡 > 전체 > 안함
          * */
         Button btnRepeat = (Button) getNode(event, "#repeatBtn");
-        final int REPEAT_ONLY = 1;
-        final int REPEAT_ALL = 2;
+
         switch (repeatMode) {
             case REPEAT_ONLY:
                 repeatMode = REPEAT_ALL;

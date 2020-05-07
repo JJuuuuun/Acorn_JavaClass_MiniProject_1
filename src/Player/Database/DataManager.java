@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class DataManager implements IDataManager {
     private final static String DRIVER = "org.sqlite.JDBC";
-    private final static String DB = "jdbc:sqlite:F:/Projects/Object100/src/Player/resources/core.db";
+    private final static String DB = "jdbc:sqlite:src/resources/core.db";
     private Connection connect;
 
     public DataManager() {

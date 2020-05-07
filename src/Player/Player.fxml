@@ -1,74 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-
-<StackPane prefHeight="80.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Player.SubController">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="80.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8"
+           fx:controller="Player.SubController" stylesheets="@layout.css">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: gray;">
             <children>
-                <ProgressBar fx:id="excessBar" layoutX="48.0" prefHeight="20.0" prefWidth="594.0" progress="0.0" />
-                <HBox layoutY="20.0" prefHeight="55.0" prefWidth="100.0" />
-                <Label fx:id="sTime" layoutX="3.0" layoutY="1.0" prefHeight="17.0" prefWidth="38.0" text="00:00" />
-                <Label fx:id="eTime" layoutX="645.0" text="00:00" />
-                <Slider fx:id="soundBar" layoutX="550.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#setVolume" opacity="0.75" prefHeight="10.0" prefWidth="100.0">
+                <ProgressBar fx:id="excessBar" layoutX="48.0" prefHeight="20.0" prefWidth="594.0" progress="0.0"/>
+                <HBox layoutY="20.0" prefHeight="55.0" prefWidth="100.0"/>
+                <Label fx:id="sTime" layoutX="3.0" layoutY="1.0" prefHeight="17.0" prefWidth="38.0" text="00:00"/>
+                <Label fx:id="eTime" layoutX="645.0" text="00:00"/>
+                <Slider fx:id="soundBar" layoutX="550.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                        minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#setVolume" opacity="0.75"
+                        prefHeight="10.0" prefWidth="100.0">
                     <cursor>
-                        <Cursor fx:constant="CLOSED_HAND" />
+                        <Cursor fx:constant="CLOSED_HAND"/>
                     </cursor>
                 </Slider>
-                <ToggleButton fx:id="muteBtn" layoutX="530.0" layoutY="40.0" mnemonicParsing="false" onAction="#mute" prefHeight="27.0" prefWidth="17.0" style="-fx-background-color: gray;" />
+                <ToggleButton fx:id="muteBtn" layoutX="530.0" layoutY="40.0" mnemonicParsing="false" onAction="#mute"
+                              prefHeight="27.0" prefWidth="17.0" style="-fx-background-color: gray;"/>
                 <HBox alignment="CENTER" layoutX="226.0" layoutY="24.0" prefHeight="55.0" prefWidth="199.0">
                     <children>
-                        <Button fx:id="repeatBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: gray;">
+                        <Button fx:id="repeatBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0">
                             <HBox.margin>
-                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
                             </HBox.margin>
-                            <graphic>
-                                <Circle fill="GREY" radius="15.0" stroke="GREY" strokeType="INSIDE" />
-                            </graphic>
                         </Button>
-                        <Button fx:id="backBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: gray;">
+                        <Button fx:id="backBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                minWidth="-Infinity" mnemonicParsing="false" onAction="#prev" prefHeight="30.0" prefWidth="30.0">
                             <HBox.margin>
-                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
                             </HBox.margin>
-                            <graphic>
-                                <Circle fill="GREY" radius="15.0" stroke="GREY" strokeType="INSIDE" />
-                            </graphic>
                         </Button>
-                        <Button fx:id="playBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#play" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: gray;">
+                        <Button fx:id="playBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                minWidth="-Infinity" mnemonicParsing="false" onAction="#play" prefHeight="30.0"
+                                prefWidth="30.0">
                             <HBox.margin>
-                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
                             </HBox.margin>
-                            <graphic>
-                                <Circle fill="GREY" radius="15.0" stroke="GREY" strokeType="INSIDE" />
-                            </graphic>
                         </Button>
-                        <Button fx:id="nextBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: gray;">
+                        <Button fx:id="nextBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                minWidth="-Infinity" mnemonicParsing="false" onAction="#next" prefHeight="30.0" prefWidth="30.0">
                             <HBox.margin>
-                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
                             </HBox.margin>
-                            <graphic>
-                                <Circle fill="GREY" radius="15.0" stroke="GREY" strokeType="INSIDE" />
-                            </graphic>
                         </Button>
-                        <Button fx:id="shuffleBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Main" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: gray;">
+                        <Button fx:id="shuffleBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                minWidth="-Infinity" mnemonicParsing="false" onAction="#Main" prefHeight="30.0"
+                                prefWidth="30.0">
                             <HBox.margin>
-                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
                             </HBox.margin>
-                            <graphic>
-                                <Circle fill="GREY" radius="15.0" stroke="GREY" strokeType="INSIDE" />
-                            </graphic>
                         </Button>
                     </children>
                 </HBox>
             </children>
             <opaqueInsets>
-                <Insets />
+                <Insets/>
             </opaqueInsets>
         </AnchorPane>
     </children>
