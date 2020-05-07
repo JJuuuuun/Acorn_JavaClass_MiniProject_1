@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="brdPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
+    <left>
+        <VBox prefHeight="362.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox alignment="TOP_CENTER" prefHeight="120.0" prefWidth="160.0" spacing="10.0">
+                    <children>
+                        <Button fx:id="btnhome" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" text="홈" />
+                        <TextField fx:id="textsearch" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="140.0" promptText="검색" />
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </VBox>
+                <VBox prefHeight="231.0" prefWidth="160.0" spacing="25.0">
+                    <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                            <children>
+                                <Button fx:id="btnlogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" text="로그인" />
+                                <Button fx:id="btnjoin" mnemonicParsing="false" prefHeight="35.0" prefWidth="65.0" text="회원가입" />
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" />
+                            </padding>
+                        </HBox>
+                        <Button fx:id="btnchart" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" text="인기차트" />
+                        <Button fx:id="btnmagazine" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" text="매거진" />
+                        <Button fx:id="btnmv" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" text="뮤직비디오" />
+                  <HBox prefHeight="4.0" prefWidth="140.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="Version_Btn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventProc" prefHeight="35.0" prefWidth="65.0" text="버전정보" />
+                        <Button fx:id="Help_Btn" mnemonicParsing="false" onAction="#eventProc" prefHeight="35.0" prefWidth="65.0" text="고객센터" />
+                     </children>
+                  </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </VBox>
+    </left>
+</BorderPane>
