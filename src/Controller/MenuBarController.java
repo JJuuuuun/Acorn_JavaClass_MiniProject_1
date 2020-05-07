@@ -10,7 +10,7 @@ import javafx.scene.Parent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MenuBarController extends Controller implements Initializable {
+public class MenuBarController extends AbstractController implements Initializable {
     IMenuBarService menuBarService;
 
     // 로그인한 사용자를 찾아내기 위한 form

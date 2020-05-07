@@ -1,7 +1,6 @@
 package Controller;
 
 import Service.HelpService;
-import Service.ICommonService;
 import Service.IHelpService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +10,7 @@ import javafx.scene.Parent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HelpController extends Controller implements Initializable {
+public class HelpController extends AbstractController implements Initializable {
     private IHelpService helpService;
 
     @Override

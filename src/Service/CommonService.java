@@ -1,6 +1,6 @@
 package Service;
 
-import Controller.Controller;
+import Controller.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,7 +34,7 @@ public class CommonService implements ICommonService {
             e.printStackTrace();
         }
 
-        Controller ctrler = loader.getController();
+        AbstractController ctrler = loader.getController();
         ctrler.setRoot(root);
 
         return new Scene(root);
