@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -56,5 +57,9 @@ public class SubController extends Controller implements Initializable {
 
     public void prev(ActionEvent event) {
         playbackService.playPrevMusic(event);
+    }
+
+    public void seek(MouseEvent event) {
+        playbackService.seek(event);
     }
 }

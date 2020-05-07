@@ -38,11 +38,6 @@ public interface IPlaybackService {
     void playNextMusic(ActionEvent event);
 
     /**
-     * TODO: 진행도 설정 (드래그 액션 포함)
-     */
-    void setProgress(ActionEvent event, double value);
-
-    /**
      * 플레이어의 반복 설정
      *
      * @param event ActionEvent
@@ -58,6 +53,8 @@ public interface IPlaybackService {
 
     void setVolume(Event event);
 
+    void seek(Event event);
+
     /**
      * 가사를 전달함
      */
@@ -65,8 +62,8 @@ public interface IPlaybackService {
 
     /**
      * 좋아요 상태를 설정함
-     *  @param event
      *
+     * @param event
      */
     void setLiked(ActionEvent event);
 

@@ -8,7 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -100,7 +103,7 @@ public class PlaybackService implements IPlaybackService {
                                 }
                                 // 음악 현재시간 설정
                                 double current = playback.getCurrentTime().toSeconds();
-                                double val = current / playback.getTotalDuration().toSeconds();
+                                double val = (current / playback.getTotalDuration().toSeconds()) * 100;
                                 Platform.runLater(() -> {
                                     lblCurrent.setText(String.format("%02d", (int) (current / 60)) + ":" + String.format("%02d", (int) (current % 60)));
                                     setProgress(event, val);
@@ -172,15 +175,16 @@ public class PlaybackService implements IPlaybackService {
         } else System.out.println("No more songs");
     }
 
-    @Override
-    public void setProgress(ActionEvent event, double value) {
-        // 위치 조절하려면 Slider로 변경해야함
-        ProgressBar bar = (ProgressBar) getNode(event, "#excessBar");
-        bar.setProgress(value);
+    private void setProgress(Event event, double value) {
+        Slider bar = (Slider) getNode(event, "#excessBar");
+        bar.setValue(value);
     }
 
-    public void seekTo(int position) {
-        playback.seek(Duration.seconds(position));
+    @Override
+    public void seek(Event event) {
+        Slider bar = (Slider) getNode(event, "#excessBar");
+        double value = bar.getValue() / 100 * playback.getTotalDuration().toSeconds();
+        playback.seek(Duration.seconds(value));
     }
 
     @Override

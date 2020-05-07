@@ -22,6 +22,7 @@
 #muteBtn {
     -fx-background-image: url("../img/sound.png");
     -fx-background-size: 30px 30px;
+    -fx-background-color: gray;
 }
 
 #shuffleBtn {
