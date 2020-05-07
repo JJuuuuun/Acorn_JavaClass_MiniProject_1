@@ -69,11 +69,4 @@ public interface IPlaybackService {
     void setLiked(ActionEvent event);
 
 
-    /**
-     * 음악을 건네줌. 음악의 DB를 주도록 수정해야함.
-     *
-     * @return media
-     */
-    MusicInfo getMusicInfo();
-
 }

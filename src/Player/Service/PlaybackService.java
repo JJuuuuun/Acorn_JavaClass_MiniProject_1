@@ -239,22 +239,18 @@ public class PlaybackService implements IPlaybackService {
         } else
             imageService.btnImage(button, "/img/like.png", 40, 40);
         button.setSelected(liked);
-        System.out.println(liked);
     }
 
     @Override
     public void setLiked(ActionEvent event) {
-        /*
-         * 좋아요 변경:
-         * 좋아요 버튼에 상태에 따라 처리.
-         *
-         * */
         ToggleButton button = (ToggleButton) getNode(event, "#likeBtn");
-        if (button.isSelected()) {
+        boolean newLiked = !dataManager.getLiked(idMap.get(playback));
+        if (newLiked) {
             imageService.btnImage(button, "/img/like2.png", 40, 40);
         } else
             imageService.btnImage(button, "/img/like.png", 40, 40);
-        dataManager.setLiked(idMap.get(playback), button.isSelected());
+        dataManager.setLiked(idMap.get(playback), newLiked);
+        button.setSelected(newLiked);
     }
 
     @Override
@@ -282,11 +278,6 @@ public class PlaybackService implements IPlaybackService {
         volume = playback.getVolume();
         Slider slider = (Slider) getNode(event, "#soundBar");
         playback.setVolume(slider.getValue() / 100);
-    }
-
-    @Override
-    public MusicInfo getMusicInfo() {
-        return currentMusicInfo;
     }
 
     /**

@@ -23,7 +23,6 @@ public class MainController extends Controller implements Initializable {
     ToggleButton likeBtn;
     @FXML
     Button aboutBtn;
-    int like = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,10 +34,10 @@ public class MainController extends Controller implements Initializable {
 
     public void setPlaybackService(IPlaybackService playbackService) {
         this.playbackService = playbackService;
-        setup();
+        updateForm();
     }
 
-    public void setup() {
+    public void updateForm() {
         playbackService.getLiked(root);
         playbackService.getInfos(root);
     }
@@ -50,20 +49,10 @@ public class MainController extends Controller implements Initializable {
 
     public void like(ActionEvent event) {
         playbackService.setLiked(event);
-
-        if (like == 1) {
-            imgbtn.btnImage(likeBtn, "/img/like.png", 40, 40);
-            like = 0;
-        } else {
-            imgbtn.btnImage(likeBtn, "/img/like2.png", 40, 40);
-            like = 1;
-        }
     }
 
     public void imgbtn() {
         imgbtn.btnImage(setBtn, "/img/settings.png", 20, 20);
-        imgbtn.btnImage(likeBtn, "/img/like.png", 40, 40);//??
-        like = 1;
         imgbtn.btnImage(aboutBtn, "/img/dots.png", 20, 20);
     }
 
