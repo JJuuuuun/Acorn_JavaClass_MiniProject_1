@@ -1,15 +1,12 @@
 package Service;
 
 import javafx.scene.image.Image;
-import javafx.scene.media.Media;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
 public class MusicInfo {
     int id;
-    Media media;
-
     // null 인 경우: -1 혹은 null로 처리
     int track;
     int year;
@@ -23,19 +20,17 @@ public class MusicInfo {
                      int track, int year,
                      String title, String artist, String album,
                      String lyrics) {
-        System.out.println(url);
         this.id = id;
-        this.media = new Media(url);
         this.track = track;
         this.year = year;
         this.title = title;
         this.artist = artist;
         this.album = album;
         this.lyrics = lyrics;
-        String ur = "../resources/albumart/" + id + ".jpg";
+        String imgurl = "../resources/albumart/" + id + ".jpg";
         try {
-            if (getClass().getResource(ur) != null)
-                this.albumart = new Image(getClass().getResource(ur).toURI().toURL().toString());
+            if (getClass().getResource(imgurl) != null)
+                this.albumart = new Image(getClass().getResource(imgurl).toURI().toURL().toString());
         } catch (MalformedURLException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -86,7 +81,4 @@ public class MusicInfo {
         return id;
     }
 
-    public Media getMedia() {
-        return media;
-    }
 }

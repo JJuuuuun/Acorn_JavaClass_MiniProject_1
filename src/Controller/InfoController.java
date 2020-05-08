@@ -1,6 +1,8 @@
 package Controller;
 
-import Service.*;
+import Service.CommonService;
+import Service.ICommonService;
+import Service.IPlaybackService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +16,6 @@ import java.util.ResourceBundle;
 public class InfoController extends AbstractController implements Initializable {
     Parent root;
     ICommonService comServ;
-    ImageService imgbtn;
     IPlaybackService playbackService;
     @FXML
     Button setBtn;
@@ -26,9 +27,6 @@ public class InfoController extends AbstractController implements Initializable 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         comServ = new CommonService();
-        imgbtn = new ImageServiceimpl();
-        imgbtn();
-
     }
 
     public void setPlaybackService(IPlaybackService playbackService) {
@@ -49,11 +47,6 @@ public class InfoController extends AbstractController implements Initializable 
         playbackService.setLiked(event);
     }
 
-    public void imgbtn() {
-        imgbtn.btnImage(setBtn, "/img/settings.png", 20, 20);
-        imgbtn.btnImage(aboutBtn, "/img/dots.png", 20, 20);
-    }
-
     public void about() {
         comServ.openWindow("About");
     }
@@ -61,7 +54,6 @@ public class InfoController extends AbstractController implements Initializable 
     @Override
     public void setRoot(Parent root) {
         this.root = root;
-
     }
 
 }
