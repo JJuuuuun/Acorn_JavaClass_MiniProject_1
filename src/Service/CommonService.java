@@ -33,6 +33,10 @@ public class CommonService implements ICommonService {
 
         // loginMain page Form
         urlMap.put("btnhome1", "../FXML/loginmain.fxml");
+        urlMap.put("btnout", "../FXML/main.fxml");
+        urlMap.put("btnchart1" ,"../FXML/chart.fxml");
+        urlMap.put("btnmagazine1", "../FXML/magazine.fxml");
+        urlMap.put("btnmv1", "../FXML/mv.fxml");
 
         // Help & Version Form
         urlMap.put("Help_Btn", "../Form/Help.fxml");
@@ -84,6 +88,11 @@ public class CommonService implements ICommonService {
         BorderPane border = (BorderPane)root.getScene().getRoot();
 
         border.setCenter(scene.getRoot());
+    }
+
+    // 0508 add to musicPlayer
+    public void changeWindow(Parent root, String btnId) {
+        ((BorderPane)root).setBottom(getScene(btnId).getRoot());
     }
 
     @Override
