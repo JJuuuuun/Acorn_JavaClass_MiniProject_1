@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HelpController">
+    <children>
+        <ImageView fitHeight="154.0" fitWidth="200.0" layoutX="47.0" layoutY="73.0" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="73.0">
+         <image>
+            <Image url="@../img/pngwave.png" />
+         </image>
+        </ImageView>
+        <Button fx:id="DirectQuestion_Btn" layoutX="289.0" layoutY="108.0" mnemonicParsing="false" onAction="#eventProc" text="이동" AnchorPane.topAnchor="108.0" />
+        <Button fx:id="QnA_Btn" layoutX="290.0" layoutY="183.0" mnemonicParsing="false" onAction="#eventProc" text="이동" AnchorPane.topAnchor="183.0" />
+        <Label layoutX="274.0" layoutY="83.0" text="1:1 문의하기" AnchorPane.topAnchor="83.0" />
+        <Label layoutX="274.0" layoutY="158.0" text="자주 묻는 질문" AnchorPane.topAnchor="158.0" />
+    </children>
+</AnchorPane>
