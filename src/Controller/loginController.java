@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+
+import Service.CommonService;
+import Service.ICommonService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,22 +24,26 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-public class loginController implements Initializable{
+public class loginController extends AbstractController implements Initializable{
 	@FXML private Label lbllogin;
 	@FXML private TextField textid;
 	@FXML private TextField textpw;
 	@FXML private Button btnlogin;
 	@FXML private Button btncancel;
 	
-	public static String idid, namename, songsong;
+	public String idid, namename, songsong;
 	public int check=6554, success=0;
 	
 	final static String DRIVER = "org.sqlite.JDBC";
-	final static String DB = "jdbc:sqlite:C:/Users/user/Desktop/login.db";
+	final static String DB = "jdbc:sqlite:C:/Users/jun/Desktop/DBSQLite/Database/login.db";
 	Connection conn;
+	Parent root;
+	ICommonService commonService;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		commonService = new CommonService();
+
 		btnlogin.setOnAction(e->{
 			try {
 				idid = textid.getText();
@@ -50,11 +57,7 @@ public class loginController implements Initializable{
 			}
 		});
 		btncancel.setOnAction(e->{
-			try {
-				MainView(e);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			MainView();
 			CancelProc(e);
 		});
 		
@@ -64,21 +67,18 @@ public class loginController implements Initializable{
 		String pw = textpw.getText();
 		
 		if (id.equals("")) {
-			ErrorMsg("Error", "·Î±×ÀÎ¿¡ ½ÇÆĞÇß½À´Ï´Ù", "ID¸¦ ÀÔ·ÂÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+			ErrorMsg("Error", "ë¡œê·¸ì¸ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤", "IDë¥¼ ì…ë ¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 			textid.requestFocus();
 		}
 		else if (pw.equals("")) {
-			ErrorMsg("Error", "·Î±×ÀÎ¿¡ ½ÇÆĞÇß½À´Ï´Ù", "ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+			ErrorMsg("Error", "ë¡œê·¸ì¸ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤", "ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 			textpw.requestFocus();
 		}
 		else {
 			check(id, pw);
 			if(success==1) {
 				LoginMain();
-
-				Parent root = (Parent)e.getSource();
-				Stage stage = (Stage) root.getScene().getWindow();
-				stage.close();
+				commonService.closeWindow(e);
 			}
 		}
 	}
@@ -100,34 +100,32 @@ public class loginController implements Initializable{
 				String sql3 = "SELECT ids FROM member "+	
 							"WHERE ROWID = "+i;
 				ResultSet rs3 = stmt.executeQuery(sql3);
-				if(rs3.getString(1).equals(id)==true) {
+				if(rs3.getString(1).equals(id)) {
 					check=1;
 					break;
 				}
 				else check=0;
 			}
 			if(check==0) {
-				ErrorMsg("Error", "·Î±×ÀÎ ½ÇÆĞ", "Á¸ÀçÇÏÁö ¾Ê´Â IDÀÔ´Ï´Ù.");
+				ErrorMsg("Error", "ë¡œê·¸ì¸ ì‹¤íŒ¨", "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” IDì…ë‹ˆë‹¤.");
 				textid.clear();
 				textid.requestFocus();
 			}
 			else {
 				ResultSet rs = stmt.executeQuery(sql2);
-				if(rs.getString(1).equals(pw)!=true) {
-					ErrorMsg("Error", "·Î±×ÀÎ ½ÇÆĞ", "ºñ¹Ğ¹øÈ£°¡ ´Ù¸¨´Ï´Ù.");
+				if(!rs.getString(1).equals(pw)) {
+					ErrorMsg("Error", "ë¡œê·¸ì¸ ì‹¤íŒ¨", "ë¹„ë°€ë²ˆí˜¸ê°€ ë‹¤ë¦…ë‹ˆë‹¤.");
 					textpw.clear();
 					textpw.requestFocus();
 				}
 				else {
-					ErrorMsg("Success", "·Î±×ÀÎ ¼º°ø", "·Î±×ÀÎ¿¡ ¼º°øÇß½À´Ï´Ù.");
+					ErrorMsg("Success", "ë¡œê·¸ì¸ ì„±ê³µ", "ë¡œê·¸ì¸ì— ì„±ê³µí–ˆìŠµë‹ˆë‹¤.");
 					success=1;
 				}
 			}
 			stmt.close();
 			conn.close();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (SQLException e1) {
+		} catch (ClassNotFoundException | SQLException e1) {
 			e1.printStackTrace();
 		}
 	}
@@ -138,27 +136,18 @@ public class loginController implements Initializable{
 		alert.setContentText(ContentTxt);
 		alert.showAndWait();
 	}
-	public void MainView(ActionEvent e) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-		Stage s = new Stage();
-			
-		s.setScene(new Scene(root));
-		s.show();
+	public void MainView()  {
+		commonService.openWindow(btncancel.getId());
 	}
 	public void CancelProc(ActionEvent e) {
-		Parent root = (Parent)e.getSource();
-		Stage stage = (Stage) root.getScene().getWindow();
-		stage.close();
+		commonService.closeWindow(e);
 	}
-	public void LoginMain() throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("loginmain.fxml"));
-		Stage s = new Stage();
-			
-		s.setScene(new Scene(root));
-		s.show();
+	public void LoginMain() {
+		commonService.openWindow("LoginSuccess");
 	}
 	private void SendData() {
-		LoginMainController lmc = new LoginMainController(idid, namename, songsong);
+		AbstractController controller = commonService.getController("loginmain.fxml");
+		controller.setText(idid, namename, songsong);
 
 	}
 	private void setData() {
@@ -181,11 +170,13 @@ public class loginController implements Initializable{
 			
 			stmt2.close();
 			conn.close();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (SQLException e1) {
+		} catch (ClassNotFoundException | SQLException e1) {
 			e1.printStackTrace();
 		}
 	}
-	
+
+	@Override
+	public void setRoot(Parent root) {
+		this.root = root;
+	}
 }

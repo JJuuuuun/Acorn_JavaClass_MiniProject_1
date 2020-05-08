@@ -9,7 +9,7 @@
 
 <BorderPane prefHeight="169.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/8"
 			xmlns:fx="http://javafx.com/fxml/1"
-			fx:controller="Main.loginController">
+			fx:controller="Controller.loginController">
    <top>
       <Label fx:id="lbllogin" text="로그인" BorderPane.alignment="CENTER">
          <font>

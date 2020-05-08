@@ -3,7 +3,13 @@ package Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import Service.CommonService;
+import Service.ICommonService;
+import Service.IMenuBarService;
+import Service.MenuBarService;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,7 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class Controller implements Initializable {
+public class Controller extends AbstractController implements Initializable {
 	@FXML private BorderPane brdPane;
 	@FXML private Button btnhome;
 	@FXML private TextField textsearch;
@@ -27,119 +33,75 @@ public class Controller implements Initializable {
 	
 	@FXML private ComboBox<String> cmbsong;
 
+	Parent root;
+	ICommonService commonService;
+	IMenuBarService menuBarService;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		commonService = new CommonService();
+		menuBarService = new MenuBarService();
+
 		btnlogin.setOnAction(e->{
-			try {
-				loginProc(e);
-				loginSuccess(e);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			loginProc();
+			loginSuccess(e);
 		});
+
 		btnjoin.setOnAction(e->{
-			try {
-				joinProc(e);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			joinProc(e);
 		});
-		btnchart.setOnAction(e->{
-			changeWindow1(e);
-		});
-		btnmagazine.setOnAction(e->{
-			changeWindow2(e);
-		});
-		btnmv.setOnAction(e->{
-			changeWindow3(e);
-		});
+		btnchart.setOnAction(this::changeWindow1);
+
+		btnmagazine.setOnAction(this::changeWindow2);
+
+		btnmv.setOnAction(this::changeWindow3);
+
 		btnhome.setOnAction(e->{
 			loginSuccess(e);
-			try {
-				HomeProc(e);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			HomeProc();
 		});
 
 	}
-	public void loginProc(ActionEvent e) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-		Stage s = new Stage();
-			
-		s.setScene(new Scene(root));
-		s.show();
-		
+	public void loginProc() {
+		commonService.openWindow(btnlogin.getId());
 	}
-	public void HomeProc(ActionEvent e) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-		Stage s = new Stage();
-			
-		s.setScene(new Scene(root));
-		s.show();
-		
+
+	public void HomeProc() {
+		commonService.openWindow(btnhome.getId());
 	}
-	public void joinProc(ActionEvent e) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("join.fxml"));
-		Stage s = new Stage();
-		
-		String [] items= {"¹ß¶óµå", "´í½º°î", "¶ô", "ÈüÇÕ", "Æ®·ÎÆ®"};
-		cmbsong = (ComboBox<String>) root.lookup("#cmbsong");
-		
-		if(cmbsong!=null) {
-			for(String item : items)
-				cmbsong.getItems().add(item);
-		}
-		s.setScene(new Scene(root));
-		s.show();
-	
+
+	public void joinProc(ActionEvent e) {
+		commonService.openWindow(btnjoin.getId());
 	}
+
 	private void loginSuccess(ActionEvent e) {
-		Parent root = (Parent)e.getSource();
-		Stage stage = (Stage) root.getScene().getWindow();
-		stage.close();
-		
+		commonService.closeWindow(e);
 	}
+
     public void changeWindow1(ActionEvent event) {
-        Parent root = (Parent)event.getSource();
-        Parent rootPane = root.getScene().getRoot();
-        BorderPane brdPane = (BorderPane)rootPane.lookup("#brdPane");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("chart.fxml"));
-        Parent form = null;
-        try {
-            form = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-      brdPane.setCenter(form);
+      commonService.changeWindow(event, btnchart.getId());
     }
-    public void changeWindow2(ActionEvent event) {
-        Parent root = (Parent)event.getSource();
-        Parent rootPane = root.getScene().getRoot();
-        BorderPane brdPane = (BorderPane)rootPane.lookup("#brdPane");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("magazine.fxml"));
-        Parent form = null;
-        try {
-            form = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-      brdPane.setCenter(form);
+    public void changeWindow2(ActionEvent event) {
+		commonService.changeWindow(event, btnmagazine.getId());
     }
     public void changeWindow3(ActionEvent event) {
-        Parent root = (Parent)event.getSource();
-        Parent rootPane = root.getScene().getRoot();
-        BorderPane brdPane = (BorderPane)rootPane.lookup("#brdPane");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mv.fxml"));
-        Parent form = null;
-        try {
-            form = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		commonService.changeWindow(event, btnmv.getId());
+	}
 
-      brdPane.setCenter(form);
-    }
+
+	@Override
+	public void setRoot(Parent root) {
+		this.root = root;
+	}
+
+	public void eventProc(ActionEvent event) {
+		menuBarService.eventProc(event);
+	}
+
+	//0508 add to musicPlayer
+	@Override
+	public Parent getRoot() {
+		return root;
+	}
 }
