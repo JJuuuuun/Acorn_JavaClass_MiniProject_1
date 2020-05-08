@@ -1,0 +1,52 @@
+.button,
+.toggle-button {
+    -fx-background-color: gray;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.slider {
+    -fx-background-color: gray;
+}
+
+#prevBtn {
+    -fx-background-image: url("../img/prev.png");
+    -fx-background-size: 30px 30px;
+}
+
+#playBtn {
+    -fx-background-image: url("../img/play.png");
+    -fx-background-size: 30px 30px;
+}
+
+#repeatBtn {
+    -fx-background-image: url("../img/repeat.png");
+    -fx-background-size: 30px 30px;
+}
+
+#muteBtn {
+    -fx-background-image: url("../img/sound.png");
+    -fx-background-size: 30px 30px;
+}
+
+#shuffleBtn {
+    -fx-background-image: url("../img/shuffle.png");
+    -fx-background-size: 30px 30px;
+}
+
+#nextBtn {
+    -fx-background-image: url("../img/next.png");
+    -fx-background-size: 30px 30px;
+}
+
+/* 프로그레스바 색 변경 */
+
+#volumeSlider {
+    -fx-accent: lightgreen;
+    -fx-background-color: ffffff;
+    -fx-padding: 0;
+}
+
+#timeSlider {
+    -fx-accent: violet;
+}

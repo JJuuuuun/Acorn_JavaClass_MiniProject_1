@@ -1,5 +1,6 @@
 package Service;
 
+import Controller.AbstractController;
 import javafx.event.ActionEvent;
 
 public interface ICommonService {
@@ -7,4 +8,9 @@ public interface ICommonService {
     // private Scene getScene();
     void openWindow(String btnId);
     void changeWindow(ActionEvent event, String btnId);
+
+    // 0507 add
+    void closeWindow(ActionEvent event);
+    // 0508 add
+    AbstractController getController(String fxmlName);
 }
