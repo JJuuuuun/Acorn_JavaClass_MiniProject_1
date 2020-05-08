@@ -8,6 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import Service.CommonService;
+import Service.ICommonService;
+import Service.IMenuBarService;
+import Service.MenuBarService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +28,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class LoginMainController implements Initializable {
+public class LoginMainController extends AbstractController implements Initializable {
 	@FXML BorderPane brdPane2;
 	@FXML TextField textsearch1;
 	@FXML Label lblinfo;
@@ -45,48 +50,35 @@ public class LoginMainController implements Initializable {
 	final static String DRIVER = "org.sqlite.JDBC";
 	final static String DB = "jdbc:sqlite:C:/Users/user/Desktop/login.db";
 	Connection conn;
-	
+	Parent root;
+	ICommonService commonService;
+	IMenuBarService menuBarService;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		commonService = new CommonService();
+		menuBarService = new MenuBarService();
+		
+
 		btnlogout.setOnAction(e->{
-			ErrorMsg("Success", "·Î±×¾Æ¿ô ¼º°ø", "·Î±×¾Æ¿ô µÇ¾ú½À´Ï´Ù.");
+			ErrorMsg("Success", "ï¿½Î±×¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½", "ï¿½Î±×¾Æ¿ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			logoutProc(e);
-			try {
-				logoutsuccess(e);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			logoutsuccess();
 		});
 		btnout.setOnAction(e->{
-			Delete("È¸¿ø Å»Åð", "È¸¿ø Å»Åð ÁøÇàÁß...", "Á¤¸»·Î Å»ÅðÇÏ½Ã°Ú½À´Ï±î?");
+			Delete("È¸ï¿½ï¿½ Å»ï¿½ï¿½", "È¸ï¿½ï¿½ Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å»ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?");
 			if(ok==1) {
 				logoutProc(e);
-				try {
-					logoutsuccess(e);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				logoutsuccess();
 			}
 		});
-		btnchart1.setOnAction(e->{
-			changeWindow1(e);
-		});
-		btnmagazine1.setOnAction(e->{
-			changeWindow2(e);
-		});
-		btnmv1.setOnAction(e->{
-			changeWindow3(e);
-		});
-		btninfo.setOnAction(e->{
-			setLabel(e);
-		});
+		btnchart1.setOnAction(this::changeWindow1);
+		btnmagazine1.setOnAction(this::changeWindow2);
+		btnmv1.setOnAction(this::changeWindow3);
+
 		btnhome1.setOnAction(e->{
 			logoutProc(e);
-			try {
-				HomeProc(e);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			HomeProc();
 		});
 	}
 	public void Delete(String title, String headerStr, String ContentTxt) {
@@ -97,7 +89,7 @@ public class LoginMainController implements Initializable {
 		Optional<ButtonType> result = alert.showAndWait();
 		
 		if (result.get() == ButtonType.OK) {
-			ErrorMsg("Success", "È¸¿ø Å»Åð ¼º°ø", "Á¤»óÀûÀ¸·Î Å»ÅðµÇ¾ú½À´Ï´Ù.");
+			ErrorMsg("Success", "È¸ï¿½ï¿½ Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å»ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			DeleteProc();
 		}
 
@@ -113,25 +105,17 @@ public class LoginMainController implements Initializable {
 			pstmt.close();
 			conn.close();
 			ok=1;
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (SQLException e1) {
+		} catch (ClassNotFoundException | SQLException e1) {
 			e1.printStackTrace();
 		}
 	}
+
 	private void logoutProc(ActionEvent e) {
-		Parent root = (Parent)e.getSource();
-		Stage stage = (Stage) root.getScene().getWindow();
-		stage.close();
-		
+		commonService.closeWindow(e);
 	}
-	private void logoutsuccess(ActionEvent e) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-		Stage s = new Stage();
-			
-		s.setScene(new Scene(root));
-		s.show();
-		
+
+	private void logoutsuccess()  {
+		commonService.openWindow(btnout.getId());
 	}
 	public void ErrorMsg(String title, String headerStr, String ContentTxt) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -140,64 +124,36 @@ public class LoginMainController implements Initializable {
 		alert.setContentText(ContentTxt);
 		alert.showAndWait();
 	}
+
 	public void changeWindow1(ActionEvent event) {
-	    Parent root = (Parent)event.getSource();
-	    Parent rootPane = root.getScene().getRoot();
-	    BorderPane brdPane = (BorderPane)rootPane.lookup("#brdPane2");
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("chart.fxml"));
-	    Parent form = null;
-	    try {
-	        form = loader.load();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	    brdPane.setCenter(form);
-	   	}
+		commonService.changeWindow(event, btnchart1.getId());
+	}
+
 	public void changeWindow2(ActionEvent event) {
-	    Parent root = (Parent)event.getSource();
-	    Parent rootPane = root.getScene().getRoot();
-	    BorderPane brdPane = (BorderPane)rootPane.lookup("#brdPane2");
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("magazine.fxml"));
-	    Parent form = null;
-	    try {
-	        form = loader.load();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	    brdPane.setCenter(form);
-	    }
+		commonService.changeWindow(event, btnmagazine1.getId());
+	}
+
 	public void changeWindow3(ActionEvent event) {
-	    Parent root = (Parent)event.getSource();
-	    Parent rootPane = root.getScene().getRoot();
-	    BorderPane brdPane = (BorderPane)rootPane.lookup("#brdPane2");
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("mv.fxml"));
-	    Parent form = null;
-	    try {
-	        form = loader.load();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	    brdPane.setCenter(form);
-	    }
-	public void HomeProc(ActionEvent e) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("loginmain.fxml"));
-		Stage s = new Stage();
-			
-		s.setScene(new Scene(root));
-		s.show();
-		
+	    commonService.changeWindow(event, btnmv1.getId());
 	}
-	public LoginMainController() {
+
+	public void HomeProc()  {
+		commonService.openWindow(btnhome1.getId());
 	}
-	public LoginMainController(String idid, String namename, String songsong) {
-		id = idid;
-		name = namename;
-		song = songsong;
-	}
-	public void setLabel(ActionEvent e) {
-		lblinfo.setText("ÀÌ¸§ = "+name);
+
+	@Override
+	public void setText(String name, String id, String song) {
+		lblinfo.setText("NAME = "+name);
 		lblinfo2.setText("ID = "+id);
-		lblinfo3.setText("ÃëÇâ = "+song);
+		lblinfo3.setText("ê´€ì‹¬ = "+song);
 	}
-	
+
+	@Override
+	public void setRoot(Parent root) {
+		this.root = root;
+	}
+
+	public void eventProc(ActionEvent event) {
+		menuBarService.eventProc(event);
+	}
 }

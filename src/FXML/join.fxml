@@ -8,7 +8,7 @@
 
 <BorderPane prefHeight="286.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/8"
 			xmlns:fx="http://javafx.com/fxml/1"
-			fx:controller="Main.joinController">
+			fx:controller="Controller.joinController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="abc" BorderPane.alignment="CENTER">
          <children>

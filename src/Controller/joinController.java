@@ -20,22 +20,31 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-public class joinController implements Initializable {
+public class joinController extends AbstractController implements Initializable {
 	@FXML private Label lbljoin;
 	@FXML private TextField textname;
 	@FXML private TextField textid;
 	@FXML private TextField textpw;
 	@FXML private TextField textpwok;
 	@FXML private ComboBox<String> cmbsong;
+	final String [] items= {"ë°œë¼ë“œ", "ëŒ„ìŠ¤ê³¡", "ë½", "íž™í•©", "íŠ¸ë¡œíŠ¸"};
 	@FXML private Button btncheck;
 	@FXML private Button btnjoin;
 	@FXML private Button btncancel;
 	public int check=0;
 	final static String DRIVER = "org.sqlite.JDBC";
-	final static String DB = "jdbc:sqlite:C:/Users/user/Desktop/login.db";
+	final static String DB = "jdbc:sqlite:C:/Users/jun/Desktop/DBSQLite/Database/login.db";
 	Connection conn;
+	Parent root;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+		if(cmbsong!=null) {
+			for(String item : items)
+				cmbsong.getItems().add(item);
+		}
+
 		textid.setOnKeyPressed(e->{
 			btncheck.setDisable(false);
 			check=0;
@@ -59,31 +68,31 @@ public class joinController implements Initializable {
 		String pwok = textpwok.getText();
 		String song = cmbsong.getValue();
 		if (name.equals("")) {
-			ErrorMsg("Error", "È¸¿ø°¡ÀÔ¿¡ ½ÇÆÐÇß½À´Ï´Ù", "ÀÌ¸§À» ÀÔ·ÂÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+			ErrorMsg("Error", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½", "ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 			textname.requestFocus();
 		}
 		else if (id.equals("")) {
-			ErrorMsg("Error", "È¸¿ø°¡ÀÔ¿¡ ½ÇÆÐÇß½À´Ï´Ù", "ID¸¦ ÀÔ·ÂÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+			ErrorMsg("Error", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½", "IDï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 			textid.requestFocus();
 		}
 		else if (check==0) {
-			ErrorMsg("Error", "È¸¿ø°¡ÀÔ¿¡ ½ÇÆÐÇß½À´Ï´Ù", "ID Áßº¹È®ÀÎÀ» ÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+			ErrorMsg("Error", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½", "ID ï¿½ßºï¿½È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 			btncheck.requestFocus();
 		}
 		else if (pw.equals("")) {
-			ErrorMsg("Error", "È¸¿ø°¡ÀÔ¿¡ ½ÇÆÐÇß½À´Ï´Ù", "ºñ¹Ð¹øÈ£¸¦ ÀÔ·ÂÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+			ErrorMsg("Error", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½", "ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 			textpw.requestFocus();
 		}
 		else if (pwok.equals("")) {
-			ErrorMsg("Error", "È¸¿ø°¡ÀÔ¿¡ ½ÇÆÐÇß½À´Ï´Ù", "ºñ¹Ð¹øÈ£ ÀçÀÔ·ÂÀ» ÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+			ErrorMsg("Error", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½", "ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 			textpwok.requestFocus();
 		}
 		else if (song == null) {
-			ErrorMsg("Error", "È¸¿ø°¡ÀÔ¿¡ ½ÇÆÐÇß½À´Ï´Ù", "¼±È£ÇÏ´Â Àå¸£¸¦ ÀÔ·ÂÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+			ErrorMsg("Error", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½", "ï¿½ï¿½È£ï¿½Ï´ï¿½ ï¿½å¸£ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 			cmbsong.requestFocus();
 		}
 		else if (pwok.equals(pw)!=true) {
-			ErrorMsg("Error", "È¸¿ø°¡ÀÔ¿¡ ½ÇÆÐÇß½À´Ï´Ù", "ºñ¹Ð¹øÈ£°¡ ´Ù¸¨´Ï´Ù.");
+			ErrorMsg("Error", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½", "ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½Ï´ï¿½.");
 			textpw.clear();
 			textpwok.clear();
 			textpw.requestFocus();
@@ -91,7 +100,7 @@ public class joinController implements Initializable {
 		else {
 			InputProc(name, id, pw, song);
 			int num = (int)(Math.random()*10000);
-			ErrorMsg("Success", "È¸¿ø°¡ÀÔ¿¡ ¼º°øÇß½À´Ï´Ù.","Ã¹ °¡ÀÔ ÇÒÀÎÄÚµå : "+num);
+			ErrorMsg("Success", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.","Ã¹ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ : "+num);
 			Parent root = (Parent)e.getSource();
 			Stage stage = (Stage) root.getScene().getWindow();
 			stage.close();
@@ -133,7 +142,7 @@ public class joinController implements Initializable {
 	}
 	public void idcheck(ActionEvent e, String id) {
 		if(id.equals("")) {
-			ErrorMsg("Error", "ID Áßº¹È®ÀÎ ½ÇÆÐ", "ID¸¦ ÀÔ·ÂÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+			ErrorMsg("Error", "ID ï¿½ßºï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", "IDï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 			textid.requestFocus();
 			return;
 		}
@@ -157,12 +166,12 @@ public class joinController implements Initializable {
 				else check=1;
 			}
 			if(check==0) {
-				ErrorMsg("Error", "ID Áßº¹È®ÀÎ ½ÇÆÐ", "ÀÌ¹Ì Á¸ÀçÇÏ´Â ID ÀÔ´Ï´Ù.");
+				ErrorMsg("Error", "ID ï¿½ßºï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", "ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ID ï¿½Ô´Ï´ï¿½.");
 				textid.clear();
 				textid.requestFocus();
 			}
 			else{
-				ErrorMsg("Success", "ID Áßº¹È®ÀÎ ¼º°ø", "»ç¿ë ÇÒ ¼ö ÀÖ´Â ID ÀÔ´Ï´Ù.");
+				ErrorMsg("Success", "ID ï¿½ßºï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ID ï¿½Ô´Ï´ï¿½.");
 				btncheck.setDisable(true);
 				textpw.requestFocus();
 			}
@@ -177,5 +186,10 @@ public class joinController implements Initializable {
 		Parent root = (Parent)e.getSource();
 		Stage stage = (Stage) root.getScene().getWindow();
 		stage.close();
+	}
+
+	@Override
+	public void setRoot(Parent root) {
+		this.root = root;
 	}
 }
