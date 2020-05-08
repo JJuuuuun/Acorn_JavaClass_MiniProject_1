@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class QnAController extends Controller implements Initializable {
+public class QnAController extends AbstractController implements Initializable {
     @FXML Label title_1;
     @FXML Label title_2;
     @FXML Label title_3;

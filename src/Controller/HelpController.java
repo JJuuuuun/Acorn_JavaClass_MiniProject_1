@@ -11,7 +11,7 @@ import javafx.scene.Parent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HelpController extends Controller implements Initializable {
+public class HelpController extends AbstractController implements Initializable {
     private IHelpService helpService;
 
     @Override

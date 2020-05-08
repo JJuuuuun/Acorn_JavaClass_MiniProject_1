@@ -12,7 +12,7 @@ import javafx.scene.control.TextArea;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DirectQuestionController extends Controller implements Initializable {
+public class DirectQuestionController extends AbstractController implements Initializable {
     @FXML ComboBox<String> Title_ComboBox;
     @FXML TextArea Question_TxtArea;
     IDirectQuestionService directQuestionService;
