@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommonService implements ICommonService {
-    private Map<String, String> urlMap = new HashMap<>();
+    private final Map<String, String> urlMap = new HashMap<>();
 
     public CommonService() {
 //        urlMap.put("", "../Form/MenuBar.fxml");
@@ -42,16 +42,17 @@ public class CommonService implements ICommonService {
         urlMap.put("QnA_Btn", "../Form/QnA.fxml");
     }
 
-
     private Scene getScene(String btnId) {
         String url = urlMap.get(btnId);
-//        System.out.println(url);
+//        System.out.println(url); //test code
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
+//        System.out.println(loader.getLocation()); // test code
         Parent root = null;
         try {
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
+//            System.out.println("getScene Error"); // test code
         }
 
         AbstractController ctrler = loader.getController();
