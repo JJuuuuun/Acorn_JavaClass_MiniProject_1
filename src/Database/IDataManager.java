@@ -1,6 +1,6 @@
-package Player.Database;
+package Database;
 
-import Player.MusicInfo;
+import Service.MusicInfo;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 

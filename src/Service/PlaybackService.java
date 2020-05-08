@@ -1,8 +1,7 @@
-package Player.Service;
+package Service;
 
-import Player.Database.DataManager;
-import Player.Database.IDataManager;
-import Player.MusicInfo;
+import Database.DataManager;
+import Database.IDataManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -74,8 +73,8 @@ public class PlaybackService implements IPlaybackService {
             currentMusicInfo = dataManager.getMusicInfo(idMap.get(playback));
             if (playback != null) {
                 Button btnPlay = (Button) getNode(event, "#playBtn");
-                Label lblCurrent = (Label) getNode(event, "#sTime");
-                Label lblTotal = (Label) getNode(event, "#eTime");
+                Label lblCurrent = (Label) getNode(event, "#currentTime");
+                Label lblTotal = (Label) getNode(event, "#totalTime");
                 if (playback.getOnReady() == null)
                     playback.setOnReady(() -> playback.setVolume(volume));
                 if (playback.getOnPlaying() == null)
@@ -172,14 +171,14 @@ public class PlaybackService implements IPlaybackService {
     }
 
     private void setProgress(Event event, double value) {
-        Slider bar = (Slider) getNode(event, "#excessBar");
-        bar.setValue(value);
+        Slider slider = (Slider) getNode(event, "#timeSlider");
+        slider.setValue(value);
     }
 
     @Override
     public void seek(Event event) {
-        Slider bar = (Slider) getNode(event, "#excessBar");
-        double value = bar.getValue() / 100 * playback.getTotalDuration().toSeconds();
+        Slider slider = (Slider) getNode(event, "#timeSlider");
+        double value = slider.getValue() / 100 * playback.getTotalDuration().toSeconds();
         playback.seek(Duration.seconds(value));
     }
 
@@ -276,7 +275,7 @@ public class PlaybackService implements IPlaybackService {
         setMute(event);
 
         volume = playback.getVolume();
-        Slider slider = (Slider) getNode(event, "#soundBar");
+        Slider slider = (Slider) getNode(event, "#volumeSlider");
         playback.setVolume(slider.getValue() / 100);
     }
 

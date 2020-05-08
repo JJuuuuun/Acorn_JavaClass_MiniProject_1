@@ -5,7 +5,11 @@
     -fx-background-position: center;
 }
 
-#backBtn {
+.slider {
+    -fx-background-color: gray;
+}
+
+#prevBtn {
     -fx-background-image: url("../img/prev.png");
     -fx-background-size: 30px 30px;
 }
@@ -37,12 +41,12 @@
 
 /* 프로그레스바 색 변경 */
 
-#soundBar {
+#volumeSlider {
     -fx-accent: lightgreen;
     -fx-background-color: ffffff;
     -fx-padding: 0;
 }
 
-#excessBar {
+#timeSlider {
     -fx-accent: violet;
 }

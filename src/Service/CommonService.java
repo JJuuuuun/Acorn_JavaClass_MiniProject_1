@@ -1,6 +1,6 @@
-package Player.Service;
+package Service;
 
-import Player.Controller;
+import Controller.AbstractController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,10 +9,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 //창 열고 닫기
 
-public class CommonServiceImpl implements ICommonService {
+public class CommonService implements ICommonService {
 
     @Override
-    public Controller showWindow(Stage s, String formPath) {
+    public AbstractController showWindow(Stage s, String formPath) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(formPath));
         Parent root = null;
         try {
@@ -22,12 +22,12 @@ public class CommonServiceImpl implements ICommonService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Controller ctrler = loader.getController();
-        ctrler.setRoot(root);
+        AbstractController controller = loader.getController();
+        controller.setRoot(root);
         s.setTitle("Test");
         s.setScene(new Scene(root));
         s.show();
-        return ctrler;
+        return controller;
     }
 
 

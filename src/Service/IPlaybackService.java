@@ -1,6 +1,5 @@
-package Player.Service;
+package Service;
 
-import Player.MusicInfo;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Parent;

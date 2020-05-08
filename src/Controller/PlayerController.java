@@ -1,9 +1,9 @@
-package Player;
+package Controller;
 
-import Player.Service.CommonServiceImpl;
-import Player.Service.ICommonService;
-import Player.Service.IPlaybackService;
-import Player.Service.PlaybackService;
+import Service.CommonService;
+import Service.ICommonService;
+import Service.IPlaybackService;
+import Service.PlaybackService;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
@@ -14,9 +14,9 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SubController extends Controller implements Initializable {
+public class PlayerController extends AbstractController implements Initializable {
     IPlaybackService playbackService;
-    MainController mainController;
+    InfoController infoController;
     Parent root;
 
     @Override
@@ -30,7 +30,7 @@ public class SubController extends Controller implements Initializable {
 
     public void next(ActionEvent event) {
         playbackService.playNextMusic(event);
-        mainController.updateForm();
+        if (infoController != null) infoController.updateForm();
     }
 
     public void repeat(ActionEvent event) {
@@ -46,10 +46,10 @@ public class SubController extends Controller implements Initializable {
     }
 
     public void callMain() {
-        ICommonService comServ = new CommonServiceImpl();
+        ICommonService comServ = new CommonService();
         Stage mForm = new Stage();
-        mainController = (MainController) comServ.showWindow(mForm, "../PlayerMain.fxml");
-        mainController.setPlaybackService(playbackService);
+        infoController = (InfoController) comServ.showWindow(mForm, "../FXML/PlayerMain.fxml");
+        infoController.setPlaybackService(playbackService);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class SubController extends Controller implements Initializable {
 
     public void prev(ActionEvent event) {
         playbackService.playPrevMusic(event);
-        mainController.updateForm();
+        infoController.updateForm();
     }
 
     public void seek(MouseEvent event) {

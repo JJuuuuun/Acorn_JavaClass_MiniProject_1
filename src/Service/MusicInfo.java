@@ -1,4 +1,4 @@
-package Player;
+package Service;
 
 import javafx.scene.media.Media;
 
@@ -39,7 +39,6 @@ public class MusicInfo {
                 ", title='" + this.getTitle() + '\'' +
                 ", artist='" + this.getArtist() + '\'' +
                 ", album='" + this.getAlbum() + '\'' +
-                ", lyrics='" + this.getLyrics() + '\'' +
                 '}';
     }
 

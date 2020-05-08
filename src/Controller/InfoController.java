@@ -1,6 +1,6 @@
-package Player;
+package Controller;
 
-import Player.Service.*;
+import Service.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController extends Controller implements Initializable {
+public class InfoController extends AbstractController implements Initializable {
     Parent root;
     ICommonService comServ;
     ImageService imgbtn;
@@ -26,7 +26,7 @@ public class MainController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        comServ = new CommonServiceImpl();
+        comServ = new CommonService();
         imgbtn = new ImageServiceimpl();
         imgbtn();
 
@@ -44,7 +44,7 @@ public class MainController extends Controller implements Initializable {
 
     public void settings() {
         Stage s = new Stage(); //
-        comServ.showWindow(s, "../Settings.fxml");
+        comServ.showWindow(s, "../FXML/Settings.fxml");
     }
 
     public void like(ActionEvent event) {
@@ -58,7 +58,7 @@ public class MainController extends Controller implements Initializable {
 
     public void about() {
         Stage s = new Stage();
-        comServ.showWindow(s, "../About.fxml");
+        comServ.showWindow(s, "../FXML/About.fxml");
     }
 
     @Override

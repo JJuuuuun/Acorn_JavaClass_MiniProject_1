@@ -1,4 +1,4 @@
-package Player.Service;
+package Service;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;

@@ -1,4 +1,4 @@
-package Player.Service;
+package Service;
 
 public interface ISettingService {
     /**

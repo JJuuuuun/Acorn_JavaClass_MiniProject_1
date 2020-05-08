@@ -1,8 +1,8 @@
-package Player;
+package Controller;
 
 import javafx.scene.Parent;
 
-public abstract class Controller {
+public abstract class AbstractController {
 	public abstract void setRoot(Parent root);
 
 }

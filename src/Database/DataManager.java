@@ -1,6 +1,6 @@
-package Player.Database;
+package Database;
 
-import Player.MusicInfo;
+import Service.MusicInfo;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -132,7 +132,6 @@ public class DataManager implements IDataManager {
     }
 
     /**
-     *
      * @param id 해당 음악 id
      * @return liked
      */
