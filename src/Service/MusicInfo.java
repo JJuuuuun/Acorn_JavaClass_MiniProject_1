@@ -1,6 +1,10 @@
 package Service;
 
+import javafx.scene.image.Image;
 import javafx.scene.media.Media;
+
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 public class MusicInfo {
     int id;
@@ -13,6 +17,7 @@ public class MusicInfo {
     String artist;
     String album;
     String lyrics;
+    Image albumart;
 
     public MusicInfo(int id, String url,
                      int track, int year,
@@ -27,7 +32,18 @@ public class MusicInfo {
         this.artist = artist;
         this.album = album;
         this.lyrics = lyrics;
+        String ur = "../resources/albumart/" + id + ".jpg";
+        try {
+            if (getClass().getResource(ur) != null)
+                this.albumart = new Image(getClass().getResource(ur).toURI().toURL().toString());
+        } catch (MalformedURLException | URISyntaxException e) {
+            e.printStackTrace();
+        }
         System.out.println(this.toString());
+    }
+
+    public Image getAlbumart() {
+        return albumart;
     }
 
     @Override

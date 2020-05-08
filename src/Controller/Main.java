@@ -16,5 +16,4 @@ public class Main extends Application {
         comServ.showWindow(primaryStage, "../FXML/Player.fxml");
 
     }
-
 }

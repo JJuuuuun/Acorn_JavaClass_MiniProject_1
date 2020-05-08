@@ -8,6 +8,7 @@ import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
@@ -105,6 +106,8 @@ public class PlaybackService implements IPlaybackService {
                                 });
                             }
                         });
+                        // 프로세스 종료시 모든 Thread 종료하도록 설정
+                        mps.setDaemon(true);
                         mps.start();
                     });
                 if (playback.getOnPaused() == null)
@@ -224,9 +227,17 @@ public class PlaybackService implements IPlaybackService {
         Label titleLabel = (Label) parent.lookup("#title");
         Label artistLabel = (Label) parent.lookup("#artist");
         TextArea textArea = (TextArea) parent.lookup("#lyrics");
+        ImageView imageView = (ImageView) parent.lookup("#album");
         titleLabel.setText(currentMusicInfo.getTitle());
         artistLabel.setText(currentMusicInfo.getArtist());
         textArea.setText(currentMusicInfo.getLyrics());
+        if (currentMusicInfo.getAlbumart() != null) {
+            imageView.setImage(currentMusicInfo.getAlbumart());
+        }
+        else {
+            imageView.setImage(null);
+        }
+
     }
 
     @Override

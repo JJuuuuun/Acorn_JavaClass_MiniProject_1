@@ -60,7 +60,7 @@ public class PlayerController extends AbstractController implements Initializabl
 
     public void prev(ActionEvent event) {
         playbackService.playPrevMusic(event);
-        infoController.updateForm();
+        if (infoController != null) infoController.updateForm();
     }
 
     public void seek(MouseEvent event) {
