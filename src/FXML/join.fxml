@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="286.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/8"
+			xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="Main.joinController">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="abc" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="textname" promptText="이름 입력">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <HBox prefHeight="26.0" prefWidth="382.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="textid" prefHeight="28.0" prefWidth="298.0" promptText="ID 입력">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="btncheck" mnemonicParsing="false" prefHeight="28.0" prefWidth="82.0" text="중복확인">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <TextField fx:id="textpw" prefHeight="28.0" prefWidth="579.0" promptText="Password 입력">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="textpwok" prefHeight="28.0" prefWidth="580.0" promptText="Password 다시 입력">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <ComboBox fx:id="cmbsong" prefHeight="28.0" prefWidth="580.0" promptText="선호하는 장르" visibleRowCount="5" />
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="45.0" prefWidth="382.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnjoin" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="회원가입">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btncancel" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="취소" />
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <Label fx:id="lbljoin" text="회원가입" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </top>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</BorderPane>
