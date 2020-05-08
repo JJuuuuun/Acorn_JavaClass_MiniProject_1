@@ -65,7 +65,7 @@ public class loginController extends AbstractController implements Initializable
 	public void LoginProc(ActionEvent e) throws IOException {
 		String id = textid.getText();
 		String pw = textpw.getText();
-		
+
 		if (id.equals("")) {
 			ErrorMsg("Error", "로그인에 실패했습니다", "ID를 입력하지 않았습니다.");
 			textid.requestFocus();
@@ -78,10 +78,7 @@ public class loginController extends AbstractController implements Initializable
 			check(id, pw);
 			if(success==1) {
 				LoginMain();
-
-				Parent root = (Parent)e.getSource();
-				Stage stage = (Stage) root.getScene().getWindow();
-				stage.close();
+				commonService.closeWindow(e);
 			}
 		}
 	}
@@ -144,10 +141,12 @@ public class loginController extends AbstractController implements Initializable
 	public void MainView() {
 		commonService.openWindow(btncancel.getId());
 	}
+
 	public void CancelProc(ActionEvent e) {
 		commonService.closeWindow(e);
 	}
-	public void LoginMain() throws IOException {
+
+	public void LoginMain() {
 		commonService.openWindow("LoginSuccess");
 	}
 	private void SendData() {

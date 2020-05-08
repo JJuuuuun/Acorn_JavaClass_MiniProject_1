@@ -36,13 +36,11 @@ public class LoginMainController extends AbstractController implements Initializ
 	@FXML Label lblinfo3;
 	@FXML Button btnlogout;
 	@FXML Button btnout;
-	@FXML Button btnpay;
-	@FXML Button btnlibrary;
 	@FXML Button btnchart1;
 	@FXML Button btnmagazine1;
 	@FXML Button btnmv1;
 	@FXML Button btnhome1;
-	@FXML Button btninfo;
+
 
 	public static String id, name, song;
 	public int ok=0;
@@ -89,9 +87,11 @@ public class LoginMainController extends AbstractController implements Initializ
 		btnmv1.setOnAction(e->{
 			changeWindow3(e);
 		});
-		btninfo.setOnAction(e->{
-			setLabel(e);
-		});
+
+		lblinfo.setText("이름 = "+name);
+		lblinfo2.setText("ID = "+id);
+		lblinfo3.setText("취향 = "+song);
+
 		btnhome1.setOnAction(e->{
 			logoutProc(e);
 			HomeProc();
@@ -152,17 +152,13 @@ public class LoginMainController extends AbstractController implements Initializ
 	public void HomeProc() {
 		commonService.openWindow(btnhome1.getId());
 	}
+
 	public LoginMainController() {
 	}
 	public LoginMainController(String idid, String namename, String songsong) {
 		id = idid;
 		name = namename;
 		song = songsong;
-	}
-	public void setLabel(ActionEvent e) {
-		lblinfo.setText("이름 = "+name);
-		lblinfo2.setText("ID = "+id);
-		lblinfo3.setText("취향 = "+song);
 	}
 
 	@Override
