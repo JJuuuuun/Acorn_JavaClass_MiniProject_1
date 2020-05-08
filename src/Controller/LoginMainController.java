@@ -42,7 +42,7 @@ public class LoginMainController extends AbstractController implements Initializ
 	@FXML Button btnhome1;
 
 
-	public static String id, name, song;
+	public String id, name, song;
 	public int ok=0;
 
 	final static String DRIVER = "org.sqlite.JDBC";
@@ -87,10 +87,6 @@ public class LoginMainController extends AbstractController implements Initializ
 		btnmv1.setOnAction(e->{
 			changeWindow3(e);
 		});
-
-		lblinfo.setText("이름 = "+name);
-		lblinfo2.setText("ID = "+id);
-		lblinfo3.setText("취향 = "+song);
 
 		btnhome1.setOnAction(e->{
 			logoutProc(e);
@@ -153,18 +149,19 @@ public class LoginMainController extends AbstractController implements Initializ
 		commonService.openWindow(btnhome1.getId());
 	}
 
-	public LoginMainController() {
-	}
-	public LoginMainController(String idid, String namename, String songsong) {
-		id = idid;
-		name = namename;
-		song = songsong;
+	@Override
+	public void setText(String name, String id, String song) {
+		this.name = name;
+		this.id = id;
+		this.song = song;
+
+		lblinfo.setText("이름 = "+name);
+		lblinfo2.setText("ID = "+id);
+		lblinfo3.setText("취향 = "+song);
 	}
 
 	@Override
-	public void setRoot(Parent root) {
-
-	}
+	public void setRoot(Parent root) {}
 
 	@FXML
 	void eventProc(ActionEvent event) {

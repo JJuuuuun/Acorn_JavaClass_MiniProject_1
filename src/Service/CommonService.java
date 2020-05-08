@@ -14,10 +14,9 @@ import java.util.Map;
 
 public class CommonService implements ICommonService {
     private final Map<String, String> urlMap = new HashMap<>();
+    private Map<String, AbstractController> controllerMap = new HashMap<>();
 
     public CommonService() {
-//        urlMap.put("", "../Form/MenuBar.fxml");
-
         // HomePage Main Form
         urlMap.put("", "../FXML/main.fxml");
         urlMap.put("btnhome", "../FXML/main.fxml");
@@ -46,17 +45,16 @@ public class CommonService implements ICommonService {
         String url = urlMap.get(btnId);
 //        System.out.println(url); //test code
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
-//        System.out.println(loader.getLocation()); // test code
         Parent root = null;
         try {
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
-//            System.out.println("getScene Error"); // test code
         }
 
-        AbstractController ctrler = loader.getController();
-        ctrler.setRoot(root);
+        String fxmlName = url.substring(8);
+        controllerMap.put(fxmlName, loader.getController());
+//        System.out.println(fxmlName); // test code
 
         return new Scene(root);
     }
@@ -87,5 +85,8 @@ public class CommonService implements ICommonService {
         stage.close();
     }
 
-
+    @Override
+    public AbstractController getController(String fxmlName) {
+        return controllerMap.get(fxmlName);
+    }
 }
