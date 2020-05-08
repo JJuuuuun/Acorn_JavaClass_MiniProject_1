@@ -30,7 +30,7 @@ public class loginController extends AbstractController implements Initializable
 	@FXML private Button btnlogin;
 	@FXML private Button btncancel;
 	
-	public static String idid, namename, songsong;
+	public String idid, namename, songsong;
 	public int check=6554, success=0;
 	
 	final static String DRIVER = "org.sqlite.JDBC";
@@ -149,8 +149,10 @@ public class loginController extends AbstractController implements Initializable
 	public void LoginMain() {
 		commonService.openWindow("LoginSuccess");
 	}
+
 	private void SendData() {
-		LoginMainController lmc = new LoginMainController(idid, namename, songsong);
+		AbstractController ctrl = commonService.getController("loginmain.fxml");
+		ctrl.setText(idid, namename, songsong);
 	}
 
 	private void setData() {

@@ -1,5 +1,6 @@
 package Service;
 
+import Controller.AbstractController;
 import javafx.event.ActionEvent;
 
 public interface ICommonService {
@@ -10,4 +11,6 @@ public interface ICommonService {
 
     // 0507 add
     void closeWindow(ActionEvent event);
+    // 0508 add
+    AbstractController getController(String fxmlName);
 }
