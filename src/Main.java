@@ -9,7 +9,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         commonService = new CommonService();
-        commonService.openWindow("");
+        commonService.openWindow("Player");
     }
     public static void main(String[] args) {
         launch(args);

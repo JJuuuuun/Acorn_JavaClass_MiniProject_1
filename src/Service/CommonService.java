@@ -54,6 +54,8 @@ public class CommonService implements ICommonService {
         Parent root = null;
         try {
             root = loader.load();
+            AbstractController controller = loader.getController();
+            controller.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }

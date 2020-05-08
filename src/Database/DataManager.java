@@ -5,6 +5,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +68,8 @@ public class DataManager implements IDataManager {
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                result.put(new MediaPlayer(new Media(resultSet.getString("fileurl"))),
+                result.put(new MediaPlayer(new Media(
+                                Paths.get(resultSet.getString("fileurl")).toUri().toString())),
                         resultSet.getInt("id"));
             }
             resultSet.close();

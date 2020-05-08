@@ -9,6 +9,8 @@
     -fx-background-color: gray;
 }
 
+/* Player */
+
 #prevBtn {
     -fx-background-image: url("../img/prev.png");
     -fx-background-size: 30px 30px;
@@ -37,6 +39,18 @@
 #nextBtn {
     -fx-background-image: url("../img/next.png");
     -fx-background-size: 30px 30px;
+}
+
+/* PlayInfo */
+
+#setBtn {
+    -fx-background-image: url("../img/settings.png");
+    -fx-background-size: 20px 20px;
+}
+
+#aboutBtn {
+    -fx-background-image: url("../img/dots.png");
+    -fx-background-size: 20px 20px;
 }
 
 /* 프로그레스바 색 변경 */
