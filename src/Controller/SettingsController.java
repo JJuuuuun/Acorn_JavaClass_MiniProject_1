@@ -11,14 +11,11 @@ public class SettingsController extends AbstractController implements Initializa
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void setRoot(Parent root) {
         this.root = root;
-
     }
 
 }

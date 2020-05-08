@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,8 +42,7 @@ public class InfoController extends AbstractController implements Initializable 
     }
 
     public void settings() {
-        Stage s = new Stage(); //
-        comServ.showWindow(s, "../FXML/Settings.fxml");
+        comServ.openWindow("Settings");
     }
 
     public void like(ActionEvent event) {
@@ -57,8 +55,7 @@ public class InfoController extends AbstractController implements Initializable 
     }
 
     public void about() {
-        Stage s = new Stage();
-        comServ.showWindow(s, "../FXML/About.fxml");
+        comServ.openWindow("About");
     }
 
     @Override

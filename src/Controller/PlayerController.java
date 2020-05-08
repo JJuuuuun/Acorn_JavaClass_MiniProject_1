@@ -9,7 +9,6 @@ import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,10 +44,10 @@ public class PlayerController extends AbstractController implements Initializabl
         playbackService.setMute(event);
     }
 
-    public void callMain() {
+    public void showPlayerInfo() {
         ICommonService comServ = new CommonService();
-        Stage mForm = new Stage();
-        infoController = (InfoController) comServ.showWindow(mForm, "../FXML/PlayerMain.fxml");
+        comServ.openWindow("PlayInfo");
+        infoController = (InfoController) comServ.getController("PlayInfo.fxml");
         infoController.setPlaybackService(playbackService);
     }
 

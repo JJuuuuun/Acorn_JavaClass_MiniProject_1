@@ -53,7 +53,7 @@
                             </HBox.margin>
                         </Button>
                         <Button fx:id="shuffleBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                minWidth="-Infinity" mnemonicParsing="false" onAction="#callMain" prefHeight="30.0"
+                                minWidth="-Infinity" mnemonicParsing="false" onAction="#showPlayerInfo" prefHeight="30.0"
                                 prefWidth="30.0">
                             <HBox.margin>
                                 <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
