@@ -22,12 +22,12 @@
 }
 
 #repeatBtn {
-    -fx-background-image: url("../img/repeat.png");
+    -fx-background-image: url("../img/no_repeat.png");
     -fx-background-size: 30px 30px;
 }
 
 #muteBtn {
-    -fx-background-image: url("../img/sound.png");
+    -fx-background-image: url("../img/volume.png");
     -fx-background-size: 30px 30px;
 }
 

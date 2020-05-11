@@ -13,6 +13,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -198,14 +199,17 @@ public class PlaybackService implements IPlaybackService {
             case REPEAT_ONLY:
                 repeatMode = REPEAT_ALL;
                 // 전체반복 이미지로 변경
+                imageService.btnImage(btnRepeat, "/img/repeat.png", 30, 30);
                 break;
             case REPEAT_ALL:
                 repeatMode = 0;
                 // 반복안함 이미지로 변경
+                imageService.btnImage(btnRepeat, "/img/no_repeat.png", 30, 30);
                 break;
             default:
                 // 한곡반복 이미지로 변경
                 repeatMode = REPEAT_ONLY;
+                imageService.btnImage(btnRepeat, "/img/repeat.png", 30, 30);
         }
     }
 
@@ -219,6 +223,12 @@ public class PlaybackService implements IPlaybackService {
          * 셔플 버튼의 이미지를 바뀔 버튼의 이미지로 변경
          * 토글 처리
          * */
+        // 셔플로 바뀐 경우, 현재 음악 제외, 모두 섞고 현재 음악은 컬렉션 앞에 추가
+        if (!shuffle) {
+            players.remove(playback);
+            Collections.shuffle(players);
+            players.add(0, playback);
+        }
         shuffle = !shuffle;
     }
 
@@ -233,8 +243,7 @@ public class PlaybackService implements IPlaybackService {
         textArea.setText(currentMusicInfo.getLyrics());
         if (currentMusicInfo.getAlbumart() != null) {
             imageView.setImage(currentMusicInfo.getAlbumart());
-        }
-        else {
+        } else {
             imageView.setImage(null);
         }
 
