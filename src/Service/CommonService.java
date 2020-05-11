@@ -3,6 +3,7 @@ package Service;
 import Controller.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -18,7 +19,8 @@ public class CommonService implements ICommonService {
 
     public CommonService() {
         // HomePage Main Form
-        urlMap.put("", "../FXML/main.fxml");
+        urlMap.put("RootScene", "../FXML/RootScene.fxml");
+        urlMap.put("Main", "../FXML/main.fxml");
         urlMap.put("btnhome", "../FXML/main.fxml");
         urlMap.put("btnlogin", "../FXML/login.fxml");
         urlMap.put("btnjoin", "../FXML/join.fxml");
@@ -92,8 +94,24 @@ public class CommonService implements ICommonService {
     }
 
     // 0508 add to musicPlayer
+    @Override
     public void changeWindow(Parent root, String btnId) {
         ((BorderPane)root).setBottom(getScene(btnId).getRoot());
+    }
+
+    @Override
+    public void changeWindow(Parent root, String btnId, Pos location) {
+        switch (location) {
+            case TOP_LEFT:
+                ((BorderPane)root).setLeft(getScene(btnId).getRoot());
+                break;
+            case CENTER:
+                ((BorderPane)root).setCenter(getScene(btnId).getRoot());
+                break;
+            case BOTTOM_CENTER:
+                ((BorderPane)root).setBottom(getScene(btnId).getRoot());
+                break;
+        }
     }
 
     @Override

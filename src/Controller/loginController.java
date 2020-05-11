@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class loginController extends AbstractController implements Initializable{
@@ -77,7 +79,7 @@ public class loginController extends AbstractController implements Initializable
 		else {
 			check(id, pw);
 			if(success==1) {
-				LoginMain();
+				LoginMain(e);
 				commonService.closeWindow(e);
 			}
 		}
@@ -142,10 +144,16 @@ public class loginController extends AbstractController implements Initializable
 	public void CancelProc(ActionEvent e) {
 		commonService.closeWindow(e);
 	}
-	public void LoginMain() {
-		commonService.openWindow("LoginSuccess");
+	public void LoginMain(ActionEvent event) {
+//		commonService.openWindow("LoginSuccess");
+		AbstractController controller = commonService.getController("RootScene.fxml");
+//-> 수정해야할 부분
+//		Parent root = (Parent)event.getSource();
+//		commonService.changeWindow(root, "LoginSuccess", Pos.CENTER);
 	}
+
 	private void SendData() {
+		// -> 수정해야 할 부분
 		AbstractController controller = commonService.getController("loginmain.fxml");
 		controller.setText(idid, namename, songsong);
 

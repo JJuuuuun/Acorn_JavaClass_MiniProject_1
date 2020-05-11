@@ -2,6 +2,7 @@ package Service;
 
 import Controller.AbstractController;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 
 public interface ICommonService {
@@ -19,5 +20,5 @@ public interface ICommonService {
     void changeWindow(Parent root, String btnId);
 
     // add to musicPlayer to fix location
-
+    void changeWindow(Parent root, String btnId, Pos location);
 }
