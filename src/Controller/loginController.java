@@ -11,6 +11,8 @@ import java.util.ResourceBundle;
 
 import Service.CommonService;
 import Service.ICommonService;
+import Service.IMenuBarService;
+import Service.MenuBarService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,9 +60,7 @@ public class loginController extends AbstractController implements Initializable
 				e1.printStackTrace();
 			}
 		});
-		btncancel.setOnAction(e->{
-			CancelProc(e);
-		});
+		btncancel.setOnAction(this::CancelProc);
 		
 	}
 	public void LoginProc(ActionEvent e) throws IOException {
@@ -144,8 +144,9 @@ public class loginController extends AbstractController implements Initializable
 	}
 	public void LoginMain() {
 		// 수정중
-		commonService.openWindow("LoginSuccess");
+//		commonService.openWindow("LoginSuccess");
 		AbstractController controller = commonService.getController("RootScene.fxml");
+		System.out.println(controller.getClass()); // test code
 		commonService.changeWindow(controller.getRoot(), "LoginSuccess", Pos.TOP_LEFT);
 	}
 
@@ -153,7 +154,7 @@ public class loginController extends AbstractController implements Initializable
 		// 수정중
 		AbstractController controller = commonService.getController("loginmain.fxml");
 		controller.setText(idid, namename, songsong);
-		System.out.println("Data transmission success");
+		System.out.println("Data transmission success"); // test code
 	}
 	private void setData() {
 		String id = textid.getText();

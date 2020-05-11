@@ -122,7 +122,6 @@ public class CommonService implements ICommonService {
     public AbstractController getController(String fxmlName) {
         if(controllerMap.get(fxmlName) != null)
             return controllerMap.get(fxmlName);
-
         return makeController(fxmlName.replace(".fxml", ""));
     }
 

@@ -45,7 +45,6 @@ public class Controller extends AbstractController implements Initializable {
 
 		btnlogin.setOnAction(e->{
 			loginProc();
-//			loginSuccess(e);
 		});
 
 		btnjoin.setOnAction(this::joinProc);
@@ -97,7 +96,6 @@ public class Controller extends AbstractController implements Initializable {
 
 	public void eventProc(ActionEvent event) {
 		menuBarService.eventProc(event);
-		menuBarService.isCurrentUser(root);
 	}
 
 	//0508 add to musicPlayer
