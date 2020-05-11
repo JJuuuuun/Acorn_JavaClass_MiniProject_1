@@ -49,6 +49,7 @@ public class CommonService implements ICommonService {
         urlMap.put("PlayInfo","../FXML/PlayInfo.fxml");
         urlMap.put("Settings", "../FXML/Settings.fxml");
         urlMap.put("About", "../Form/Version.fxml");
+
     }
 
     private Scene getScene(String btnId) {

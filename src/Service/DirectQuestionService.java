@@ -90,7 +90,7 @@ public class DirectQuestionService implements IDirectQuestionService {
             Parent root = (Parent) event.getSource();
             Parent form = root.getScene().getRoot();
             ComboBox<String> combo = (ComboBox) form.lookup("#Title_ComboBox");
-            TextArea txt = (TextArea) form.lookup("#Question_TxtArea");
+            TextArea textArea = (TextArea) form.lookup("#Question_TxtArea");
 
             combo.setPromptText("이전에 문의하신 내용입니다.");
             combo.setValue(null);
@@ -102,7 +102,7 @@ public class DirectQuestionService implements IDirectQuestionService {
                 history += "\n============================================\n";
             }
 
-            txt.setText(history);
+            textArea.setText(history);
 
             return true;
         }

@@ -18,4 +18,6 @@ public interface ICommonService {
     // add to musicPlayer
     void changeWindow(Parent root, String btnId);
 
+    // add to musicPlayer to fix location
+
 }

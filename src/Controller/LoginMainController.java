@@ -48,7 +48,7 @@ public class LoginMainController extends AbstractController implements Initializ
 	public int ok=0;
 	
 	final static String DRIVER = "org.sqlite.JDBC";
-	final static String DB = "jdbc:sqlite:C:/Users/user/Desktop/login.db";
+	final static String DB = "jdbc:sqlite:src/resources/login.db";
 	Connection conn;
 	Parent root;
 	ICommonService commonService;

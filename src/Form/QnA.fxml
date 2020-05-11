@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.QnAController">
    <children>
-      <Accordion fx:id="QnATitles" layoutX="90.0" layoutY="36.0" prefHeight="250.0" prefWidth="220.0">
+      <Accordion fx:id="QnATitles" layoutX="90.0" layoutY="36.0">
         <panes>
           <TitledPane animated="false" text="회원가입" wrapText="true">
             <content>

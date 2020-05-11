@@ -35,7 +35,7 @@ public class loginController extends AbstractController implements Initializable
 	public int check=6554, success=0;
 	
 	final static String DRIVER = "org.sqlite.JDBC";
-	final static String DB = "jdbc:sqlite:C:/Users/jun/Desktop/DBSQLite/Database/login.db";
+	final static String DB = "jdbc:sqlite:src/resources/login.db";
 	Connection conn;
 	Parent root;
 	ICommonService commonService;
@@ -57,7 +57,7 @@ public class loginController extends AbstractController implements Initializable
 			}
 		});
 		btncancel.setOnAction(e->{
-			MainView();
+//			MainView();
 			CancelProc(e);
 		});
 		
