@@ -46,8 +46,9 @@ public interface IPlaybackService {
 
     /**
      * 셔플 상태를 설정함
+     * @param event Event
      */
-    void shuffle();
+    void shuffle(Event event);
 
     void setMute(Event event);
 
