@@ -15,8 +15,6 @@ public class Main extends Application {
         commonService.openWindow("RootScene");
 
         AbstractController controller = commonService.getController("RootScene.fxml");
-        if (controller == null)
-            System.out.println("null");
         commonService.changeWindow(controller.getRoot(), "Player", Pos.BOTTOM_CENTER);
         commonService.changeWindow(controller.getRoot(), "Main", Pos.TOP_LEFT);
     }

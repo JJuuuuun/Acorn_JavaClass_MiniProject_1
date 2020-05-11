@@ -13,6 +13,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -56,16 +57,12 @@ public class Controller extends AbstractController implements Initializable {
 		btnmv.setOnAction(this::changeWindow3);
 
 		btnhome.setOnAction(e->{
-//			loginSuccess(e);
-//			HomeProc();
-
-			// 초기화면 FXML을 제작해야함.
-//			commonService.changeWindow(e,"Cancel");
+			commonService.changeWindow(root.getScene().getRoot(), "RootScene", Pos.CENTER);
 		});
 
 	}
 	public void loginProc() {
-		commonService.openWindow(btnlogin.getId());
+		commonService.changeWindow(root.getScene().getRoot(), "btnlogin", Pos.CENTER);
 	}
 
 	public void HomeProc() {

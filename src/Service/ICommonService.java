@@ -16,9 +16,6 @@ public interface ICommonService {
 
     // 0508 add
     AbstractController getController(String fxmlName);
-    // add to musicPlayer
-    void changeWindow(Parent root, String btnId);
-
     // add to musicPlayer to fix location
     void changeWindow(Parent root, String btnId, Pos location);
 }

@@ -59,7 +59,6 @@ public class loginController extends AbstractController implements Initializable
 			}
 		});
 		btncancel.setOnAction(e->{
-//			MainView();
 			CancelProc(e);
 		});
 		
@@ -79,8 +78,7 @@ public class loginController extends AbstractController implements Initializable
 		else {
 			check(id, pw);
 			if(success==1) {
-				LoginMain(e);
-				commonService.closeWindow(e);
+				LoginMain();
 			}
 		}
 	}
@@ -144,19 +142,18 @@ public class loginController extends AbstractController implements Initializable
 	public void CancelProc(ActionEvent e) {
 		commonService.closeWindow(e);
 	}
-	public void LoginMain(ActionEvent event) {
-//		commonService.openWindow("LoginSuccess");
+	public void LoginMain() {
+		// 수정중
+		commonService.openWindow("LoginSuccess");
 		AbstractController controller = commonService.getController("RootScene.fxml");
-//-> 수정해야할 부분
-//		Parent root = (Parent)event.getSource();
-//		commonService.changeWindow(root, "LoginSuccess", Pos.CENTER);
+		commonService.changeWindow(controller.getRoot(), "LoginSuccess", Pos.TOP_LEFT);
 	}
 
 	private void SendData() {
-		// -> 수정해야 할 부분
+		// 수정중
 		AbstractController controller = commonService.getController("loginmain.fxml");
 		controller.setText(idid, namename, songsong);
-
+		System.out.println("Data transmission success");
 	}
 	private void setData() {
 		String id = textid.getText();
