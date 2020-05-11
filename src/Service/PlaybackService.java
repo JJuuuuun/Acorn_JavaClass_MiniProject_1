@@ -245,9 +245,9 @@ public class PlaybackService implements IPlaybackService {
         ToggleButton button = (ToggleButton) parent.lookup("#likeBtn");
         boolean liked = dataManager.getLiked(idMap.get(playback));
         if (liked) {
-            imageService.btnImage(button, "/img/like2.png", 40, 40);
+            imageService.btnImage(button, "/img/liked.png", 40, 40);
         } else
-            imageService.btnImage(button, "/img/like.png", 40, 40);
+            imageService.btnImage(button, "/img/not_liked.png", 40, 40);
         button.setSelected(liked);
     }
 
@@ -256,9 +256,9 @@ public class PlaybackService implements IPlaybackService {
         ToggleButton button = (ToggleButton) getNode(event, "#likeBtn");
         boolean newLiked = !dataManager.getLiked(idMap.get(playback));
         if (newLiked) {
-            imageService.btnImage(button, "/img/like2.png", 40, 40);
+            imageService.btnImage(button, "/img/liked.png", 40, 40);
         } else
-            imageService.btnImage(button, "/img/like.png", 40, 40);
+            imageService.btnImage(button, "/img/not_liked.png", 40, 40);
         dataManager.setLiked(idMap.get(playback), newLiked);
         button.setSelected(newLiked);
     }
@@ -270,7 +270,7 @@ public class PlaybackService implements IPlaybackService {
         if (btnMute.isSelected()) {
             imageService.btnImage(btnMute, "/img/mute.png", 30, 30);
         } else {
-            imageService.btnImage(btnMute, "/img/sound.png", 30, 30);
+            imageService.btnImage(btnMute, "/img/volume.png", 30, 30);
         }
         playback.setMute(btnMute.isSelected());
     }
