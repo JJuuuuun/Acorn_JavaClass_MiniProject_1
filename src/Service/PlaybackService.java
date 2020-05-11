@@ -215,20 +215,24 @@ public class PlaybackService implements IPlaybackService {
 
     /**
      * TBR setShuffle
+     *
+     * @param event
      */
     @Override
-    public void shuffle() {
+    public void shuffle(Event event) {
         /*
          * 셔플 모드 변경:
          * 셔플 버튼의 이미지를 바뀔 버튼의 이미지로 변경
          * 토글 처리
          * */
+        Button btnShuffle = (Button) getNode(event, "#shuffleBtn");
         // 셔플로 바뀐 경우, 현재 음악 제외, 모두 섞고 현재 음악은 컬렉션 앞에 추가
         if (!shuffle) {
             players.remove(playback);
             Collections.shuffle(players);
             players.add(0, playback);
         }
+        imageService.btnImage(btnShuffle, shuffle ? "/img/shuffle.png" : "/img/no_shuffle.png", 30, 30);
         shuffle = !shuffle;
     }
 
@@ -253,10 +257,7 @@ public class PlaybackService implements IPlaybackService {
     public void getLiked(Parent parent) {
         ToggleButton button = (ToggleButton) parent.lookup("#likeBtn");
         boolean liked = dataManager.getLiked(idMap.get(playback));
-        if (liked) {
-            imageService.btnImage(button, "/img/liked.png", 40, 40);
-        } else
-            imageService.btnImage(button, "/img/not_liked.png", 40, 40);
+        imageService.btnImage(button, liked ? "/img/liked.png" : "/img/not_liked.png", 40, 40);
         button.setSelected(liked);
     }
 
@@ -264,10 +265,7 @@ public class PlaybackService implements IPlaybackService {
     public void setLiked(ActionEvent event) {
         ToggleButton button = (ToggleButton) getNode(event, "#likeBtn");
         boolean newLiked = !dataManager.getLiked(idMap.get(playback));
-        if (newLiked) {
-            imageService.btnImage(button, "/img/liked.png", 40, 40);
-        } else
-            imageService.btnImage(button, "/img/not_liked.png", 40, 40);
+        imageService.btnImage(button, newLiked ? "/img/liked.png" : "/img/not_liked.png", 40, 40);
         dataManager.setLiked(idMap.get(playback), newLiked);
         button.setSelected(newLiked);
     }
@@ -276,11 +274,7 @@ public class PlaybackService implements IPlaybackService {
     public void setMute(Event event) {
         ToggleButton btnMute = (ToggleButton) getNode(event, "#muteBtn");
 
-        if (btnMute.isSelected()) {
-            imageService.btnImage(btnMute, "/img/mute.png", 30, 30);
-        } else {
-            imageService.btnImage(btnMute, "/img/volume.png", 30, 30);
-        }
+        imageService.btnImage(btnMute, btnMute.isSelected() ? "/img/mute.png" : "/img/volume.png", 30, 30);
         playback.setMute(btnMute.isSelected());
     }
 

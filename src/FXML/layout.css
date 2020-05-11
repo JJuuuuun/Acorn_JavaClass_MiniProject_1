@@ -32,7 +32,7 @@
 }
 
 #shuffleBtn {
-    -fx-background-image: url("../img/shuffle.png");
+    -fx-background-image: url("../img/no_shuffle.png");
     -fx-background-size: 30px 30px;
 }
 
