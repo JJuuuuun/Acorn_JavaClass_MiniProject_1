@@ -117,8 +117,8 @@ public class PlaybackService implements IPlaybackService {
                          * 일시정지 :
                          * 재생 이미지 표시
                          * */
-                        imageService.btnImage(btnPlay, "/img/play.png", 30, 30);
                         mps.interrupt();
+                        imageService.btnImage(btnPlay, "/img/play.png", 30, 30);
                     });
                 if (playback.getOnStopped() == null)
                     playback.setOnStopped(() -> {
@@ -126,12 +126,14 @@ public class PlaybackService implements IPlaybackService {
                          * 정지 :
                          * 재생 이미지 표시
                          * */
-                        imageService.btnImage(btnPlay, "/img/play.png", 30, 30);
+
+                        //
+//                        imageService.btnImage(btnPlay, "/img/play.png", 30, 30);
                         mps.interrupt();
                     });
                 if (playback.getOnEndOfMedia() == null)
                     playback.setOnEndOfMedia(() -> {
-                        // 재생 종료시 : 되감은 뒤 현재 미디어 정지, 다음 미디어
+                        // 재생 종료시 : 현재 미디어 정지, 다음 미디어
                         stop();
                         playNextMusic(event);
                     });
