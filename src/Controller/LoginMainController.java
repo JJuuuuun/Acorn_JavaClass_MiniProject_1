@@ -65,14 +65,14 @@ public class LoginMainController extends AbstractController implements Initializ
 		
 
 		btnlogout.setOnAction(e->{
-			ErrorMsg("Success", "�α׾ƿ� ����", "�α׾ƿ� �Ǿ����ϴ�.");
+			ErrorMsg("Success", "Logout Success", "Successfuly Logout.");
 			//0512 add
 			commonService.changeWindow(rootController.getRoot(), "Main", Pos.TOP_LEFT);
 			Controller mainController = (Controller) commonService.getController("main.fxml");
 			mainController.setRootController(rootController);
 		});
 		btnout.setOnAction(e->{
-			Delete("ȸ�� Ż��", "ȸ�� Ż�� ������...", "������ Ż���Ͻðڽ��ϱ�?");
+			Delete("Delete Membership", "Membership Deleting...", "Really Delete your Membership?");
 			if(ok==1) {
 				//0512 add
 				commonService.changeWindow(rootController.getRoot(), "Main", Pos.TOP_LEFT);
@@ -99,9 +99,8 @@ public class LoginMainController extends AbstractController implements Initializ
 		alert.setHeaderText(headerStr);
 		alert.setContentText(ContentTxt);
 		Optional<ButtonType> result = alert.showAndWait();
-		
 		if (result.get() == ButtonType.OK) {
-			ErrorMsg("Success", "ȸ�� Ż�� ����", "���������� Ż��Ǿ����ϴ�.");
+			ErrorMsg("Success", "Delete Success", "Successfuly Deleted");
 			DeleteProc();
 		}
 
@@ -157,7 +156,8 @@ public class LoginMainController extends AbstractController implements Initializ
 	public void setText(String name, String id, String song) {
 		lblinfo.setText("NAME = "+name);
 		lblinfo2.setText("ID = "+id);
-		lblinfo3.setText("관심 = "+song);
+		lblinfo3.setText("Favorite = "+song);
+		this.id = id;
 	}
 
 	@Override

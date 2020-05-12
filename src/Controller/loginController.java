@@ -71,11 +71,11 @@ public class loginController extends AbstractController implements Initializable
 		String pw = textpw.getText();
 		
 		if (id.equals("")) {
-			ErrorMsg("Error", "로그인에 실패했습니다", "ID를 입력하지 않았습니다.");
+			ErrorMsg("Error", "Login Fail", "You do not input ID");
 			textid.requestFocus();
 		}
 		else if (pw.equals("")) {
-			ErrorMsg("Error", "로그인에 실패했습니다", "비밀번호를 입력하지 않았습니다.");
+			ErrorMsg("Error", "Login Fail", "You do not input Password");
 			textpw.requestFocus();
 		}
 		else {
@@ -110,19 +110,19 @@ public class loginController extends AbstractController implements Initializable
 				else check=0;
 			}
 			if(check==0) {
-				ErrorMsg("Error", "로그인 실패", "존재하지 않는 ID입니다.");
+				ErrorMsg("Error", "Login Fail", "Cannot finded ID");
 				textid.clear();
 				textid.requestFocus();
 			}
 			else {
 				ResultSet rs = stmt.executeQuery(sql2);
 				if(!rs.getString(1).equals(pw)) {
-					ErrorMsg("Error", "로그인 실패", "비밀번호가 다릅니다.");
+					ErrorMsg("Error", "Login Fail", "Worng Password");
 					textpw.clear();
 					textpw.requestFocus();
 				}
 				else {
-					ErrorMsg("Success", "로그인 성공", "로그인에 성공했습니다.");
+					ErrorMsg("Success", "Login Success", "Successfuly Login");
 					success=1;
 				}
 			}
@@ -149,7 +149,7 @@ public class loginController extends AbstractController implements Initializable
 
 	public void LoginMain() {
 		commonService.changeWindow(rootController.getRoot(), "LoginSuccess", Pos.TOP_LEFT);
-		commonService.changeWindow(rootController.getRoot(), "RootScene", Pos.CENTER);	// 0512 빈화면 출력위한 임시 코드
+		commonService.changeWindow(rootController.getRoot(), "RootScene", Pos.CENTER);	// 0512 鍮덊솕硫� 異쒕젰�쐞�븳 �엫�떆 肄붾뱶
 //		System.out.println(); // test code
 	}
 
