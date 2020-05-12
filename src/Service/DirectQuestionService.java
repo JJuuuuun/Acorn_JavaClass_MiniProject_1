@@ -67,7 +67,11 @@ public class DirectQuestionService implements IDirectQuestionService {
 
         String title = null;
         String question = null;
-        if (userID == null || titleCmbo == null || questionTxt == null)
+
+        if(userID == null)
+            userID = "Anonymous";
+
+        if (titleCmbo == null || questionTxt == null)
             return null;
         else if (titleCmbo.getValue() == null || questionTxt.getText().isEmpty())
             return null;

@@ -38,6 +38,9 @@ public class Controller extends AbstractController implements Initializable {
 	ICommonService commonService;
 	IMenuBarService menuBarService;
 
+	//0512 add RootScnene Controller
+	AbstractController rootController;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		commonService = new CommonService();
@@ -62,6 +65,9 @@ public class Controller extends AbstractController implements Initializable {
 	}
 	public void loginProc() {
 		commonService.changeWindow(root.getScene().getRoot(), "btnlogin", Pos.CENTER);
+		//0512
+		loginController loginController = (loginController) commonService.getController("login.fxml");
+		loginController.setRootController(rootController);
 	}
 
 	public void HomeProc() {
@@ -96,11 +102,17 @@ public class Controller extends AbstractController implements Initializable {
 
 	public void eventProc(ActionEvent event) {
 		menuBarService.eventProc(event);
+		menuBarService.isCurrentUser(root);
 	}
 
 	//0508 add to musicPlayer
 	@Override
 	public Parent getRoot() {
 		return root;
+	}
+
+	//0512 add to control RootScene
+	public void setRootController(AbstractController controller) {
+		this.rootController = controller;
 	}
 }

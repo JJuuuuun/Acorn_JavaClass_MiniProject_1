@@ -44,6 +44,9 @@ public class loginController extends AbstractController implements Initializable
 	Parent root;
 	ICommonService commonService;
 
+	//0512 RootScnene Controller
+	AbstractController rootController;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		commonService = new CommonService();
@@ -143,18 +146,16 @@ public class loginController extends AbstractController implements Initializable
 		commonService.closeWindow(e);
 	}
 	public void LoginMain() {
-		// 수정중
-//		commonService.openWindow("LoginSuccess");
-		AbstractController controller = commonService.getController("RootScene.fxml");
-		System.out.println(controller.getClass()); // test code
-		commonService.changeWindow(controller.getRoot(), "LoginSuccess", Pos.TOP_LEFT);
+		commonService.changeWindow(rootController.getRoot(), "LoginSuccess", Pos.TOP_LEFT);
+		commonService.changeWindow(rootController.getRoot(), "RootScene", Pos.CENTER);	// 0512 빈화면 출력위한 임시 코드
+//		System.out.println(); // test code
 	}
 
 	private void SendData() {
-		// 수정중
-		AbstractController controller = commonService.getController("loginmain.fxml");
-		controller.setText(idid, namename, songsong);
-		System.out.println("Data transmission success"); // test code
+		LoginMainController loginMainController = (LoginMainController)commonService.getController("loginmain.fxml");
+		loginMainController.setText(namename, idid, songsong);
+		loginMainController.setRootController(rootController);
+//		System.out.println("Data transmission success"); // test code
 	}
 	private void setData() {
 		String id = textid.getText();
@@ -184,5 +185,10 @@ public class loginController extends AbstractController implements Initializable
 	@Override
 	public void setRoot(Parent root) {
 		this.root = root;
+	}
+
+	//0512 add to control RootScene
+	public void setRootController(AbstractController controller) {
+		this.rootController = controller;
 	}
 }
