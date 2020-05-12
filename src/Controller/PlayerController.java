@@ -32,6 +32,10 @@ public class PlayerController extends AbstractController implements Initializabl
         if (infoController != null) infoController.updateForm();
     }
 
+    public void shuffle(ActionEvent event) {
+        playbackService.setShuffle(event);
+    }
+
     public void repeat(ActionEvent event) {
         playbackService.setRepeat(event);
     }
