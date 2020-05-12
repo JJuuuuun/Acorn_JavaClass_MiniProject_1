@@ -3,12 +3,12 @@ package Service;
 import Database.DataManager;
 import Database.IDataManager;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -250,12 +250,25 @@ public class PlaybackService implements IPlaybackService {
     @Override
     public void getQueue(Parent parent) {
         ListView<String> musicList = (ListView<String>) parent.lookup("#musicQueue");
-        // HOW TO ADD MUSIC INFO?
+        queueProcess(musicList);
+    }
+
+    private void queueProcess(ListView<String> musicList) {
+        musicList.setItems(FXCollections.observableArrayList());
+        musicList.setOnMouseClicked(event -> {
+            // 적절히 이벤트 처리하기
+        });
+        players.forEach(mediaPlayer -> {
+            MusicInfo info = dataManager.getMusicInfo(idMap.get(mediaPlayer));
+            musicList.getItems().add(info.getTitle() + " - " + info.getArtist());
+        });
+
     }
 
     @Override
     public void getQueue(Event event) {
-
+        ListView<String> musicList = (ListView<String>) getNode(event, "#musicQueue");
+        queueProcess(musicList);
     }
 
     @Override

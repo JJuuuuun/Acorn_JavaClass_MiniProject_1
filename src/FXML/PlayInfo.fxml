@@ -4,13 +4,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="infoBackground" prefHeight="480.0" prefWidth="680.0"
             stylesheets="@layout.css" xmlns="http://javafx.com/javafx/8"
             fx:controller="Controller.InfoController">
     <right>
         <ScrollPane hbarPolicy="NEVER" prefHeight="400.0" prefWidth="129.0" BorderPane.alignment="CENTER">
             <content>
-                <ListView fx:id="musicQueue" prefHeight="400.0" prefWidth="130.0"/>
+                <ListView fx:id="musicQueue" prefHeight="400.0" prefWidth="130.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="비어있음"/>
+                        </FXCollections>
+                    </items>
+                </ListView>
             </content>
         </ScrollPane>
     </right>
