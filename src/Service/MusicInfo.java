@@ -34,7 +34,6 @@ public class MusicInfo {
         } catch (MalformedURLException | URISyntaxException e) {
             e.printStackTrace();
         }
-        System.out.println(this.toString());
     }
 
     public Image getAlbumart() {

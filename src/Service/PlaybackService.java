@@ -98,7 +98,7 @@ public class PlaybackService implements IPlaybackService {
                                 try {
                                     Thread.sleep(300);
                                 } catch (InterruptedException e) {
-                                    Thread.currentThread().interrupt();
+                                    System.out.println(e.getMessage());
                                 }
                                 // 음악 현재시간 설정
                                 double current = playback.getCurrentTime().toSeconds();
