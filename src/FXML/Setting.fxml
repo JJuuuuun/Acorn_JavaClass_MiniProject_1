@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane  prefHeight="379.0" prefWidth="410.0"
+          tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+fx:controller="Controller.SettingsController">
+  <tabs>
+    <Tab text="음질 설정">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="30.0" layoutY="25.0" text="스트리밍 음질 설정">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <RadioButton layoutX="30.0" layoutY="62.0" mnemonicParsing="false" text="AAC 128K" />
+                  <RadioButton layoutX="235.0" layoutY="62.0" mnemonicParsing="false" text="AAC 320K" />
+                  <RadioButton layoutX="133.0" layoutY="62.0" mnemonicParsing="false" text="MP3 320K" />
+                  <Label layoutX="30.0" layoutY="111.0" text="고음질  음질 설정">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <RadioButton disable="true" layoutX="30.0" layoutY="148.0" mnemonicParsing="false" text="고음질(FLAC16bit) 선택" />
+                  <Line endX="270.0" layoutX="115.0" layoutY="179.0" startX="-100.0" />
+                  <Label layoutX="14.0" layoutY="196.0" text="AAC 320은 FLAC에 근접한 수준의 음질로 감상할 수 있습니다." />
+                  <Label layoutX="14.0" layoutY="220.0" text="네트워크 신호가 약할 경우 재생 중 끊김 현상 혹은 다음 곡으로의" />
+                  <Label layoutX="16.0" layoutY="237.0" text="연결이 지연될 수 있습니다" />
+                  <Label layoutX="12.0" layoutY="262.0" text="곡에 따라 설정한 음질이 없는 경우, 한 단계 아래 음질로 재생 됩니다." />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="다운로드 설정">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="30.0" layoutY="25.0" text="다운로드 음질 설정">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <RadioButton layoutX="30.0" layoutY="79.0" mnemonicParsing="false" text="192K" />
+                  <RadioButton layoutX="179.0" layoutY="79.0" mnemonicParsing="false" text="320K" />
+                  <Label layoutX="16.0" layoutY="149.0" text="설정한 음질이 없을 경우, 한 단계 아래로 다운로드 됩니다." />
+                  <Line endX="270.0" layoutX="117.0" layoutY="122.0" startX="-100.0" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab text="재생목록 설정">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="30.0" layoutY="25.0" text="재생 목록 곡 담기">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="30.0" layoutY="105.0" text="중복 곡 담기">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="30.0" layoutY="185.0" text="기존 재생 목록 삭제">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Group>
+                     <children>
+                        <RadioButton layoutX="170.0" layoutY="60.0" mnemonicParsing="false" text="재생중인 곡 바로 뒤" />
+                        <RadioButton layoutX="30.0" layoutY="60.0" mnemonicParsing="false" text="맨 처음" />
+                        <RadioButton layoutX="100.0" layoutY="60.0" mnemonicParsing="false" text="맨 끝" />
+                     </children>
+                  </Group>
+                  <Group>
+                     <children>
+                        <RadioButton layoutX="153.0" layoutY="145.0" mnemonicParsing="false" text="삭제하고 담기" />
+                        <RadioButton layoutX="30.0" layoutY="145.0" mnemonicParsing="false" text="포함하고 담기" />
+                     </children>
+                  </Group>
+                  <Group>
+                     <children>
+                        <RadioButton layoutX="30.0" layoutY="225.0" mnemonicParsing="false" text="재생목록 유지" />
+                        <RadioButton layoutX="153.0" layoutY="225.0" mnemonicParsing="false" text="재생목록 삭제" />
+                     </children>
+                  </Group>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="캐시 관리">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="302.0" prefWidth="393.0">
+               <children>
+                  <Label layoutX="44.0" layoutY="54.0" text="음원 파일 삭제">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="179.0" layoutY="42.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="83.0" text="삭제" />
+                  <Line endX="270.0" layoutX="115.0" layoutY="130.0" startX="-100.0" />
+                  <Label layoutX="22.0" layoutY="149.0" text="임시 저장된 캐시 파일을 삭제합니다" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>

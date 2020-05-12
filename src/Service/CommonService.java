@@ -50,8 +50,8 @@ public class CommonService implements ICommonService {
         // Player Form
         urlMap.put("Player","../FXML/Player.fxml");
         urlMap.put("PlayInfo","../FXML/PlayInfo.fxml");
-        urlMap.put("Settings", "../FXML/Settings.fxml");
-        urlMap.put("About", "../FXML/Version.fxml");
+        urlMap.put("Settings", "../FXML/Setting.fxml");
+        urlMap.put("About", "../FXML/Abouts.fxml");
 
         // Payment & Coupon Form
         urlMap.put("btnpay", "../FXML/pay.fxml");

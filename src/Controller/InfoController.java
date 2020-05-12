@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class InfoController extends AbstractController implements Initializable {
+    //
     Parent root;
     ICommonService comServ;
     IPlaybackService playbackService;
