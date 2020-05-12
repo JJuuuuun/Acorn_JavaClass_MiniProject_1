@@ -10,7 +10,7 @@ public class MenuBarService implements IMenuBarService{
     private ICommonService comn;
 
     // 현재 로그인한 유저를 기억하기 위한 변수
-    private String userId;
+    private static String userId;
 
     public MenuBarService() {
         comn = new CommonService();
@@ -37,7 +37,7 @@ public class MenuBarService implements IMenuBarService{
         try {
             userId = currentUser.getText().substring(5);
         } catch (NullPointerException e) {}
-
+        // 0512 수정 진행중..
 //        System.out.println("userId is " + userId); // test code
     }
 
