@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity"
+ maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
+ prefHeight="68.0" prefWidth="322.0" xmlns="http://javafx.com/javafx/8" 
+ xmlns:fx="http://javafx.com/fxml/1"
+ fx:controller="Controller.CouponController">
+   <children>
+      <TextField fx:id="couponnum" layoutX="23.0" layoutY="23.0" prefHeight="23.0" prefWidth="193.0" promptText="쿠폰번호를 입력해주세요" />
+      <Button onAction="#btnTest" fx:id="Btncouponfin" layoutX="236.0" layoutY="23.0" mnemonicParsing="false" text="입력완료" />
+   </children>
+</AnchorPane>

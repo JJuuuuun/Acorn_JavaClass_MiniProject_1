@@ -53,11 +53,14 @@ public class CommonService implements ICommonService {
         urlMap.put("Settings", "../FXML/Settings.fxml");
         urlMap.put("About", "../FXML/Version.fxml");
 
+        // Payment & Coupon Form
+        urlMap.put("btnpay", "../FXML/pay.fxml");
+        urlMap.put("BtnCoupon", "../FXML/coupon.fxml");
     }
 
     private Scene getScene(String btnId) {
         String url = urlMap.get(btnId);
-//        System.out.println(url); //test code
+        System.out.println(url); //test code
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Parent root = null;
         try {

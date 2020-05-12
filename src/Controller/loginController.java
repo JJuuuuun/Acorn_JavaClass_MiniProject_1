@@ -143,8 +143,10 @@ public class loginController extends AbstractController implements Initializable
 		commonService.openWindow(btncancel.getId());
 	}
 	public void CancelProc(ActionEvent e) {
-		commonService.closeWindow(e);
+//		commonService.closeWindow(e);
+		commonService.changeWindow(rootController.getRoot(), "RootScene", Pos.CENTER);
 	}
+
 	public void LoginMain() {
 		commonService.changeWindow(rootController.getRoot(), "LoginSuccess", Pos.TOP_LEFT);
 		commonService.changeWindow(rootController.getRoot(), "RootScene", Pos.CENTER);	// 0512 빈화면 출력위한 임시 코드

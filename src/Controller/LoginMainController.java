@@ -87,6 +87,11 @@ public class LoginMainController extends AbstractController implements Initializ
 		btnhome1.setOnAction(e->{
 			commonService.changeWindow(rootController.getRoot(), "RootScene", Pos.CENTER);
 		});
+
+		btnpay.setOnAction(e ->{
+			Button btn = (Button)e.getSource();
+			commonService.openWindow(btn.getId());
+		});
 	}
 	public void Delete(String title, String headerStr, String ContentTxt) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
