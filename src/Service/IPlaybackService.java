@@ -51,10 +51,22 @@ public interface IPlaybackService {
      */
     void setShuffle(Event event);
 
+    /**
+     *
+     * @param event
+     */
     void setMute(Event event);
 
+    /**
+     *
+     * @param event
+     */
     void setVolume(Event event);
 
+    /**
+     *
+     * @param event
+     */
     void seek(Event event);
 
     /**
