@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-
-<BorderPane fx:id="infoBackground" prefHeight="480.0" prefWidth="680.0" stylesheets="@layout.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.InfoController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="infoBackground" prefHeight="480.0" prefWidth="680.0"
+            stylesheets="@layout.css" xmlns="http://javafx.com/javafx/8"
+            fx:controller="Controller.InfoController">
     <right>
         <ScrollPane hbarPolicy="NEVER" prefHeight="400.0" prefWidth="129.0" BorderPane.alignment="CENTER">
             <content>
-                <ListView prefHeight="400.0" prefWidth="130.0" />
+                <ListView fx:id="musicQueue" prefHeight="400.0" prefWidth="130.0"/>
             </content>
         </ScrollPane>
     </right>
@@ -21,48 +19,58 @@
             <children>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <VBox alignment="CENTER" prefHeight="89.0" prefWidth="160.0" />
+                        <VBox alignment="CENTER" prefHeight="89.0" prefWidth="160.0"/>
                         <VBox alignment="CENTER" prefHeight="89.0" prefWidth="160.0">
                             <children>
-                                <Label fx:id="title" alignment="CENTER" text="노래제목" />
-                                <Label fx:id="artist" alignment="CENTER" prefHeight="24.0" prefWidth="91.0" text="아티스트 명" />
+                                <Label fx:id="title" alignment="CENTER" text="노래제목"/>
+                                <Label fx:id="artist" alignment="CENTER" prefHeight="24.0" prefWidth="91.0"
+                                       text="아티스트 명"/>
                             </children>
                         </VBox>
                         <VBox alignment="TOP_RIGHT" prefHeight="89.0" prefWidth="160.0">
                             <children>
-                                <Button fx:id="setBtn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#settings" />
-                                <Label text="환경설정" />
+                                <Button fx:id="setBtn" alignment="TOP_CENTER" mnemonicParsing="false"
+                                        onAction="#settings"/>
+                                <Label text="환경설정"/>
                             </children>
                         </VBox>
                     </children>
                 </HBox>
                 <HBox alignment="TOP_CENTER" prefHeight="323.0" prefWidth="473.0">
                     <children>
-                        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="225.0">
+                        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                   prefHeight="225.0" prefWidth="225.0">
                             <children>
-                                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="217.0" prefWidth="226.0">
+                                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                            minWidth="-Infinity" prefHeight="217.0" prefWidth="226.0">
                                     <StackPane.margin>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                     </StackPane.margin>
                                     <children>
-                                        <ImageView fx:id="album" fitHeight="225.0" fitWidth="225.0" pickOnBounds="true" preserveRatio="true" />
-                                        <Button fx:id="aboutBtn" layoutX="212.0" layoutY="1.0" mnemonicParsing="false" onAction="#about" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                                        <ToggleButton fx:id="likeBtn" layoutY="1.0" mnemonicParsing="false" onAction="#like" prefHeight="40.0" prefWidth="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                        <ImageView fx:id="album" fitHeight="225.0" fitWidth="225.0" pickOnBounds="true"
+                                                   preserveRatio="true"/>
+                                        <Button fx:id="aboutBtn" layoutX="212.0" layoutY="1.0" mnemonicParsing="false"
+                                                onAction="#about" AnchorPane.rightAnchor="5.0"
+                                                AnchorPane.topAnchor="5.0"/>
+                                        <ToggleButton fx:id="likeBtn" layoutY="1.0" mnemonicParsing="false"
+                                                      onAction="#like" prefHeight="40.0" prefWidth="40.0"
+                                                      AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0"/>
                                     </children>
                                 </AnchorPane>
                             </children>
                             <HBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </StackPane>
-                        <TextArea fx:id="lyrics" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="225.0">
+                        <TextArea fx:id="lyrics" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                  minWidth="-Infinity" prefHeight="225.0" prefWidth="225.0">
                             <HBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </HBox.margin>
                         </TextArea>
                     </children>
                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </VBox.margin>
                 </HBox>
             </children>

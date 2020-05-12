@@ -10,8 +10,8 @@
 }
 
 /* Player */
-
-#infoBackground {
+#infoBackground, #playerBackground{
+    -fx-background-color: mintcream;
 }
 
 #prevBtn {
@@ -77,11 +77,7 @@
 /* 프로그레스바 색 변경 */
 
 #volumeSlider {
-    -fx-accent: lightgreen;
-    -fx-background-color: ffffff;
-    -fx-padding: 0;
 }
 
 #timeSlider {
-    -fx-accent: violet;
 }

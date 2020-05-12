@@ -249,6 +249,8 @@ public class PlaybackService implements IPlaybackService {
 
     @Override
     public void getQueue(Parent parent) {
+        ListView<String> musicList = (ListView<String>) parent.lookup("#musicQueue");
+        // HOW TO ADD MUSIC INFO?
     }
 
     @Override
