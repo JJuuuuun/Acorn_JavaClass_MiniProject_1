@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DBConnector {
     final String DRIVER = "org.sqlite.JDBC";
-    final String DB = "jdbc:sqlite:C:/Users/jun/Desktop/DBSQLite/Database/Question.db";
+    final String DB = "jdbc:sqlite:src/resources/Question.db";
     final String storeSQL = "Insert into Question " +
                             "(userID, title, question) " +
                             "Values (?, ?, ?);";

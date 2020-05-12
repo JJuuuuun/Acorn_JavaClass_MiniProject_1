@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="701.0" prefWidth="471.0"
+            xmlns="http://javafx.com/javafx/8"
+            fx:controller="Controller.PaymentController">
+    <children>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text"/>
+        <Text layoutX="52.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="이용권목록">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Text>
+        <Text layoutX="52.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="결제방법">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Text>
+        <Text layoutX="172.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="이용권구매">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Text>
+        <Button fx:id="Btnpromise" layoutX="225.0" layoutY="531.0" mnemonicParsing="false" prefHeight="32.0"
+                prefWidth="90.0" text="약관보기"/>
+        <Button fx:id="BtnExit" layoutX="200.0" layoutY="625.0" mnemonicParsing="false" text="결제">
+            <font>
+                <Font size="23.0"/>
+            </font>
+        </Button>
+        <CheckBox layoutX="62.0" layoutY="539.0" mnemonicParsing="false" text="약관에 동의합니다."/>
+        <CheckBox layoutX="62.0" layoutY="578.0" mnemonicParsing="false" text="매월 정기결제에 동의합니다."/>
+        <RadioButton layoutX="52.0" layoutY="273.0" mnemonicParsing="false" text="휴대폰결제">
+            <toggleGroup>
+                <ToggleGroup fx:id="KoPay"/>
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton layoutX="186.0" layoutY="273.0" mnemonicParsing="false" text="카드결제" toggleGroup="$KoPay"/>
+        <RadioButton layoutX="303.0" layoutY="273.0" mnemonicParsing="false" text="상품권" toggleGroup="$KoPay"/>
+        <Button fx:id="BtnCoupon" layoutX="298.0" layoutY="333.0" mnemonicParsing="false" prefHeight="35.0"
+                prefWidth="90.0" text="쿠폰등록"/>
+        <Label fx:id="OGmoney" layoutX="51.0" layoutY="407.0" text="Label">
+            <font>
+                <Font size="23.0"/>
+            </font>
+        </Label>
+        <Label fx:id="lblcoupon" layoutX="172.0" layoutY="407.0" text="Label">
+            <font>
+                <Font size="23.0"/>
+            </font>
+        </Label>
+        <Label fx:id="Resultmoney" layoutX="318.0" layoutY="407.0" text="Label">
+            <font>
+                <Font size="23.0"/>
+            </font>
+        </Label>
+        <Text layoutX="136.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="6.36474609375">
+            <font>
+                <Font size="11.0"/>
+            </font>
+        </Text>
+        <Text layoutX="81.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="쿠폰이 있으시다면 등록해주세요"/>
+        <ToggleButton fx:id="Btn6m" layoutX="78.0" layoutY="176.0" mnemonicParsing="false" prefHeight="32.0"
+                      prefWidth="120.0" text="6개월권">
+            <toggleGroup>
+                <ToggleGroup fx:id="month"/>
+            </toggleGroup>
+        </ToggleButton>
+        <ToggleButton fx:id="Btn3m" layoutX="222.0" layoutY="131.0" mnemonicParsing="false" prefHeight="32.0"
+                      prefWidth="120.0" text="3개월권" toggleGroup="$month"/>
+        <ToggleButton fx:id="Btn12m" layoutX="223.0" layoutY="176.0" mnemonicParsing="false" prefHeight="32.0"
+                      prefWidth="120.0" text="12개월권" toggleGroup="$month"/>
+        <ToggleButton fx:id="Btn1m" layoutX="78.0" layoutY="131.0" mnemonicParsing="false" prefHeight="32.0"
+                      prefWidth="120.0" text="1개월권" toggleGroup="$month"/>
+        <Text layoutX="65.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" text="결제금액"/>
+        <Text layoutX="178.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="할인금액"/>
+        <Text layoutX="324.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="총금액"/>
+    </children>
+</AnchorPane>

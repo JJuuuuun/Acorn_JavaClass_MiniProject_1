@@ -3,6 +3,7 @@ package Service;
 import Controller.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -18,7 +19,8 @@ public class CommonService implements ICommonService {
 
     public CommonService() {
         // HomePage Main Form
-        urlMap.put("", "../FXML/main.fxml");
+        urlMap.put("RootScene", "../FXML/RootScene.fxml");
+        urlMap.put("Main", "../FXML/main.fxml");
         urlMap.put("btnhome", "../FXML/main.fxml");
         urlMap.put("btnlogin", "../FXML/login.fxml");
         urlMap.put("btnjoin", "../FXML/join.fxml");
@@ -32,6 +34,7 @@ public class CommonService implements ICommonService {
         urlMap.put("btnlogout", "../FXML/main.fxml");
 
         // loginMain page Form
+        urlMap.put("loginmain", "../FXML/loginmain.fxml");
         urlMap.put("btnhome1", "../FXML/loginmain.fxml");
         urlMap.put("btnout", "../FXML/main.fxml");
         urlMap.put("btnchart1" ,"../FXML/chart.fxml");
@@ -39,21 +42,25 @@ public class CommonService implements ICommonService {
         urlMap.put("btnmv1", "../FXML/mv.fxml");
 
         // Help & Version Form
-        urlMap.put("Help_Btn", "../Form/Help.fxml");
-        urlMap.put("Version_Btn", "../Form/Version.fxml");
-        urlMap.put("DirectQuestion_Btn", "../Form/DirectQuestion.fxml");
-        urlMap.put("QnA_Btn", "../Form/QnA.fxml");
+        urlMap.put("Help_Btn", "../FXML/Help.fxml");
+        urlMap.put("Version_Btn", "../FXML/Version.fxml");
+        urlMap.put("DirectQuestion_Btn", "../FXML/DirectQuestion.fxml");
+        urlMap.put("QnA_Btn", "../FXML/QnA.fxml");
 
         // Player Form
         urlMap.put("Player","../FXML/Player.fxml");
         urlMap.put("PlayInfo","../FXML/PlayInfo.fxml");
         urlMap.put("Settings", "../FXML/Settings.fxml");
-        urlMap.put("About", "../Form/Version.fxml");
+        urlMap.put("About", "../FXML/Version.fxml");
+
+        // Payment & Coupon Form
+        urlMap.put("btnpay", "../FXML/pay.fxml");
+        urlMap.put("BtnCoupon", "../FXML/coupon.fxml");
     }
 
     private Scene getScene(String btnId) {
         String url = urlMap.get(btnId);
-//        System.out.println(url); //test code
+        System.out.println(url); //test code
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Parent root = null;
         try {
@@ -91,8 +98,19 @@ public class CommonService implements ICommonService {
     }
 
     // 0508 add to musicPlayer
-    public void changeWindow(Parent root, String btnId) {
-        ((BorderPane)root).setBottom(getScene(btnId).getRoot());
+    @Override
+    public void changeWindow(Parent root, String btnId, Pos location) {
+        switch (location) {
+            case TOP_LEFT:
+                ((BorderPane)root).setLeft(getScene(btnId).getRoot());
+                break;
+            case CENTER:
+                ((BorderPane)root).setCenter(getScene(btnId).getRoot());
+                break;
+            case BOTTOM_CENTER:
+                ((BorderPane)root).setBottom(getScene(btnId).getRoot());
+                break;
+        }
     }
 
     @Override
@@ -102,8 +120,27 @@ public class CommonService implements ICommonService {
         stage.close();
     }
 
+    // 0511 수정
     @Override
     public AbstractController getController(String fxmlName) {
-        return controllerMap.get(fxmlName);
+        if(controllerMap.get(fxmlName) != null)
+            return controllerMap.get(fxmlName);
+        return makeController(fxmlName.replace(".fxml", ""));
+    }
+
+    // 0511 추가
+    private AbstractController makeController(String originFxmlName) {
+        // makeController 메소드 사용시 찾아낼 url을 잘 확인하고 사용할 것.
+        String url = urlMap.get(originFxmlName);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AbstractController controller = loader.getController();
+        controller.setRoot(root);
+        return controller;
     }
 }

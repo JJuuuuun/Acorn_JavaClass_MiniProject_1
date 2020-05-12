@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -48,11 +49,14 @@ public class LoginMainController extends AbstractController implements Initializ
 	public int ok=0;
 	
 	final static String DRIVER = "org.sqlite.JDBC";
-	final static String DB = "jdbc:sqlite:C:/Users/user/Desktop/login.db";
+	final static String DB = "jdbc:sqlite:src/resources/login.db";
 	Connection conn;
 	Parent root;
 	ICommonService commonService;
 	IMenuBarService menuBarService;
+
+	//0512 RootScnene Controller
+	AbstractController rootController;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -62,14 +66,18 @@ public class LoginMainController extends AbstractController implements Initializ
 
 		btnlogout.setOnAction(e->{
 			ErrorMsg("Success", "�α׾ƿ� ����", "�α׾ƿ� �Ǿ����ϴ�.");
-			logoutProc(e);
-			logoutsuccess();
+			//0512 add
+			commonService.changeWindow(rootController.getRoot(), "Main", Pos.TOP_LEFT);
+			Controller mainController = (Controller) commonService.getController("main.fxml");
+			mainController.setRootController(rootController);
 		});
 		btnout.setOnAction(e->{
 			Delete("ȸ�� Ż��", "ȸ�� Ż�� ������...", "������ Ż���Ͻðڽ��ϱ�?");
 			if(ok==1) {
-				logoutProc(e);
-				logoutsuccess();
+				//0512 add
+				commonService.changeWindow(rootController.getRoot(), "Main", Pos.TOP_LEFT);
+				Controller mainController = (Controller) commonService.getController("main.fxml");
+				mainController.setRootController(rootController);
 			}
 		});
 		btnchart1.setOnAction(this::changeWindow1);
@@ -77,8 +85,12 @@ public class LoginMainController extends AbstractController implements Initializ
 		btnmv1.setOnAction(this::changeWindow3);
 
 		btnhome1.setOnAction(e->{
-			logoutProc(e);
-			HomeProc();
+			commonService.changeWindow(rootController.getRoot(), "RootScene", Pos.CENTER);
+		});
+
+		btnpay.setOnAction(e ->{
+			Button btn = (Button)e.getSource();
+			commonService.openWindow(btn.getId());
 		});
 	}
 	public void Delete(String title, String headerStr, String ContentTxt) {
@@ -155,5 +167,11 @@ public class LoginMainController extends AbstractController implements Initializ
 
 	public void eventProc(ActionEvent event) {
 		menuBarService.eventProc(event);
+		menuBarService.isCurrentUser(root);
+	}
+
+	//0512 add to control RootScene
+	public void setRootController(AbstractController controller) {
+		this.rootController = controller;
 	}
 }

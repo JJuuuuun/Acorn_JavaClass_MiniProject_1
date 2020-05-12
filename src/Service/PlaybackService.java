@@ -3,6 +3,7 @@ package Service;
 import Database.DataManager;
 import Database.IDataManager;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Node;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PlaybackService implements IPlaybackService {
-    private final List<MediaPlayer> players = new ArrayList<>();
+    private final List<MediaPlayer> players;
     // 플레이어 구성요소
     private final ImageService imageService;
     private final Map<MediaPlayer, Integer> idMap;
@@ -45,6 +46,7 @@ public class PlaybackService implements IPlaybackService {
      * 현재 생성자는 데이터베이스에서 모든 음악을 가져오도록 설정되어있음.
      */
     public PlaybackService() {
+        players = new ArrayList<>();
         imageService = new ImageServiceimpl();
         dataManager = new DataManager();
         idMap = dataManager.getAllMusics();
@@ -96,7 +98,7 @@ public class PlaybackService implements IPlaybackService {
                                 try {
                                     Thread.sleep(300);
                                 } catch (InterruptedException e) {
-                                    System.out.println(e.getMessage());
+                                    Thread.currentThread().interrupt();
                                 }
                                 // 음악 현재시간 설정
                                 double current = playback.getCurrentTime().toSeconds();
@@ -115,7 +117,7 @@ public class PlaybackService implements IPlaybackService {
                     playback.setOnPaused(() -> {
                         /*
                          * 일시정지 :
-                         * 재생 이미지 표시
+                         * 재생 이미지 표시, Thread Interrupt
                          * */
                         mps.interrupt();
                         imageService.btnImage(btnPlay, "/img/play.png", 30, 30);
@@ -123,12 +125,8 @@ public class PlaybackService implements IPlaybackService {
                 if (playback.getOnStopped() == null)
                     playback.setOnStopped(() -> {
                         /*
-                         * 정지 :
-                         * 재생 이미지 표시
+                         * 정지 : Thread Interrupt
                          * */
-
-                        //
-//                        imageService.btnImage(btnPlay, "/img/play.png", 30, 30);
                         mps.interrupt();
                     });
                 if (playback.getOnEndOfMedia() == null)
@@ -200,12 +198,10 @@ public class PlaybackService implements IPlaybackService {
         switch (repeatMode) {
             case REPEAT_ONLY:
                 repeatMode = REPEAT_ALL;
-                // 전체반복 이미지로 변경
                 imageService.btnImage(btnRepeat, "/img/repeat.png", 30, 30);
                 break;
             case REPEAT_ALL:
                 repeatMode = 0;
-                // 반복안함 이미지로 변경
                 imageService.btnImage(btnRepeat, "/img/no_repeat.png", 30, 30);
                 break;
             default:
@@ -215,13 +211,8 @@ public class PlaybackService implements IPlaybackService {
         }
     }
 
-    /**
-     * TBR setShuffle
-     *
-     * @param event
-     */
     @Override
-    public void shuffle(Event event) {
+    public void setShuffle(Event event) {
         /*
          * 셔플 모드 변경:
          * 셔플 버튼의 이미지를 바뀔 버튼의 이미지로 변경
@@ -233,6 +224,7 @@ public class PlaybackService implements IPlaybackService {
             players.remove(playback);
             Collections.shuffle(players);
             players.add(0, playback);
+            getQueue(event);
         }
         imageService.btnImage(btnShuffle, shuffle ? "/img/shuffle.png" : "/img/no_shuffle.png", 30, 30);
         shuffle = !shuffle;
@@ -252,7 +244,31 @@ public class PlaybackService implements IPlaybackService {
         } else {
             imageView.setImage(null);
         }
+        getQueue(parent);
+    }
 
+    @Override
+    public void getQueue(Parent parent) {
+        ListView<String> musicList = (ListView<String>) parent.lookup("#musicQueue");
+        queueProcess(musicList);
+    }
+
+    private void queueProcess(ListView<String> musicList) {
+        musicList.setItems(FXCollections.observableArrayList());
+        musicList.setOnMouseClicked(event -> {
+            // 적절히 이벤트 처리하기
+        });
+        players.forEach(mediaPlayer -> {
+            MusicInfo info = dataManager.getMusicInfo(idMap.get(mediaPlayer));
+            musicList.getItems().add(info.getTitle() + " - " + info.getArtist());
+        });
+
+    }
+
+    @Override
+    public void getQueue(Event event) {
+        ListView<String> musicList = (ListView<String>) getNode(event, "#musicQueue");
+        queueProcess(musicList);
     }
 
     @Override

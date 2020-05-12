@@ -11,10 +11,13 @@ import java.util.ResourceBundle;
 
 import Service.CommonService;
 import Service.ICommonService;
+import Service.IMenuBarService;
+import Service.MenuBarService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class loginController extends AbstractController implements Initializable{
@@ -35,10 +39,13 @@ public class loginController extends AbstractController implements Initializable
 	public int check=6554, success=0;
 	
 	final static String DRIVER = "org.sqlite.JDBC";
-	final static String DB = "jdbc:sqlite:C:/Users/jun/Desktop/DBSQLite/Database/login.db";
+	final static String DB = "jdbc:sqlite:src/resources/login.db";
 	Connection conn;
 	Parent root;
 	ICommonService commonService;
+
+	//0512 RootScnene Controller
+	AbstractController rootController;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -56,10 +63,7 @@ public class loginController extends AbstractController implements Initializable
 				e1.printStackTrace();
 			}
 		});
-		btncancel.setOnAction(e->{
-			MainView();
-			CancelProc(e);
-		});
+		btncancel.setOnAction(this::CancelProc);
 		
 	}
 	public void LoginProc(ActionEvent e) throws IOException {
@@ -78,7 +82,6 @@ public class loginController extends AbstractController implements Initializable
 			check(id, pw);
 			if(success==1) {
 				LoginMain();
-				commonService.closeWindow(e);
 			}
 		}
 	}
@@ -140,15 +143,21 @@ public class loginController extends AbstractController implements Initializable
 		commonService.openWindow(btncancel.getId());
 	}
 	public void CancelProc(ActionEvent e) {
-		commonService.closeWindow(e);
+//		commonService.closeWindow(e);
+		commonService.changeWindow(rootController.getRoot(), "RootScene", Pos.CENTER);
 	}
-	public void LoginMain() {
-		commonService.openWindow("LoginSuccess");
-	}
-	private void SendData() {
-		AbstractController controller = commonService.getController("loginmain.fxml");
-		controller.setText(idid, namename, songsong);
 
+	public void LoginMain() {
+		commonService.changeWindow(rootController.getRoot(), "LoginSuccess", Pos.TOP_LEFT);
+		commonService.changeWindow(rootController.getRoot(), "RootScene", Pos.CENTER);	// 0512 빈화면 출력위한 임시 코드
+//		System.out.println(); // test code
+	}
+
+	private void SendData() {
+		LoginMainController loginMainController = (LoginMainController)commonService.getController("loginmain.fxml");
+		loginMainController.setText(namename, idid, songsong);
+		loginMainController.setRootController(rootController);
+//		System.out.println("Data transmission success"); // test code
 	}
 	private void setData() {
 		String id = textid.getText();
@@ -178,5 +187,10 @@ public class loginController extends AbstractController implements Initializable
 	@Override
 	public void setRoot(Parent root) {
 		this.root = root;
+	}
+
+	//0512 add to control RootScene
+	public void setRootController(AbstractController controller) {
+		this.rootController = controller;
 	}
 }

@@ -4,12 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 public class MenuBarService implements IMenuBarService{
     private ICommonService comn;
 
     // 현재 로그인한 유저를 기억하기 위한 변수
-    private static String userId; //????????????????????????????????????
+    private static String userId;
 
     public MenuBarService() {
         comn = new CommonService();
@@ -32,9 +33,12 @@ public class MenuBarService implements IMenuBarService{
 
     @Override
     public void isCurrentUser(Parent root) {
-//       (TYPE)variable = (TYPE)root.lookup("#___");
-//       userId = variable.getText(); or variable.getValue();
-         userId = "Id sample"; // 확인을 위한 임시 데이터
+        Label currentUser = (Label) root.lookup("#lblinfo2");
+        try {
+            userId = currentUser.getText().substring(5);
+        } catch (NullPointerException e) {}
+        // 0512 수정 진행중..
+//        System.out.println("userId is " + userId); // test code
     }
 
     public String getUserId() {

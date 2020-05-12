@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+
+import Service.CommonService;
+import Service.ICommonService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,12 +36,14 @@ public class joinController extends AbstractController implements Initializable 
 	@FXML private Button btncancel;
 	public int check=0;
 	final static String DRIVER = "org.sqlite.JDBC";
-	final static String DB = "jdbc:sqlite:C:/Users/jun/Desktop/DBSQLite/Database/login.db";
+	final static String DB = "jdbc:sqlite:src/resources/login.db";
 	Connection conn;
 	Parent root;
+	ICommonService commonService;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		commonService = new CommonService();
 
 		if(cmbsong!=null) {
 			for(String item : items)
@@ -49,16 +54,14 @@ public class joinController extends AbstractController implements Initializable 
 			btncheck.setDisable(false);
 			check=0;
 		});
+
 		btncheck.setOnAction(e->{
 			String id = textid.getText();
 			idcheck(e, id);
 		});
-		btnjoin.setOnAction(e->{
-			joinProc(e);
-		});
-		btncancel.setOnAction(e->{
-			CancelProc(e);
-		});
+
+		btnjoin.setOnAction(this::joinProc);
+		btncancel.setOnAction(this::CancelProc);
 		
 	}
 	public void joinProc(ActionEvent e) {
@@ -91,7 +94,7 @@ public class joinController extends AbstractController implements Initializable 
 			ErrorMsg("Error", "ȸ�����Կ� �����߽��ϴ�", "��ȣ�ϴ� �帣�� �Է����� �ʾҽ��ϴ�.");
 			cmbsong.requestFocus();
 		}
-		else if (pwok.equals(pw)!=true) {
+		else if (!pwok.equals(pw)) {
 			ErrorMsg("Error", "ȸ�����Կ� �����߽��ϴ�", "��й�ȣ�� �ٸ��ϴ�.");
 			textpw.clear();
 			textpwok.clear();
@@ -101,9 +104,8 @@ public class joinController extends AbstractController implements Initializable 
 			InputProc(name, id, pw, song);
 			int num = (int)(Math.random()*10000);
 			ErrorMsg("Success", "ȸ�����Կ� �����߽��ϴ�.","ù ���� �����ڵ� : "+num);
-			Parent root = (Parent)e.getSource();
-			Stage stage = (Stage) root.getScene().getWindow();
-			stage.close();
+
+			commonService.closeWindow(e);
 		}
 		
 		
@@ -134,9 +136,7 @@ public class joinController extends AbstractController implements Initializable 
 			
 			pstmt.close();
 			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -159,7 +159,7 @@ public class joinController extends AbstractController implements Initializable 
 				String sql = "SELECT ids FROM member "+	
 							"WHERE ROWID ="+i;
 				ResultSet rs = stmt.executeQuery(sql);
-				if(rs.getString(1).equals(id)==true) {
+				if(rs.getString(1).equals(id)) {
 					check=0;
 					break;
 				}
@@ -176,9 +176,7 @@ public class joinController extends AbstractController implements Initializable 
 				textpw.requestFocus();
 			}
 			conn.close();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (SQLException e1) {
+		} catch (ClassNotFoundException | SQLException e1) {
 			e1.printStackTrace();
 		}
 	}

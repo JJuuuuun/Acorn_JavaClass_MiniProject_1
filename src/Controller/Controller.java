@@ -13,6 +13,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,6 +38,9 @@ public class Controller extends AbstractController implements Initializable {
 	ICommonService commonService;
 	IMenuBarService menuBarService;
 
+	//0512 add RootScnene Controller
+	AbstractController rootController;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		commonService = new CommonService();
@@ -44,12 +48,10 @@ public class Controller extends AbstractController implements Initializable {
 
 		btnlogin.setOnAction(e->{
 			loginProc();
-			loginSuccess(e);
 		});
 
-		btnjoin.setOnAction(e->{
-			joinProc(e);
-		});
+		btnjoin.setOnAction(this::joinProc);
+
 		btnchart.setOnAction(this::changeWindow1);
 
 		btnmagazine.setOnAction(this::changeWindow2);
@@ -57,13 +59,15 @@ public class Controller extends AbstractController implements Initializable {
 		btnmv.setOnAction(this::changeWindow3);
 
 		btnhome.setOnAction(e->{
-			loginSuccess(e);
-			HomeProc();
+			commonService.changeWindow(root.getScene().getRoot(), "RootScene", Pos.CENTER);
 		});
 
 	}
 	public void loginProc() {
-		commonService.openWindow(btnlogin.getId());
+		commonService.changeWindow(root.getScene().getRoot(), "btnlogin", Pos.CENTER);
+		//0512
+		loginController loginController = (loginController) commonService.getController("login.fxml");
+		loginController.setRootController(rootController);
 	}
 
 	public void HomeProc() {
@@ -85,6 +89,7 @@ public class Controller extends AbstractController implements Initializable {
     public void changeWindow2(ActionEvent event) {
 		commonService.changeWindow(event, btnmagazine.getId());
     }
+
     public void changeWindow3(ActionEvent event) {
 		commonService.changeWindow(event, btnmv.getId());
 	}
@@ -97,11 +102,17 @@ public class Controller extends AbstractController implements Initializable {
 
 	public void eventProc(ActionEvent event) {
 		menuBarService.eventProc(event);
+		menuBarService.isCurrentUser(root);
 	}
 
 	//0508 add to musicPlayer
 	@Override
 	public Parent getRoot() {
 		return root;
+	}
+
+	//0512 add to control RootScene
+	public void setRootController(AbstractController controller) {
+		this.rootController = controller;
 	}
 }
