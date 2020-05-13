@@ -70,6 +70,7 @@ public class LoginMainController extends AbstractController implements Initializ
 			commonService.changeWindow(rootController.getRoot(), "Main", Pos.TOP_LEFT);
 			Controller mainController = (Controller) commonService.getController("main.fxml");
 			mainController.setRootController(rootController);
+			commonService.changeWindow(rootController.getRoot(), "RootScene", Pos.CENTER);
 		});
 		btnout.setOnAction(e->{
 			Delete("ȸ�� Ż��", "ȸ�� Ż�� ������...", "������ Ż���Ͻðڽ��ϱ�?");
