@@ -6,14 +6,19 @@ import Service.IPlaybackService;
 import Service.PlaybackService;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PlayerController extends AbstractController implements Initializable {
+
+
+
     IPlaybackService playbackService;
     InfoController infoController;
     Parent root;
@@ -22,6 +27,7 @@ public class PlayerController extends AbstractController implements Initializabl
     public void initialize(URL location, ResourceBundle resources) {
         playbackService = new PlaybackService();
     }
+
 
     public void play(ActionEvent event) {// 플레이 버튼 구현
         playbackService.play(event);
@@ -35,6 +41,8 @@ public class PlayerController extends AbstractController implements Initializabl
     public void shuffle(ActionEvent event) {
         playbackService.setShuffle(event);
     }
+
+
 
     public void repeat(ActionEvent event) {
         playbackService.setRepeat(event);

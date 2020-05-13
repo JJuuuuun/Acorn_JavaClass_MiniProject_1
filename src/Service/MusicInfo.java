@@ -20,6 +20,7 @@ public class MusicInfo {
                      int track, int year,
                      String title, String artist, String album,
                      String lyrics) {
+        //생성자
         this.id = id;
         this.track = track;
         this.year = year;
@@ -28,9 +29,12 @@ public class MusicInfo {
         this.album = album;
         this.lyrics = lyrics;
         String imgurl = "../resources/albumart/" + id + ".jpg";
+        //이미지 절대경로
         try {
             if (getClass().getResource(imgurl) != null)
+                //imgurl의 정보를 받음 널이 아니라면 처리
                 this.albumart = new Image(getClass().getResource(imgurl).toURI().toURL().toString());
+            //?
         } catch (MalformedURLException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -38,7 +42,7 @@ public class MusicInfo {
 
     public Image getAlbumart() {
         return albumart;
-    }
+    } //앨범아트 정보 반환
 
     @Override
     public String toString() {
@@ -63,6 +67,7 @@ public class MusicInfo {
     public String getTitle() {
         return title != null ? title : "N/A";
     }
+    //널이 아니라면 타이틀 리턴 , 널이라면 N/A 리턴
 
     public String getArtist() {
         return artist != null ? artist : "N/A";
