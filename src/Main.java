@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     ICommonService commonService;
+    //CommonService 새로운 창을 띄우고 닫고, 변경하는 폼 인터페이스
     @Override
     public void start(Stage primaryStage) {
         commonService = new CommonService();
