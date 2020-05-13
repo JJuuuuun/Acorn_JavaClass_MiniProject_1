@@ -44,17 +44,18 @@ public class LoginMainController extends AbstractController implements Initializ
 	@FXML Button btnmv1;
 	@FXML Button btnhome1;
 	@FXML Button btninfo;
-	
-	public static String id, name, song;
+
+	private String rank;
+	public static String id, name, song, abc;
 	public int ok=0;
-	
+	 
 	final static String DRIVER = "org.sqlite.JDBC";
 	final static String DB = "jdbc:sqlite:src/resources/login.db";
 	Connection conn;
 	Parent root;
 	ICommonService commonService;
 	IMenuBarService menuBarService;
-
+	private boolean isRanked=false;
 	//0512 RootScnene Controller
 	AbstractController rootController;
 
@@ -63,9 +64,13 @@ public class LoginMainController extends AbstractController implements Initializ
 		commonService = new CommonService();
 		menuBarService = new MenuBarService();
 		
+		/*lblinfo3.textProperty().addListener(l->{
+			if(rank != null)
+				btnpay.setDisable(true);
+		});*/
 
 		btnlogout.setOnAction(e->{
-			ErrorMsg("Success", "�α׾ƿ� ����", "�α׾ƿ� �Ǿ����ϴ�.");
+			ErrorMsg("Success", "Logout Success", "Successfuly Logout.");
 			//0512 add
 			commonService.changeWindow(rootController.getRoot(), "Main", Pos.TOP_LEFT);
 			Controller mainController = (Controller) commonService.getController("main.fxml");
@@ -73,7 +78,7 @@ public class LoginMainController extends AbstractController implements Initializ
 			commonService.changeWindow(rootController.getRoot(), "RootScene", Pos.CENTER);
 		});
 		btnout.setOnAction(e->{
-			Delete("ȸ�� Ż��", "ȸ�� Ż�� ������...", "������ Ż���Ͻðڽ��ϱ�?");
+			Delete("Delete Membership", "Membership Deleting...", "Really Delete your Membership?");
 			if(ok==1) {
 				//0512 add
 				commonService.changeWindow(rootController.getRoot(), "Main", Pos.TOP_LEFT);
@@ -92,6 +97,9 @@ public class LoginMainController extends AbstractController implements Initializ
 		btnpay.setOnAction(e ->{
 			Button btn = (Button)e.getSource();
 			commonService.openWindow(btn.getId());
+			PaymentController pc = (PaymentController)commonService.getController("pay.fxml");
+			pc.setId(id);
+			pc.setlmcRoot(root);
 		});
 	}
 	public void Delete(String title, String headerStr, String ContentTxt) {
@@ -100,9 +108,8 @@ public class LoginMainController extends AbstractController implements Initializ
 		alert.setHeaderText(headerStr);
 		alert.setContentText(ContentTxt);
 		Optional<ButtonType> result = alert.showAndWait();
-		
 		if (result.get() == ButtonType.OK) {
-			ErrorMsg("Success", "ȸ�� Ż�� ����", "���������� Ż��Ǿ����ϴ�.");
+			ErrorMsg("Success", "Delete Success", "Successfuly Deleted");
 			DeleteProc();
 		}
 
@@ -155,10 +162,15 @@ public class LoginMainController extends AbstractController implements Initializ
 	}
 
 	@Override
-	public void setText(String name, String id, String song) {
+	public void setText(String name, String id, String rank) {
 		lblinfo.setText("NAME = "+name);
 		lblinfo2.setText("ID = "+id);
-		lblinfo3.setText("관심 = "+song);
+		this.id=id;
+		System.out.println(rank);
+		if(rank!=null) {
+			lblinfo3.setText("Rank = "+rank);
+			btnpay.setDisable(true);
+		}
 	}
 
 	@Override
