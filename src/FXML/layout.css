@@ -14,6 +14,11 @@
     -fx-background-color: mintcream;
 }
 
+#Playlist {
+    -fx-background-image: url("../img/Playlist.png");
+    -fx-background-size: 30px 30px;
+}
+
 #prevBtn {
     -fx-background-image: url("../img/prev.png");
     -fx-background-size: 30px 30px;

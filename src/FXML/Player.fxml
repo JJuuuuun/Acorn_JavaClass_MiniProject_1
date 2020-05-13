@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
@@ -13,7 +15,10 @@
                     <children>
                         <Slider fx:id="timeSlider" layoutX="48.0" onMouseReleased="#seek" prefHeight="20.0"
                                 prefWidth="594.0"/>
-                        <HBox layoutY="20.0" prefHeight="55.0" prefWidth="100.0"/>
+                        <HBox layoutY="20.0" prefHeight="55.0" prefWidth="100.0">
+                     <children>
+                        <Button onAction="#showPlayerInfo" fx:id="Playlist" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
+                     </children></HBox>
                         <Label fx:id="currentTime" layoutX="3.0" layoutY="1.0" prefHeight="17.0" prefWidth="38.0"
                                text="00:00"/>
                         <Label fx:id="totalTime" layoutX="645.0" text="00:00"/>
@@ -22,56 +27,45 @@
                                 onMouseReleased="#setVolume" opacity="0.75" prefHeight="10.0" prefWidth="100.0"
                                 value="100.0">
                             <cursor>
-                                <Cursor fx:constant="CLOSED_HAND"/>
+                                <Cursor fx:constant="CLOSED_HAND" />
                             </cursor>
                         </Slider>
-                        <ToggleButton fx:id="muteBtn" layoutX="510.0" layoutY="40.0" mnemonicParsing="false"
-                                      onAction="#mute" prefHeight="30.0" prefWidth="30.0"/>
+                        <ToggleButton fx:id="muteBtn" layoutX="510.0" layoutY="40.0" mnemonicParsing="false" onAction="#mute" prefHeight="30.0" prefWidth="30.0" />
                         <HBox alignment="CENTER" layoutX="226.0" layoutY="24.0" prefHeight="55.0" prefWidth="199.0">
                             <children>
-                                <Button fx:id="repeatBtn" maxHeight="-Infinity" maxWidth="-Infinity"
-                                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
-                                        onAction="#repeat" prefHeight="30.0" prefWidth="30.0">
+                                <Button fx:id="repeatBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#repeat" prefHeight="30.0" prefWidth="30.0">
                                     <HBox.margin>
-                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button fx:id="prevBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#prev" prefHeight="30.0"
-                                        prefWidth="30.0">
+                                <Button fx:id="prevBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#prev" prefHeight="30.0" prefWidth="30.0">
                                     <HBox.margin>
-                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button fx:id="playBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#play" prefHeight="30.0"
-                                        prefWidth="30.0">
+                                <Button fx:id="playBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#play" prefHeight="30.0" prefWidth="30.0">
                                     <HBox.margin>
-                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button fx:id="nextBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#next" prefHeight="30.0"
-                                        prefWidth="30.0">
+                                <Button fx:id="nextBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#next" prefHeight="30.0" prefWidth="30.0">
                                     <HBox.margin>
-                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button fx:id="shuffleBtn" maxHeight="-Infinity" maxWidth="-Infinity"
-                                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
-                                        onAction="#showPlayerInfo" prefHeight="30.0" prefWidth="30.0">
+                                <Button fx:id="shuffleBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#shuffle" prefHeight="30.0" prefWidth="30.0">
                                     <HBox.margin>
-                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                     </HBox.margin>
                                 </Button>
                             </children>
                         </HBox>
                     </children>
                     <opaqueInsets>
-                        <Insets/>
+                        <Insets />
                     </opaqueInsets>
                     <StackPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </StackPane.margin>
                 </AnchorPane>
             </children>

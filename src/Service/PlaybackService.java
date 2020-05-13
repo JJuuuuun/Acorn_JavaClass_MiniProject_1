@@ -17,12 +17,13 @@ import java.util.List;
 import java.util.Map;
 
 public class PlaybackService implements IPlaybackService {
+
     private final List<MediaPlayer> players;
     // 플레이어 구성요소
     private final ImageService imageService;
     private final Map<MediaPlayer, Integer> idMap;
-    private final int REPEAT_ONLY = 1;
-    private final int REPEAT_ALL = 2;
+    private final int REPEAT_ONLY = 1;//한 곡 반복 재생
+    private final int REPEAT_ALL = 2; //전체 반복 재생
     IDataManager dataManager;
     Thread mps;
     // 현재 음악 정보
@@ -72,6 +73,7 @@ public class PlaybackService implements IPlaybackService {
         idMap.forEach((mediaPlayer, integer) -> players.add(mediaPlayer));
         playback = players.get(index);
         currentMusicInfo = dataManager.getMusicInfo(idMap.get(playback));
+
     }
 
     @Override
@@ -240,6 +242,12 @@ public class PlaybackService implements IPlaybackService {
         imageService.btnImage(btnShuffle, shuffle ? "/img/shuffle.png" : "/img/no_shuffle.png", 30, 30);
         shuffle = !shuffle;
     }
+
+
+    //추가 코드
+    public void setPlaylist(Event event){
+
+   }
 
     @Override
     public void getInfoInstance(Parent parent) {
