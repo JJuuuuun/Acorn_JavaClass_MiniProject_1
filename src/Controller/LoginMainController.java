@@ -48,7 +48,7 @@ public class LoginMainController extends AbstractController implements Initializ
 	private String rank;
 	public static String id, name, song, abc;
 	public int ok=0;
-	
+	 
 	final static String DRIVER = "org.sqlite.JDBC";
 	final static String DB = "jdbc:sqlite:src/resources/login.db";
 	Connection conn;

@@ -40,7 +40,7 @@ public class joinController extends AbstractController implements Initializable 
 	Connection conn;
 	Parent root;
 	ICommonService commonService;
-
+ 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		commonService = new CommonService();

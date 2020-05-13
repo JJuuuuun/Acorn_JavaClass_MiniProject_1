@@ -32,7 +32,7 @@ public class CouponController extends AbstractController implements Initializabl
 	Connection conn;
 	ICommonService commonService;
 	Parent pc;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {			
 	}
