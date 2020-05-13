@@ -1,6 +1,5 @@
 package Service;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Parent;
 
@@ -10,14 +9,14 @@ public interface IPlaybackService {
      *
      * @param event ActionEvent
      */
-    void playPrevMusic(ActionEvent event);
+    void playPrevMusic(Event event);
 
     /**
      * TODO: 재생
      *
      * @param event ActionEvent
      */
-    void play(ActionEvent event);
+    void play(Event event);
 
     /**
      * TODO: 일시 정지
@@ -35,14 +34,14 @@ public interface IPlaybackService {
      *
      * @param event ActionEvent
      */
-    void playNextMusic(ActionEvent event);
+    void playNextMusic(Event event);
 
     /**
      * 플레이어의 반복 설정
      *
      * @param event ActionEvent
      */
-    void setRepeat(ActionEvent event);
+    void setRepeat(Event event);
 
     /**
      * 셔플 상태를 설정함
@@ -106,7 +105,7 @@ public interface IPlaybackService {
      *
      * @param event ActionEvent
      */
-    void setLiked(ActionEvent event);
+    void setLiked(Event event);
 
 
 }

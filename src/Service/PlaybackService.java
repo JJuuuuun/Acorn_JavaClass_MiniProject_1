@@ -4,7 +4,6 @@ import Database.DataManager;
 import Database.IDataManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -56,7 +55,7 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public void playPrevMusic(ActionEvent event) {
+    public void playPrevMusic(Event event) {
         if ((playback.getCurrentTime().toSeconds() / playback.getMedia().getDuration().toSeconds()) < 0.2) {
             if (index > 0 && repeatMode != REPEAT_ONLY) index--;
             else if (repeatMode == REPEAT_ALL) index = players.size() - 1;
@@ -71,7 +70,7 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public void play(ActionEvent event) {
+    public void play(Event event) {
         if (!isPlaying) {
             isPlaying = true;
             currentMusicInfo = dataManager.getMusicInfo(idMap.get(playback));
@@ -164,7 +163,7 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public void playNextMusic(ActionEvent event) {
+    public void playNextMusic(Event event) {
         // 현재 List index 를 증가시키고, 새로운 인스턴스 로드
         if (index < players.size() - 1) {
             stop();
@@ -187,7 +186,7 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public void setRepeat(ActionEvent event) {
+    public void setRepeat(Event event) {
         /*
          * 반복 모드 변경:
          * 반복 버튼의 이미지를 바뀔 버튼의 이미지로 변경
@@ -198,7 +197,7 @@ public class PlaybackService implements IPlaybackService {
         switch (repeatMode) {
             case REPEAT_ONLY:
                 repeatMode = REPEAT_ALL;
-                imageService.btnImage(btnRepeat, "/img/repeat.png", 30, 30);
+                imageService.btnImage(btnRepeat, "/img/repeat_all.png", 30, 30);
                 break;
             case REPEAT_ALL:
                 repeatMode = 0;
@@ -207,7 +206,7 @@ public class PlaybackService implements IPlaybackService {
             default:
                 // 한곡반복 이미지로 변경
                 repeatMode = REPEAT_ONLY;
-                imageService.btnImage(btnRepeat, "/img/repeat.png", 30, 30);
+                imageService.btnImage(btnRepeat, "/img/repeat_only.png", 30, 30);
         }
     }
 
@@ -236,6 +235,11 @@ public class PlaybackService implements IPlaybackService {
         Label artistLabel = (Label) parent.lookup("#artist");
         TextArea textArea = (TextArea) parent.lookup("#lyrics");
         ImageView imageView = (ImageView) parent.lookup("#album");
+        infoProcess(titleLabel, artistLabel, textArea, imageView);
+        getQueue(parent);
+    }
+
+    private void infoProcess(Label titleLabel, Label artistLabel, TextArea textArea, ImageView imageView) {
         titleLabel.setText(currentMusicInfo.getTitle());
         artistLabel.setText(currentMusicInfo.getArtist());
         textArea.setText(currentMusicInfo.getLyrics());
@@ -244,30 +248,47 @@ public class PlaybackService implements IPlaybackService {
         } else {
             imageView.setImage(null);
         }
-        getQueue(parent);
     }
 
     @Override
     public void getQueue(Parent parent) {
-        ListView<String> musicList = (ListView<String>) parent.lookup("#musicQueue");
+        ListView<MusicInfo> musicList = (ListView<MusicInfo>) parent.lookup("#musicQueue");
         queueProcess(musicList);
     }
 
-    private void queueProcess(ListView<String> musicList) {
+    private void queueProcess(ListView<MusicInfo> musicList) {
         musicList.setItems(FXCollections.observableArrayList());
+        musicList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(newValue);
+        });
         musicList.setOnMouseClicked(event -> {
-            // 적절히 이벤트 처리하기
+            MusicInfo info = musicList.getSelectionModel().getSelectedItem();
+            Label titleLabel = (Label) getNode(event, "#title");
+            Label artistLabel = (Label) getNode(event, "#artist");
+            TextArea textArea = (TextArea) getNode(event, "#lyrics");
+            ImageView imageView = (ImageView) getNode(event, "#album");
+            for (int i = 0; i < players.size(); i++) {
+                MediaPlayer player = players.get(i);
+                if (idMap.get(player) == info.getId()) {
+                    index = i;
+                    stop();
+                    currentMusicInfo = info;
+                    infoProcess(titleLabel, artistLabel, textArea, imageView);
+                    playback = players.get(index);
+                    isPlaying = false;
+                    play(event);
+                }
+            }
         });
         players.forEach(mediaPlayer -> {
             MusicInfo info = dataManager.getMusicInfo(idMap.get(mediaPlayer));
-            musicList.getItems().add(info.getTitle() + " - " + info.getArtist());
+            musicList.getItems().add(info);
         });
-
     }
 
     @Override
     public void getQueue(Event event) {
-        ListView<String> musicList = (ListView<String>) getNode(event, "#musicQueue");
+        ListView<MusicInfo> musicList = (ListView<MusicInfo>) getNode(event, "#musicQueue");
         queueProcess(musicList);
     }
 
@@ -280,7 +301,7 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public void setLiked(ActionEvent event) {
+    public void setLiked(Event event) {
         ToggleButton button = (ToggleButton) getNode(event, "#likeBtn");
         boolean newLiked = !dataManager.getLiked(idMap.get(playback));
         imageService.btnImage(button, newLiked ? "/img/liked.png" : "/img/not_liked.png", 40, 40);
