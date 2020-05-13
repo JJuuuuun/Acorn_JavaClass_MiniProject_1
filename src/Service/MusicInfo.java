@@ -42,14 +42,7 @@ public class MusicInfo {
 
     @Override
     public String toString() {
-        return "MusicInfo{" +
-                "id=" + id +
-                ", track=" + track +
-                ", year=" + year +
-                ", title='" + this.getTitle() + '\'' +
-                ", artist='" + this.getArtist() + '\'' +
-                ", album='" + this.getAlbum() + '\'' +
-                '}';
+        return this.getTitle() + " - " + this.getArtist();
     }
 
     public int getTrack() {

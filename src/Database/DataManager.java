@@ -161,6 +161,7 @@ public class DataManager implements IDataManager {
     /**
      * 좋아요 값을 변경함.
      * 조건 : 좋아요 버튼 액션
+     * user_id value를 login > member 테이블의 ids를 참조하도록 해야함 (primary key 전환 후)
      *
      * @param id        해당 음악 id
      * @param activated 바뀐 좋아요 상태 활성화 여부
@@ -187,6 +188,13 @@ public class DataManager implements IDataManager {
         else insertLikedInfo(id, activated);
     }
 
+    /**
+     * userLovedInfo 튜플 추가
+     * user_id value를 login > member 테이블의 ids를 참조하도록 해야함 (primary key 전환 후)
+     *
+     * @param id        ID of Music
+     * @param activated Liked Status
+     */
     private void insertLikedInfo(int id, boolean activated) {
         String sql = "insert into userLovedInfo(user_id, music_id, user_loved) VALUES ('1', ?, ?)";
         try {
@@ -202,6 +210,13 @@ public class DataManager implements IDataManager {
         }
     }
 
+    /**
+     * userLovedInfo 튜플 추가
+     * user_id value를 login > member 테이블의 ids를 참조하도록 해야함 (primary key 전환 후)
+     *
+     * @param id        ID of Music
+     * @param activated Liked Status
+     */
     private void updateLikedInfo(int id, boolean activated) {
         String sql = "update userLovedInfo set user_loved = ? where user_id = 1 and music_id = ?";
         String sql2 = "update recommendInfo set liked = " +

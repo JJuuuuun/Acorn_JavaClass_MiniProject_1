@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
-<StackPane fx:id="playerBackground" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@layout.css"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="playerBackground" stylesheets="@layout.css"
            xmlns="http://javafx.com/javafx/8" fx:controller="Controller.PlayerController">
     <children>
         <HBox alignment="CENTER">
@@ -13,13 +13,20 @@
                     <children>
                         <Slider fx:id="timeSlider" layoutX="48.0" onMouseReleased="#seek" prefHeight="20.0"
                                 prefWidth="594.0"/>
-                        <HBox layoutY="20.0" prefHeight="55.0" prefWidth="100.0"/>
+                        <HBox layoutY="20.0" prefHeight="55.0" prefWidth="100.0">
+                            <children>
+                                <Button onAction="#showPlayerInfo" fx:id="Playlist" maxHeight="-Infinity"
+                                        maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                        mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0"/>
+                            </children>
+                        </HBox>
                         <Label fx:id="currentTime" layoutX="3.0" layoutY="1.0" prefHeight="17.0" prefWidth="38.0"
                                text="00:00"/>
                         <Label fx:id="totalTime" layoutX="645.0" text="00:00"/>
                         <Slider fx:id="volumeSlider" layoutX="550.0" layoutY="48.0" maxHeight="-Infinity"
                                 maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                                onMouseReleased="#setVolume" opacity="0.75" prefHeight="10.0" prefWidth="100.0">
+                                onMouseReleased="#setVolume" opacity="0.75" prefHeight="10.0" prefWidth="100.0"
+                                value="100.0">
                             <cursor>
                                 <Cursor fx:constant="CLOSED_HAND"/>
                             </cursor>
@@ -58,7 +65,7 @@
                                 </Button>
                                 <Button fx:id="shuffleBtn" maxHeight="-Infinity" maxWidth="-Infinity"
                                         minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
-                                        onAction="#showPlayerInfo" prefHeight="30.0" prefWidth="30.0">
+                                        onAction="#shuffle" prefHeight="30.0" prefWidth="30.0">
                                     <HBox.margin>
                                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
                                     </HBox.margin>

@@ -10,8 +10,13 @@
 }
 
 /* Player */
-#infoBackground, #playerBackground{
+#infoBackground, #playerBackground {
     -fx-background-color: mintcream;
+}
+
+#Playlist {
+    -fx-background-image: url("../img/Playlist.png");
+    -fx-background-size: 30px 30px;
 }
 
 #prevBtn {
@@ -72,12 +77,4 @@
 #aboutBtn {
     -fx-background-image: url("../img/dots.png");
     -fx-background-size: 20px 20px;
-}
-
-/* 프로그레스바 색 변경 */
-
-#volumeSlider {
-}
-
-#timeSlider {
 }
