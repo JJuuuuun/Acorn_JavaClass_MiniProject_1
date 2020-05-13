@@ -36,7 +36,7 @@ public class CouponController extends AbstractController implements Initializabl
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {			
 	}
-	
+
 	public void btnTest(ActionEvent e) {
 		String inputnum = couponnum.getText();
 		try {

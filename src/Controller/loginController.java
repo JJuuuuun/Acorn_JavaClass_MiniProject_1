@@ -46,7 +46,7 @@ public class loginController extends AbstractController implements Initializable
 
 	//0512 RootScnene Controller
 	AbstractController rootController;
- 
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		commonService = new CommonService();

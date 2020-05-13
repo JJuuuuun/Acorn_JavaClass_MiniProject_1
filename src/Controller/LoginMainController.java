@@ -44,7 +44,7 @@ public class LoginMainController extends AbstractController implements Initializ
 	@FXML Button btnmv1;
 	@FXML Button btnhome1;
 	@FXML Button btninfo;
-	
+
 	private String rank;
 	public static String id, name, song, abc;
 	public int ok=0;

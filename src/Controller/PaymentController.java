@@ -42,7 +42,7 @@ public class PaymentController extends AbstractController implements Initializab
 	@FXML ToggleButton Btn12m;
 	@FXML ToggleButton Btn1m;
 	@FXML TextField couponnum;
-
+	
 	ICommonService commonService;
 	Parent root, lmc;
 	public String rank;
