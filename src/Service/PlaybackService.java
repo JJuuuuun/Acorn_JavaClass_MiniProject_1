@@ -73,7 +73,6 @@ public class PlaybackService implements IPlaybackService {
         idMap.forEach((mediaPlayer, integer) -> players.add(mediaPlayer));
         playback = players.get(index);
         currentMusicInfo = dataManager.getMusicInfo(idMap.get(playback));
-
     }
 
     @Override
@@ -119,23 +118,7 @@ public class PlaybackService implements IPlaybackService {
                         lblTotal.setText(String.format("%02d", time / 60) + ":" + String.format("%02d", time % 60));
                         imageService.btnImage(btnPlay, "/img/pause.png", 30, 30);
                         addPlays();
-                        mps = new Thread(() -> {
-                            while (isPlaying) {
-                                try {
-                                    Thread.sleep(300);
-                                } catch (InterruptedException e) {
-                                    System.out.println(e.getMessage());
-                                }
-                                // 음악 현재시간 설정
-                                double current = playback.getCurrentTime().toSeconds();
-                                double val = (current / playback.getTotalDuration().toSeconds()) * 100;
-                                Platform.runLater(() -> {
-                                    lblCurrent.setText(String.format("%02d", (int) (current / 60)) + ":" +
-                                            String.format("%02d", (int) (current % 60)));
-                                    setProgress(val);
-                                });
-                            }
-                        });
+                        setThread();
                         // 프로세스 종료시 모든 Thread 종료하도록 설정
                         mps.setDaemon(true);
                         mps.start();
@@ -169,6 +152,26 @@ public class PlaybackService implements IPlaybackService {
             isPlaying = false;
             pause();
         }
+    }
+
+    private void setThread() {
+        mps = new Thread(() -> {
+            while (isPlaying) {
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
+                // 음악 현재시간 설정
+                double current = playback.getCurrentTime().toSeconds();
+                double val = (current / playback.getTotalDuration().toSeconds()) * 100;
+                Platform.runLater(() -> {
+                    lblCurrent.setText(String.format("%02d", (int) (current / 60)) + ":" +
+                            String.format("%02d", (int) (current % 60)));
+                    setProgress(val);
+                });
+            }
+        });
     }
 
     @Override
