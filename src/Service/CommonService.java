@@ -60,7 +60,7 @@ public class CommonService implements ICommonService {
 
     private Scene getScene(String btnId) {
         String url = urlMap.get(btnId);
-        System.out.println(url); //test code
+//        System.out.println(url); //test code
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Parent root = null;
         try {
@@ -73,7 +73,7 @@ public class CommonService implements ICommonService {
 
         String fxmlName = url.substring(8);
         controllerMap.put(fxmlName, loader.getController());
-//        System.out.println(fxmlName); // test code
+//        System.out.println(loader.getController().toString()); // test code
 
         return new Scene(root);
     }
