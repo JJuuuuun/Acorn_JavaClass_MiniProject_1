@@ -45,7 +45,8 @@ public class LoginMainController extends AbstractController implements Initializ
 	@FXML Button btnhome1;
 	@FXML Button btninfo;
 	
-	public static String id, name, song;
+	private String rank;
+	public static String id, name, song, abc;
 	public int ok=0;
 	
 	final static String DRIVER = "org.sqlite.JDBC";
@@ -54,7 +55,7 @@ public class LoginMainController extends AbstractController implements Initializ
 	Parent root;
 	ICommonService commonService;
 	IMenuBarService menuBarService;
-
+	private boolean isRanked=false;
 	//0512 RootScnene Controller
 	AbstractController rootController;
 
@@ -63,6 +64,10 @@ public class LoginMainController extends AbstractController implements Initializ
 		commonService = new CommonService();
 		menuBarService = new MenuBarService();
 		
+		/*lblinfo3.textProperty().addListener(l->{
+			if(rank != null)
+				btnpay.setDisable(true);
+		});*/
 
 		btnlogout.setOnAction(e->{
 			ErrorMsg("Success", "Logout Success", "Successfuly Logout.");
@@ -94,6 +99,7 @@ public class LoginMainController extends AbstractController implements Initializ
 			commonService.openWindow(btn.getId());
 			PaymentController pc = (PaymentController)commonService.getController("pay.fxml");
 			pc.setId(id);
+			pc.setlmcRoot(root);
 		});
 	}
 	public void Delete(String title, String headerStr, String ContentTxt) {
@@ -156,11 +162,15 @@ public class LoginMainController extends AbstractController implements Initializ
 	}
 
 	@Override
-	public void setText(String name, String id, String song) {
+	public void setText(String name, String id, String rank) {
 		lblinfo.setText("NAME = "+name);
 		lblinfo2.setText("ID = "+id);
-		lblinfo3.setText("Favorite = "+song);
-		this.id = id;
+		this.id=id;
+		System.out.println(rank);
+		if(rank!=null) {
+			lblinfo3.setText("Rank = "+rank);
+			btnpay.setDisable(true);
+		}
 	}
 
 	@Override

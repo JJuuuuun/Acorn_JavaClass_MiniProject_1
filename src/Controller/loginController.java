@@ -35,7 +35,7 @@ public class loginController extends AbstractController implements Initializable
 	@FXML private Button btnlogin;
 	@FXML private Button btncancel;
 	
-	public String idid, namename, songsong;
+	public String idid, namename, rank;
 	public int check=6554, success=0;
 	
 	final static String DRIVER = "org.sqlite.JDBC";
@@ -155,7 +155,7 @@ public class loginController extends AbstractController implements Initializable
 
 	private void SendData() {
 		LoginMainController loginMainController = (LoginMainController)commonService.getController("loginmain.fxml");
-		loginMainController.setText(namename, idid, songsong);
+		loginMainController.setText(namename, idid, rank);
 		loginMainController.setRootController(rootController);
 //		System.out.println("Data transmission success"); // test code
 	}
@@ -172,10 +172,10 @@ public class loginController extends AbstractController implements Initializable
 			ResultSet rs = stmt2.executeQuery(sql);
 			namename = rs.getString(1);
 
-			String sql2 = "SELECT song FROM member "+	
+			String sql2 = "SELECT rank FROM member "+	
 						"WHERE ids = "+"'"+id+"'";
 			ResultSet rs2 = stmt2.executeQuery(sql2);
-			songsong = rs2.getString(1);
+			rank = rs2.getString(1);
 			
 			stmt2.close();
 			conn.close();

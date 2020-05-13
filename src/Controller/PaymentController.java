@@ -1,14 +1,18 @@
 package Controller;
 
 import java.io.IOException;
-
 import Service.CommonService;
 import Service.ICommonService;
 import javafx.scene.layout.VBox;
-
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
-
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,7 +34,6 @@ public class PaymentController extends AbstractController implements Initializab
 	@FXML Button Btnpromise;
 	@FXML Button BtnCoupon;
 	@FXML Label OGmoney;
-//	@FXML public static Label lblcoupon;
 	@FXML Label lblcoupon;
 	@FXML Label Resultmoney;
 	@FXML ToggleButton Btn6m;
@@ -39,21 +42,16 @@ public class PaymentController extends AbstractController implements Initializab
 	@FXML ToggleButton Btn12m;
 	@FXML ToggleButton Btn1m;
 	@FXML TextField couponnum;
-	@FXML Button Btncouponfin;
 
 	ICommonService commonService;
-	Parent root;
-
-	public static String money, id;
-
-	public PaymentController () {}
-
-	public PaymentController(String mo) {
-		money =mo;
-	}
-	public void label(String aa) {
-		lblcoupon.setText(aa);
-	}
+	Parent root, lmc;
+	public String rank;
+	public static String id;
+	public int abc, def;
+	final static String DRIVER = "org.sqlite.JDBC";
+	final static String DB = "jdbc:sqlite:src/resources/login.db";
+	Connection conn;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		commonService = new CommonService();
@@ -62,14 +60,15 @@ public class PaymentController extends AbstractController implements Initializab
 		int b = 10900;
 		int c = 15900;
 		int d = 21900;
-		Btn1m.setOnAction(event -> OGmoney.setText(a +"�썝"));
-		Btn3m.setOnAction(event -> OGmoney.setText(b +"�썝"));
-		Btn6m.setOnAction(event -> OGmoney.setText(c +"�썝"));
-		Btn12m.setOnAction(event -> OGmoney.setText(d +"�썝"));
+		Btn1m.setOnAction(event -> {OGmoney.setText(a+"");	rank = "Bronze";});
+		Btn3m.setOnAction(event -> {OGmoney.setText(b+"");	rank = "Silver";});
+		Btn6m.setOnAction(event -> {OGmoney.setText(c +"");	rank = "Gold";});
+		Btn12m.setOnAction(event -> {OGmoney.setText(d +""); rank = "Platinum";});
 		BtnCoupon.setOnAction(e->{
 			commonService.openWindow("BtnCoupon");
 			CouponController cc = (CouponController)commonService.getController("coupon.fxml");
 			cc.setId(id);
+			cc.setPCroot(root);
 		});
 
 
@@ -110,10 +109,50 @@ public class PaymentController extends AbstractController implements Initializab
 					stage.show();
 					// TODO Auto-generated catch block
 				});
+		BtnExit.setOnAction(e->{
+			try {
+				Class.forName(DRIVER);
+				conn = DriverManager.getConnection(DB);
+				String sql = "UPDATE member "+
+							"SET rank = "+"'"+rank+"'"+
+							"WHERE ids = "+"'"+id+"';";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.executeUpdate();
+				
+				pstmt.close();
+				conn.close();
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+	        
+			Label lbl = (Label) lmc.lookup("#lblinfo3");
+			lbl.setText("Rank = "+rank);
+			Button btn = (Button) lmc.lookup("#btnpay");
+			btn.setDisable(true);
+			
+			
+			Parent root = (Parent)e.getSource();
+			Stage stage = (Stage) root.getScene().getWindow();
+			stage.close();
+		});
+		
+		
+	
+		OGmoney.textProperty().addListener(l->{
+			abc = Integer.valueOf(OGmoney.getText());
+			Resultmoney.setText(abc-def+"");
+		});
+		lblcoupon.textProperty().addListener(l->{
+			def = Integer.valueOf(lblcoupon.getText());
+			if(abc-def>=0)
+				Resultmoney.setText(abc-def+"");
+		});
+
 		}
 
 	public void setlbl(String str) {
-		System.out.println(lblcoupon);
 		lblcoupon.setText(str);
 	}
 
@@ -123,6 +162,9 @@ public class PaymentController extends AbstractController implements Initializab
 	}
 	public void setId(String id) {
 		this.id=id;
+	}
+	public void setlmcRoot(Parent root) {
+		this.lmc = root;
 	}
 }
 
