@@ -101,8 +101,8 @@ public class joinController extends AbstractController implements Initializable 
 			textpw.requestFocus();
 		}
 		else {
-			InputProc(name, id, pw, song);
-			int num = (int)(Math.random()*10000);
+			String num = String.valueOf(Math.random()*10000).substring(0, 3);
+			InputProc(name, id, pw, song, num);
 			ErrorMsg("Success", "Register Successed.","Discount Code : "+num);
 
 			commonService.closeWindow(e);
@@ -117,10 +117,10 @@ public class joinController extends AbstractController implements Initializable 
 		alert.setContentText(ContentTxt);
 		alert.showAndWait();
 	}
-	public void InputProc(String name, String id, String pw, String song) {
+	public void InputProc(String name, String id, String pw, String song, String num) {
 		String sql = "INSERT INTO member "+
-			 	 "(name, ids, pw, song) "+
-			 	 "VALUES (?,?,?,?); ";
+			 	 "(name, ids, pw, song, code) "+
+			 	 "VALUES (?,?,?,?,?); ";
 		
 		try {
 			Class.forName(DRIVER);
@@ -131,6 +131,7 @@ public class joinController extends AbstractController implements Initializable 
 			pstmt.setString(2, id);
 			pstmt.setString(3, pw);
 			pstmt.setString(4, song);
+			pstmt.setString(5, num);
 			
 			pstmt.executeUpdate();
 			

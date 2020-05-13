@@ -70,6 +70,7 @@ public class LoginMainController extends AbstractController implements Initializ
 			commonService.changeWindow(rootController.getRoot(), "Main", Pos.TOP_LEFT);
 			Controller mainController = (Controller) commonService.getController("main.fxml");
 			mainController.setRootController(rootController);
+			commonService.changeWindow(rootController.getRoot(), "RootScene", Pos.CENTER);
 		});
 		btnout.setOnAction(e->{
 			Delete("Delete Membership", "Membership Deleting...", "Really Delete your Membership?");
@@ -91,6 +92,8 @@ public class LoginMainController extends AbstractController implements Initializ
 		btnpay.setOnAction(e ->{
 			Button btn = (Button)e.getSource();
 			commonService.openWindow(btn.getId());
+			PaymentController pc = (PaymentController)commonService.getController("pay.fxml");
+			pc.setId(id);
 		});
 	}
 	public void Delete(String title, String headerStr, String ContentTxt) {
