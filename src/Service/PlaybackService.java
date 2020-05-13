@@ -79,8 +79,17 @@ public class PlaybackService implements IPlaybackService {
     @Override
     public void playPrevMusic() {
         if ((playback.getCurrentTime().toSeconds() / playback.getMedia().getDuration().toSeconds()) < 0.2) {
-            if (index > 0 && repeatMode != REPEAT_ONLY) index--;
-            else if (repeatMode == REPEAT_ALL) index = players.size() - 1;
+            switch (repeatMode) {
+                case REPEAT_ALL:
+                    if (index == 0) index = players.size() - 1;
+                    else index = (index - 1) % players.size();
+                    break;
+                case REPEAT_ONLY:
+                    break;
+                default:
+                    if (index - 1 > 0) index--;
+                    else System.out.println("This is front");
+            }
             stop();
             playback = players.get(index);
             isPlaying = false;
@@ -111,7 +120,6 @@ public class PlaybackService implements IPlaybackService {
                         imageService.btnImage(btnPlay, "/img/pause.png", 30, 30);
                         addPlays();
                         mps = new Thread(() -> {
-                            // progress 가져오기
                             while (isPlaying) {
                                 try {
                                     Thread.sleep(300);
@@ -233,21 +241,15 @@ public class PlaybackService implements IPlaybackService {
          * 토글 처리
          * */
         // 셔플로 바뀐 경우, 현재 음악 제외, 모두 섞고 현재 음악은 컬렉션 앞에 추가
-        if (!shuffle) {
+        shuffle = !shuffle;
+        if (shuffle) {
             players.remove(playback);
             Collections.shuffle(players);
             players.add(0, playback);
             queueProcess();
         }
         imageService.btnImage(btnShuffle, shuffle ? "/img/shuffle.png" : "/img/no_shuffle.png", 30, 30);
-        shuffle = !shuffle;
     }
-
-
-    //추가 코드
-    public void setPlaylist(Event event){
-
-   }
 
     @Override
     public void getInfoInstance(Parent parent) {
@@ -298,26 +300,28 @@ public class PlaybackService implements IPlaybackService {
      * 셔플 버튼이 눌리는 경우, 셔플 후 발동
      */
     private void queueProcess() {
-        musicList.setItems(FXCollections.observableArrayList());
-        musicList.setOnMouseClicked(event -> {
-            MusicInfo info = musicList.getSelectionModel().getSelectedItem();
-            for (int i = 0; i < players.size(); i++) {
-                MediaPlayer player = players.get(i);
-                if (idMap.get(player) == info.getId()) {
-                    index = i;
-                    stop();
-                    currentMusicInfo = dataManager.getMusicInfo(idMap.get(player));
-                    infoProcess();
-                    playback = player;
-                    isPlaying = false;
-                    play();
+        if (musicList != null) {
+            musicList.setItems(FXCollections.observableArrayList());
+            musicList.setOnMouseClicked(event -> {
+                MusicInfo info = musicList.getSelectionModel().getSelectedItem();
+                for (int i = 0; i < players.size(); i++) {
+                    MediaPlayer player = players.get(i);
+                    if (idMap.get(player) == info.getId()) {
+                        index = i;
+                        stop();
+                        currentMusicInfo = dataManager.getMusicInfo(idMap.get(player));
+                        infoProcess();
+                        playback = player;
+                        isPlaying = false;
+                        play();
+                    }
                 }
-            }
-        });
-        players.forEach(mediaPlayer -> {
-            MusicInfo info = dataManager.getMusicInfo(idMap.get(mediaPlayer));
-            musicList.getItems().add(info);
-        });
+            });
+            players.forEach(mediaPlayer -> {
+                MusicInfo info = dataManager.getMusicInfo(idMap.get(mediaPlayer));
+                musicList.getItems().add(info);
+            });
+        }
     }
 
     @Override

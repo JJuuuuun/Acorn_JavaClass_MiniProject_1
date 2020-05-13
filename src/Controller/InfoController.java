@@ -4,26 +4,16 @@ import Service.CommonService;
 import Service.ICommonService;
 import Service.IPlaybackService;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class InfoController extends AbstractController implements Initializable {
-    //
     Parent root;
     ICommonService comServ;
     IPlaybackService playbackService;
-    @FXML
-    Button setBtn;
-    @FXML
-    ToggleButton likeBtn;
-    @FXML
-    Button aboutBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

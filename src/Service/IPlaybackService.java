@@ -6,13 +6,11 @@ import javafx.scene.Parent;
 public interface IPlaybackService {
     /**
      * TODO: 이전 음악 재생
-     *
      */
     void playPrevMusic();
 
     /**
      * TODO: 재생
-     *
      */
     void play();
 
@@ -29,7 +27,6 @@ public interface IPlaybackService {
 
     /**
      * TODO: 다음 음악 재생
-     *
      */
     void playNextMusic();
 

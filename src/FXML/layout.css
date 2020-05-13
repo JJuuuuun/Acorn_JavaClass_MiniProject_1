@@ -10,7 +10,7 @@
 }
 
 /* Player */
-#infoBackground, #playerBackground{
+#infoBackground, #playerBackground {
     -fx-background-color: mintcream;
 }
 
@@ -77,12 +77,4 @@
 #aboutBtn {
     -fx-background-image: url("../img/dots.png");
     -fx-background-size: 20px 20px;
-}
-
-/* 프로그레스바 색 변경 */
-
-#volumeSlider {
-}
-
-#timeSlider {
 }
