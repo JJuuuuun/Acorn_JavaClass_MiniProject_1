@@ -87,7 +87,7 @@ public class PlaybackService implements IPlaybackService {
                 case REPEAT_ONLY:
                     break;
                 default:
-                    if (index - 1 > 0) index--;
+                    if (index - 1 >= 0) index--;
                     else System.out.println("This is front");
             }
             stop();
@@ -104,7 +104,7 @@ public class PlaybackService implements IPlaybackService {
         if (!isPlaying) {
             isPlaying = true;
             currentMusicInfo = dataManager.getMusicInfo(idMap.get(playback));
-
+            if (titleLabel != null) infoProcess();
             if (playback != null) {
                 if (playback.getOnReady() == null)
                     playback.setOnReady(() -> playback.setVolume(volume));
@@ -159,6 +159,7 @@ public class PlaybackService implements IPlaybackService {
                 if (playback.getOnEndOfMedia() == null)
                     playback.setOnEndOfMedia(() -> {
                         // 재생 종료시 : 현재 미디어 정지, 다음 미디어
+                        playback.seek(Duration.ZERO);
                         stop();
                         playNextMusic();
                     });
