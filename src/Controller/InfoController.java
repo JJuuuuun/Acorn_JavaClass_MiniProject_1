@@ -36,8 +36,8 @@ public class InfoController extends AbstractController implements Initializable 
     }
 
     public void updateForm() {
+        playbackService.getInfoInstance(root);
         playbackService.getLiked(root);
-        playbackService.getInfos(root);
     }
 
     public void settings() {
