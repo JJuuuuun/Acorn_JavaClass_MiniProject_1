@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
-<StackPane fx:id="playerBackground" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@layout.css"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="playerBackground" stylesheets="@layout.css"
            xmlns="http://javafx.com/javafx/8" fx:controller="Controller.PlayerController">
     <children>
         <HBox alignment="CENTER">
@@ -19,7 +19,8 @@
                         <Label fx:id="totalTime" layoutX="645.0" text="00:00"/>
                         <Slider fx:id="volumeSlider" layoutX="550.0" layoutY="48.0" maxHeight="-Infinity"
                                 maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                                onMouseReleased="#setVolume" opacity="0.75" prefHeight="10.0" prefWidth="100.0">
+                                onMouseReleased="#setVolume" opacity="0.75" prefHeight="10.0" prefWidth="100.0"
+                                value="100.0">
                             <cursor>
                                 <Cursor fx:constant="CLOSED_HAND"/>
                             </cursor>

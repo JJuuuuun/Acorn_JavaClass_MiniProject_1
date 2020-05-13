@@ -5,7 +5,6 @@ import Database.IDataManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -28,6 +27,26 @@ public class PlaybackService implements IPlaybackService {
     Thread mps;
     // 현재 음악 정보
     MusicInfo currentMusicInfo;
+
+    // Player 화면
+    Button btnRepeat;
+    Button btnPlay;
+    Button btnShuffle;
+    Label lblCurrent;
+    Label lblTotal;
+    Slider slider;
+    Slider volumeSlider;
+    ToggleButton btnMute;
+
+    // Info 화면
+    Label titleLabel;
+    Label artistLabel;
+    TextArea textArea;
+    ImageView imageView;
+    ToggleButton likeBtn;
+    ListView<MusicInfo> musicList;
+
+
     private int index = 0;
     // isPlaying
     private boolean isPlaying = false;
@@ -43,6 +62,7 @@ public class PlaybackService implements IPlaybackService {
 
     /**
      * 현재 생성자는 데이터베이스에서 모든 음악을 가져오도록 설정되어있음.
+     * 사용자 라이브러리 구현시, user id를 이용하여 가져오도록 해야함.
      */
     public PlaybackService() {
         players = new ArrayList<>();
@@ -55,29 +75,26 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public void playPrevMusic(Event event) {
+    public void playPrevMusic() {
         if ((playback.getCurrentTime().toSeconds() / playback.getMedia().getDuration().toSeconds()) < 0.2) {
             if (index > 0 && repeatMode != REPEAT_ONLY) index--;
             else if (repeatMode == REPEAT_ALL) index = players.size() - 1;
-
             stop();
             playback = players.get(index);
             isPlaying = false;
         } else {
             stop();
         }
-        play(event);
+        play();
     }
 
     @Override
-    public void play(Event event) {
+    public void play() {
         if (!isPlaying) {
             isPlaying = true;
             currentMusicInfo = dataManager.getMusicInfo(idMap.get(playback));
+
             if (playback != null) {
-                Button btnPlay = (Button) getNode(event, "#playBtn");
-                Label lblCurrent = (Label) getNode(event, "#currentTime");
-                Label lblTotal = (Label) getNode(event, "#totalTime");
                 if (playback.getOnReady() == null)
                     playback.setOnReady(() -> playback.setVolume(volume));
                 if (playback.getOnPlaying() == null)
@@ -103,8 +120,9 @@ public class PlaybackService implements IPlaybackService {
                                 double current = playback.getCurrentTime().toSeconds();
                                 double val = (current / playback.getTotalDuration().toSeconds()) * 100;
                                 Platform.runLater(() -> {
-                                    lblCurrent.setText(String.format("%02d", (int) (current / 60)) + ":" + String.format("%02d", (int) (current % 60)));
-                                    setProgress(event, val);
+                                    lblCurrent.setText(String.format("%02d", (int) (current / 60)) + ":" +
+                                            String.format("%02d", (int) (current % 60)));
+                                    setProgress(val);
                                 });
                             }
                         });
@@ -132,7 +150,7 @@ public class PlaybackService implements IPlaybackService {
                     playback.setOnEndOfMedia(() -> {
                         // 재생 종료시 : 현재 미디어 정지, 다음 미디어
                         stop();
-                        playNextMusic(event);
+                        playNextMusic();
                     });
                 playback.play();
             }
@@ -142,19 +160,11 @@ public class PlaybackService implements IPlaybackService {
         }
     }
 
-    private Node getNode(Event event, String selector) {
-        Parent form = ((Node) (event.getSource())).getScene().getRoot();
-        return form.lookup(selector);
-    }
-
     @Override
     public void pause() {
         playback.pause();
     }
 
-    /**
-     * TBR stopMusic
-     */
     @Override
     public void stop() {
         if (playback != null) {
@@ -163,24 +173,29 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public void playNextMusic(Event event) {
-        // 현재 List index 를 증가시키고, 새로운 인스턴스 로드
-        if (index < players.size() - 1) {
-            stop();
-            playback = players.get(++index);
-            isPlaying = false;
-            play(event);
-        } else System.out.println("No more songs");
+    public void playNextMusic() {
+        switch (repeatMode) {
+            case REPEAT_ALL:
+                index = (index + 1) % players.size();
+                break;
+            case REPEAT_ONLY:
+                break;
+            default:
+                if (index + 1 < players.size()) index++;
+                else System.out.println("No more songs");
+        }
+        stop();
+        playback = players.get(index);
+        isPlaying = false;
+        play();
     }
 
-    private void setProgress(Event event, double value) {
-        Slider slider = (Slider) getNode(event, "#timeSlider");
+    private void setProgress(double value) {
         slider.setValue(value);
     }
 
     @Override
     public void seek(Event event) {
-        Slider slider = (Slider) getNode(event, "#timeSlider");
         double value = slider.getValue() / 100 * playback.getTotalDuration().toSeconds();
         playback.seek(Duration.seconds(value));
     }
@@ -192,8 +207,6 @@ public class PlaybackService implements IPlaybackService {
          * 반복 버튼의 이미지를 바뀔 버튼의 이미지로 변경
          * 1곡 > 전체 > 안함
          * */
-        Button btnRepeat = (Button) getNode(event, "#repeatBtn");
-
         switch (repeatMode) {
             case REPEAT_ONLY:
                 repeatMode = REPEAT_ALL;
@@ -217,29 +230,50 @@ public class PlaybackService implements IPlaybackService {
          * 셔플 버튼의 이미지를 바뀔 버튼의 이미지로 변경
          * 토글 처리
          * */
-        Button btnShuffle = (Button) getNode(event, "#shuffleBtn");
         // 셔플로 바뀐 경우, 현재 음악 제외, 모두 섞고 현재 음악은 컬렉션 앞에 추가
         if (!shuffle) {
             players.remove(playback);
             Collections.shuffle(players);
             players.add(0, playback);
-            getQueue(event);
+            queueProcess();
         }
         imageService.btnImage(btnShuffle, shuffle ? "/img/shuffle.png" : "/img/no_shuffle.png", 30, 30);
         shuffle = !shuffle;
     }
 
     @Override
-    public void getInfos(Parent parent) {
-        Label titleLabel = (Label) parent.lookup("#title");
-        Label artistLabel = (Label) parent.lookup("#artist");
-        TextArea textArea = (TextArea) parent.lookup("#lyrics");
-        ImageView imageView = (ImageView) parent.lookup("#album");
-        infoProcess(titleLabel, artistLabel, textArea, imageView);
-        getQueue(parent);
+    public void getInfoInstance(Parent parent) {
+        if (titleLabel == null) titleLabel = (Label) parent.lookup("#title");
+        if (artistLabel == null) artistLabel = (Label) parent.lookup("#artist");
+        if (textArea == null) textArea = (TextArea) parent.lookup("#lyrics");
+        if (imageView == null) imageView = (ImageView) parent.lookup("#album");
+        if (likeBtn == null) likeBtn = (ToggleButton) parent.lookup("#likeBtn");
+        if (musicList == null) musicList = (ListView<MusicInfo>) parent.lookup("#musicQueue");
+        infoProcess();
+        queueProcess();
     }
 
-    private void infoProcess(Label titleLabel, Label artistLabel, TextArea textArea, ImageView imageView) {
+    @Override
+    public void getPlaybackInstance(Parent parent) {
+        if (btnRepeat == null)
+            btnRepeat = (Button) parent.lookup("#repeatBtn");
+        if (btnPlay == null)
+            btnPlay = (Button) parent.lookup("#playBtn");
+        if (btnShuffle == null)
+            btnShuffle = (Button) parent.lookup("#shuffleBtn");
+        if (lblCurrent == null)
+            lblCurrent = (Label) parent.lookup("#currentTime");
+        if (lblTotal == null)
+            lblTotal = (Label) parent.lookup("#totalTime");
+        if (slider == null)
+            slider = (Slider) parent.lookup("#timeSlider");
+        if (volumeSlider == null)
+            volumeSlider = (Slider) parent.lookup("#volumeSlider");
+        if (btnMute == null)
+            btnMute = (ToggleButton) parent.lookup("#muteBtn");
+    }
+
+    private void infoProcess() {
         titleLabel.setText(currentMusicInfo.getTitle());
         artistLabel.setText(currentMusicInfo.getArtist());
         textArea.setText(currentMusicInfo.getLyrics());
@@ -250,33 +284,25 @@ public class PlaybackService implements IPlaybackService {
         }
     }
 
-    @Override
-    public void getQueue(Parent parent) {
-        ListView<MusicInfo> musicList = (ListView<MusicInfo>) parent.lookup("#musicQueue");
-        queueProcess(musicList);
-    }
-
-    private void queueProcess(ListView<MusicInfo> musicList) {
+    /**
+     * 재생 큐를 가져옴
+     * 정보 화면 업데이트를 위해 사용
+     * 셔플 버튼이 눌리는 경우, 셔플 후 발동
+     */
+    private void queueProcess() {
         musicList.setItems(FXCollections.observableArrayList());
-        musicList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue);
-        });
         musicList.setOnMouseClicked(event -> {
             MusicInfo info = musicList.getSelectionModel().getSelectedItem();
-            Label titleLabel = (Label) getNode(event, "#title");
-            Label artistLabel = (Label) getNode(event, "#artist");
-            TextArea textArea = (TextArea) getNode(event, "#lyrics");
-            ImageView imageView = (ImageView) getNode(event, "#album");
             for (int i = 0; i < players.size(); i++) {
                 MediaPlayer player = players.get(i);
                 if (idMap.get(player) == info.getId()) {
                     index = i;
                     stop();
-                    currentMusicInfo = info;
-                    infoProcess(titleLabel, artistLabel, textArea, imageView);
-                    playback = players.get(index);
+                    currentMusicInfo = dataManager.getMusicInfo(idMap.get(player));
+                    infoProcess();
+                    playback = player;
                     isPlaying = false;
-                    play(event);
+                    play();
                 }
             }
         });
@@ -287,49 +313,37 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public void getQueue(Event event) {
-        ListView<MusicInfo> musicList = (ListView<MusicInfo>) getNode(event, "#musicQueue");
-        queueProcess(musicList);
-    }
-
-    @Override
     public void getLiked(Parent parent) {
-        ToggleButton button = (ToggleButton) parent.lookup("#likeBtn");
         boolean liked = dataManager.getLiked(idMap.get(playback));
-        imageService.btnImage(button, liked ? "/img/liked.png" : "/img/not_liked.png", 40, 40);
-        button.setSelected(liked);
+        imageService.btnImage(likeBtn, liked ? "/img/liked.png" : "/img/not_liked.png", 40, 40);
+        likeBtn.setSelected(liked);
     }
 
     @Override
     public void setLiked(Event event) {
-        ToggleButton button = (ToggleButton) getNode(event, "#likeBtn");
         boolean newLiked = !dataManager.getLiked(idMap.get(playback));
-        imageService.btnImage(button, newLiked ? "/img/liked.png" : "/img/not_liked.png", 40, 40);
+        imageService.btnImage(likeBtn, newLiked ? "/img/liked.png" : "/img/not_liked.png", 40, 40);
         dataManager.setLiked(idMap.get(playback), newLiked);
-        button.setSelected(newLiked);
+        likeBtn.setSelected(newLiked);
     }
 
     @Override
-    public void setMute(Event event) {
-        ToggleButton btnMute = (ToggleButton) getNode(event, "#muteBtn");
-
+    public void setMute() {
         imageService.btnImage(btnMute, btnMute.isSelected() ? "/img/mute.png" : "/img/volume.png", 30, 30);
         playback.setMute(btnMute.isSelected());
     }
 
     @Override
-    public void setVolume(Event event) {
+    public void setVolume() {
         /*
          * Volume 변경
          * */
         // 볼륨변경시 mute 해제
-        ToggleButton btnMute = (ToggleButton) getNode(event, "#muteBtn");
         btnMute.setSelected(false);
-        setMute(event);
+        setMute();
 
-        volume = playback.getVolume();
-        Slider slider = (Slider) getNode(event, "#volumeSlider");
-        playback.setVolume(slider.getValue() / 100);
+        volume = volumeSlider.getValue();
+        playback.setVolume(volume / 100);
     }
 
     /**

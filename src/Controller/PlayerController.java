@@ -5,7 +5,6 @@ import Service.ICommonService;
 import Service.IPlaybackService;
 import Service.PlaybackService;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
@@ -24,11 +23,11 @@ public class PlayerController extends AbstractController implements Initializabl
     }
 
     public void play(ActionEvent event) {// 플레이 버튼 구현
-        playbackService.play(event);
+        playbackService.play();
     }
 
     public void next(ActionEvent event) {
-        playbackService.playNextMusic(event);
+        playbackService.playNextMusic();
         if (infoController != null) infoController.updateForm();
     }
 
@@ -40,12 +39,12 @@ public class PlayerController extends AbstractController implements Initializabl
         playbackService.setRepeat(event);
     }
 
-    public void setVolume(Event event) {
-        playbackService.setVolume(event);
+    public void setVolume() {
+        playbackService.setVolume();
     }
 
-    public void mute(ActionEvent event) {
-        playbackService.setMute(event);
+    public void mute() {
+        playbackService.setMute();
     }
 
     public void showPlayerInfo() {
@@ -58,11 +57,11 @@ public class PlayerController extends AbstractController implements Initializabl
     @Override
     public void setRoot(Parent root) {
         this.root = root;
-
+        playbackService.getPlaybackInstance(root);
     }
 
     public void prev(ActionEvent event) {
-        playbackService.playPrevMusic(event);
+        playbackService.playPrevMusic();
         if (infoController != null) infoController.updateForm();
     }
 
