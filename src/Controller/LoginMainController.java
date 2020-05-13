@@ -166,7 +166,7 @@ public class LoginMainController extends AbstractController implements Initializ
 		lblinfo.setText("NAME = "+name);
 		lblinfo2.setText("ID = "+id);
 		this.id=id;
-		System.out.println(rank);
+//		System.out.println(rank);
 		if(rank!=null) {
 			lblinfo3.setText("Rank = "+rank);
 			btnpay.setDisable(true);

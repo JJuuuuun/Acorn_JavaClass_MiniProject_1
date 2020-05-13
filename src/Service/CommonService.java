@@ -64,7 +64,7 @@ public class CommonService implements ICommonService {
     private Scene getScene(String btnId) {
 
         String url = urlMap.get(btnId);//버튼 아이디를 찾아서 값으로 경로 받음
-        System.out.println(url); //test code 제대로 된 값을 받는지 콘솔창으로 확인
+//        System.out.println(url); //test code 제대로 된 값을 받는지 콘솔창으로 확인
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Parent root = null;
         try {

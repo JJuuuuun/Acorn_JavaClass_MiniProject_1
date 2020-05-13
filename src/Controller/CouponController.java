@@ -68,7 +68,7 @@ public class CouponController extends AbstractController implements Initializabl
 			 Parent root = (Parent)e.getSource();
 				Stage stage = (Stage) root.getScene().getWindow();
 				stage.close();
- 
+
 		 } 
 		 else {
 			 Alert alert = new Alert(AlertType.WARNING);
