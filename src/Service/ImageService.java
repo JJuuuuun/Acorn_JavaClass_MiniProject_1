@@ -1,10 +1,7 @@
 package Service;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ButtonBase;
 
 public interface ImageService {
-    Button btnImage(Button btn, String Path, int width, int height);
-
-    ToggleButton btnImage(ToggleButton btn, String Path, int width, int height);
+    void setButtonImage(ButtonBase btn, String Path, int width, int height);
 }
