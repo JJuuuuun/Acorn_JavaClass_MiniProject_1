@@ -30,7 +30,7 @@ public class joinController extends AbstractController implements Initializable 
 	@FXML private TextField textpw;
 	@FXML private TextField textpwok;
 	@FXML private ComboBox<String> cmbsong;
-	final String [] items= {"발라드", "댄스곡", "락", "힙합", "트로트"};
+	final String [] items= {"Trot", "Ballade", "Rock", "Hip-Hop", "Trot"};
 	@FXML private Button btncheck;
 	@FXML private Button btnjoin;
 	@FXML private Button btncancel;
@@ -71,39 +71,39 @@ public class joinController extends AbstractController implements Initializable 
 		String pwok = textpwok.getText();
 		String song = cmbsong.getValue();
 		if (name.equals("")) {
-			ErrorMsg("Error", "ȸ�����Կ� �����߽��ϴ�", "�̸��� �Է����� �ʾҽ��ϴ�.");
+			ErrorMsg("Error", "Register Failed", "You do not input Name");
 			textname.requestFocus();
 		}
 		else if (id.equals("")) {
-			ErrorMsg("Error", "ȸ�����Կ� �����߽��ϴ�", "ID�� �Է����� �ʾҽ��ϴ�.");
+			ErrorMsg("Error", "Register Failed", "You do not input ID");
 			textid.requestFocus();
 		}
 		else if (check==0) {
-			ErrorMsg("Error", "ȸ�����Կ� �����߽��ϴ�", "ID �ߺ�Ȯ���� ���� �ʾҽ��ϴ�.");
+			ErrorMsg("Error", "Register Failed", "You do not checked ID");
 			btncheck.requestFocus();
 		}
 		else if (pw.equals("")) {
-			ErrorMsg("Error", "ȸ�����Կ� �����߽��ϴ�", "��й�ȣ�� �Է����� �ʾҽ��ϴ�.");
+			ErrorMsg("Error", "Register Failed", "You do not input Password");
 			textpw.requestFocus();
 		}
 		else if (pwok.equals("")) {
-			ErrorMsg("Error", "ȸ�����Կ� �����߽��ϴ�", "��й�ȣ ���Է��� ���� �ʾҽ��ϴ�.");
+			ErrorMsg("Error", "Register Failed", "You do not input Password(Re)");
 			textpwok.requestFocus();
 		}
 		else if (song == null) {
-			ErrorMsg("Error", "ȸ�����Կ� �����߽��ϴ�", "��ȣ�ϴ� �帣�� �Է����� �ʾҽ��ϴ�.");
+			ErrorMsg("Error", "Register Failed", "You do not input favorite Song");
 			cmbsong.requestFocus();
 		}
 		else if (!pwok.equals(pw)) {
-			ErrorMsg("Error", "ȸ�����Կ� �����߽��ϴ�", "��й�ȣ�� �ٸ��ϴ�.");
+			ErrorMsg("Error", "Register Failed", "You inputed worng Password");
 			textpw.clear();
 			textpwok.clear();
 			textpw.requestFocus();
 		}
 		else {
-			InputProc(name, id, pw, song);
-			int num = (int)(Math.random()*10000);
-			ErrorMsg("Success", "ȸ�����Կ� �����߽��ϴ�.","ù ���� �����ڵ� : "+num);
+			String num = String.valueOf(Math.random()*10000).substring(0, 3);
+			InputProc(name, id, pw, song, num);
+			ErrorMsg("Success", "Register Successed.","Discount Code : "+num);
 
 			commonService.closeWindow(e);
 		}
@@ -117,10 +117,10 @@ public class joinController extends AbstractController implements Initializable 
 		alert.setContentText(ContentTxt);
 		alert.showAndWait();
 	}
-	public void InputProc(String name, String id, String pw, String song) {
+	public void InputProc(String name, String id, String pw, String song, String num) {
 		String sql = "INSERT INTO member "+
-			 	 "(name, ids, pw, song) "+
-			 	 "VALUES (?,?,?,?); ";
+			 	 "(name, ids, pw, song, code) "+
+			 	 "VALUES (?,?,?,?,?); ";
 		
 		try {
 			Class.forName(DRIVER);
@@ -131,6 +131,7 @@ public class joinController extends AbstractController implements Initializable 
 			pstmt.setString(2, id);
 			pstmt.setString(3, pw);
 			pstmt.setString(4, song);
+			pstmt.setString(5, num);
 			
 			pstmt.executeUpdate();
 			
@@ -142,7 +143,7 @@ public class joinController extends AbstractController implements Initializable 
 	}
 	public void idcheck(ActionEvent e, String id) {
 		if(id.equals("")) {
-			ErrorMsg("Error", "ID �ߺ�Ȯ�� ����", "ID�� �Է����� �ʾҽ��ϴ�.");
+			ErrorMsg("Error", "ID check Failed", "You do not input ID");
 			textid.requestFocus();
 			return;
 		}
@@ -166,12 +167,12 @@ public class joinController extends AbstractController implements Initializable 
 				else check=1;
 			}
 			if(check==0) {
-				ErrorMsg("Error", "ID �ߺ�Ȯ�� ����", "�̹� �����ϴ� ID �Դϴ�.");
+				ErrorMsg("Error", "ID check Failed", "ID Overlaped");
 				textid.clear();
 				textid.requestFocus();
 			}
 			else{
-				ErrorMsg("Success", "ID �ߺ�Ȯ�� ����", "��� �� �� �ִ� ID �Դϴ�.");
+				ErrorMsg("Success", "ID chech Successed", "You can use this ID");
 				btncheck.setDisable(true);
 				textpw.requestFocus();
 			}
