@@ -29,16 +29,15 @@ public class PlayerController extends AbstractController implements Initializabl
 
     public void next() {
         playbackService.playNextMusic();
-        if (infoController != null) infoController.updateForm();
     }
 
-    public void shuffle(ActionEvent event) {
-        playbackService.setShuffle(event);
+    public void shuffle() {
+        playbackService.setShuffle();
     }
 
 
-    public void repeat(ActionEvent event) {
-        playbackService.setRepeat(event);
+    public void repeat() {
+        playbackService.setRepeat();
     }
 
     public void setVolume() {
@@ -64,10 +63,9 @@ public class PlayerController extends AbstractController implements Initializabl
 
     public void prev() {
         playbackService.playPrevMusic();
-        if (infoController != null) infoController.updateForm();
     }
 
-    public void seek(MouseEvent event) {
-        playbackService.seek(event);
+    public void seek() {
+        playbackService.seek();
     }
 }

@@ -22,12 +22,8 @@ public class InfoController extends AbstractController implements Initializable 
 
     public void setPlaybackService(IPlaybackService playbackService) {
         this.playbackService = playbackService;
-        updateForm();
-    }
-
-    public void updateForm() {
         playbackService.getInfoInstance(root);
-        playbackService.getLiked(root);
+        playbackService.getLiked();
     }
 
     public void settings() {
@@ -35,7 +31,7 @@ public class InfoController extends AbstractController implements Initializable 
     }
 
     public void like(ActionEvent event) {
-        playbackService.setLiked(event);
+        playbackService.setLiked();
     }
 
     public void about() {

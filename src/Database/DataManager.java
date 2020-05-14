@@ -54,11 +54,6 @@ public class DataManager implements IDataManager {
         return result;
     }
 
-    /**
-     * 모든 음악 정보를 가져온다.
-     *
-     * @return 모든 음악의 정보
-     */
     @Override
     public Map<MediaPlayer, Integer> getAllMusics() {
         String sql = "select * from musicInfo";
@@ -71,27 +66,6 @@ public class DataManager implements IDataManager {
                 result.put(new MediaPlayer(new Media(
                                 Paths.get(resultSet.getString("fileurl")).toUri().toString())),
                         resultSet.getInt("id"));
-            }
-            resultSet.close();
-            statement.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    @Override
-    public String getLyrics(int id) {
-        String sql = "select * from musicInfo where id = ?";
-        String result = null;
-        try {
-            PreparedStatement statement = connect.prepareStatement(sql);
-            statement.setInt(1, id);
-
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                result = resultSet.getString("lyrics");
             }
             resultSet.close();
             statement.close();
@@ -133,10 +107,6 @@ public class DataManager implements IDataManager {
         }
     }
 
-    /**
-     * @param id 해당 음악 id
-     * @return liked
-     */
     @Override
     public boolean getLiked(int id) {
         boolean liked = false;

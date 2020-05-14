@@ -4,7 +4,6 @@ import Database.DataManager;
 import Database.IDataManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.event.Event;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -91,10 +90,11 @@ public class PlaybackService implements IPlaybackService {
             }
             stop();
             playback = players.get(index);
-            isPlaying = false;
         } else {
+            playback.seek(Duration.ZERO);
             stop();
         }
+        isPlaying = false;
         play();
     }
 
@@ -105,53 +105,69 @@ public class PlaybackService implements IPlaybackService {
             currentMusicInfo = dataManager.getMusicInfo(idMap.get(playback));
             if (titleLabel != null) infoProcess();
             if (playback != null) {
-                if (playback.getOnReady() == null)
-                    playback.setOnReady(() -> playback.setVolume(volume));
-                if (playback.getOnPlaying() == null)
-                    playback.setOnPlaying(() -> {
-                        /*
-                         * 재생 중 :
-                         * 일시정지 이미지 표시
-                         * */
-                        dataManager.updateMusic(idMap.get(playback), playback.getTotalDuration());
-                        int time = (int) playback.getTotalDuration().toSeconds();
-                        lblTotal.setText(String.format("%02d", time / 60) + ":" + String.format("%02d", time % 60));
-                        imageService.btnImage(btnPlay, "/img/pause.png", 30, 30);
-                        addPlays();
-                        setThread();
-                        // 프로세스 종료시 모든 Thread 종료하도록 설정
-                        mps.setDaemon(true);
-                        mps.start();
-                    });
-                if (playback.getOnPaused() == null)
-                    playback.setOnPaused(() -> {
-                        /*
-                         * 일시정지 :
-                         * 재생 이미지 표시, Thread Interrupt
-                         * */
-                        mps.interrupt();
-                        imageService.btnImage(btnPlay, "/img/play.png", 30, 30);
-                    });
-                if (playback.getOnStopped() == null)
-                    playback.setOnStopped(() -> {
-                        /*
-                         * 정지 : Thread Interrupt
-                         * */
-                        mps.interrupt();
-                    });
-                if (playback.getOnEndOfMedia() == null)
-                    playback.setOnEndOfMedia(() -> {
-                        // 재생 종료시 : 현재 미디어 정지, 다음 미디어
-                        playback.seek(Duration.ZERO);
-                        stop();
-                        playNextMusic();
-                    });
+                setOnReady();
+                setOnPlaying();
+                setOnPaused();
+                setOnStopped();
+                setOnEndOfMedia();
                 playback.play();
             }
         } else {
             isPlaying = false;
             pause();
         }
+    }
+
+    private void setOnReady() {
+        if (playback.getOnReady() == null)
+            playback.setOnReady(() -> playback.setVolume(volume));
+    }
+
+    private void setOnPlaying() {
+        if (playback.getOnPlaying() == null)
+            playback.setOnPlaying(() -> {
+                /*
+                 * 재생 중 :
+                 * 일시정지 이미지 표시
+                 * */
+                dataManager.updateMusic(idMap.get(playback), playback.getTotalDuration());
+                int time = (int) playback.getTotalDuration().toSeconds();
+                lblTotal.setText(String.format("%02d", time / 60) + ":" + String.format("%02d", time % 60));
+                imageService.setButtonImage(btnPlay, "/img/pause.png", 30, 30);
+                addPlays();
+                setThread();
+            });
+    }
+
+    private void setOnPaused() {
+        if (playback.getOnPaused() == null)
+            playback.setOnPaused(() -> {
+                /*
+                 * 일시정지 :
+                 * 재생 이미지 표시, Thread Interrupt
+                 * */
+                mps.interrupt();
+                imageService.setButtonImage(btnPlay, "/img/play.png", 30, 30);
+            });
+    }
+
+    private void setOnStopped() {
+        if (playback.getOnStopped() == null)
+            playback.setOnStopped(() -> {
+                /*
+                 * 정지 : Thread Interrupt
+                 * */
+                mps.interrupt();
+            });
+    }
+
+    private void setOnEndOfMedia() {
+        if (playback.getOnEndOfMedia() == null)
+            playback.setOnEndOfMedia(() -> {
+                // 재생 종료시 : 현재 미디어 정지, 다음 미디어
+                playback.seek(Duration.ZERO);
+                playNextMusic();
+            });
     }
 
     private void setThread() {
@@ -172,6 +188,9 @@ public class PlaybackService implements IPlaybackService {
                 });
             }
         });
+        // 프로세스 종료시 모든 Thread 종료하도록 설정
+        mps.setDaemon(true);
+        mps.start();
     }
 
     @Override
@@ -209,13 +228,13 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public void seek(Event event) {
+    public void seek() {
         double value = slider.getValue() / 100 * playback.getTotalDuration().toSeconds();
         playback.seek(Duration.seconds(value));
     }
 
     @Override
-    public void setRepeat(Event event) {
+    public void setRepeat() {
         /*
          * 반복 모드 변경:
          * 반복 버튼의 이미지를 바뀔 버튼의 이미지로 변경
@@ -224,21 +243,21 @@ public class PlaybackService implements IPlaybackService {
         switch (repeatMode) {
             case REPEAT_ONLY:
                 repeatMode = REPEAT_ALL;
-                imageService.btnImage(btnRepeat, "/img/repeat_all.png", 30, 30);
+                imageService.setButtonImage(btnRepeat, "/img/repeat_all.png", 30, 30);
                 break;
             case REPEAT_ALL:
                 repeatMode = 0;
-                imageService.btnImage(btnRepeat, "/img/no_repeat.png", 30, 30);
+                imageService.setButtonImage(btnRepeat, "/img/no_repeat.png", 30, 30);
                 break;
             default:
                 // 한곡반복 이미지로 변경
                 repeatMode = REPEAT_ONLY;
-                imageService.btnImage(btnRepeat, "/img/repeat_only.png", 30, 30);
+                imageService.setButtonImage(btnRepeat, "/img/repeat_only.png", 30, 30);
         }
     }
 
     @Override
-    public void setShuffle(Event event) {
+    public void setShuffle() {
         /*
          * 셔플 모드 변경:
          * 셔플 버튼의 이미지를 바뀔 버튼의 이미지로 변경
@@ -252,17 +271,17 @@ public class PlaybackService implements IPlaybackService {
             players.add(0, playback);
             queueProcess();
         }
-        imageService.btnImage(btnShuffle, shuffle ? "/img/shuffle.png" : "/img/no_shuffle.png", 30, 30);
+        imageService.setButtonImage(btnShuffle, shuffle ? "/img/shuffle.png" : "/img/no_shuffle.png", 30, 30);
     }
 
     @Override
     public void getInfoInstance(Parent parent) {
-        if (titleLabel == null) titleLabel = (Label) parent.lookup("#title");
-        if (artistLabel == null) artistLabel = (Label) parent.lookup("#artist");
-        if (textArea == null) textArea = (TextArea) parent.lookup("#lyrics");
-        if (imageView == null) imageView = (ImageView) parent.lookup("#album");
-        if (likeBtn == null) likeBtn = (ToggleButton) parent.lookup("#likeBtn");
-        if (musicList == null) musicList = (ListView<MusicInfo>) parent.lookup("#musicQueue");
+        titleLabel = (Label) parent.lookup("#title");
+        artistLabel = (Label) parent.lookup("#artist");
+        textArea = (TextArea) parent.lookup("#lyrics");
+        imageView = (ImageView) parent.lookup("#album");
+        likeBtn = (ToggleButton) parent.lookup("#likeBtn");
+        musicList = (ListView<MusicInfo>) parent.lookup("#musicQueue");
         infoProcess();
         queueProcess();
     }
@@ -329,23 +348,23 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public void getLiked(Parent parent) {
+    public void getLiked() {
         boolean liked = dataManager.getLiked(idMap.get(playback));
-        imageService.btnImage(likeBtn, liked ? "/img/liked.png" : "/img/not_liked.png", 40, 40);
+        imageService.setButtonImage(likeBtn, liked ? "/img/liked.png" : "/img/not_liked.png", 40, 40);
         likeBtn.setSelected(liked);
     }
 
     @Override
-    public void setLiked(Event event) {
+    public void setLiked() {
         boolean newLiked = !dataManager.getLiked(idMap.get(playback));
-        imageService.btnImage(likeBtn, newLiked ? "/img/liked.png" : "/img/not_liked.png", 40, 40);
+        imageService.setButtonImage(likeBtn, newLiked ? "/img/liked.png" : "/img/not_liked.png", 40, 40);
         dataManager.setLiked(idMap.get(playback), newLiked);
         likeBtn.setSelected(newLiked);
     }
 
     @Override
     public void setMute() {
-        imageService.btnImage(btnMute, btnMute.isSelected() ? "/img/mute.png" : "/img/volume.png", 30, 30);
+        imageService.setButtonImage(btnMute, btnMute.isSelected() ? "/img/mute.png" : "/img/volume.png", 30, 30);
         playback.setMute(btnMute.isSelected());
     }
 
