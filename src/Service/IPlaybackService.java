@@ -35,12 +35,18 @@ public interface IPlaybackService {
     void setRepeat();
 
     /**
-     * 셔플 상태를 설정함
+     * 셔플 상태를 설정/해제
      */
     void setShuffle();
 
+    /**
+     * 음소거 상태를 설정/해제
+     */
     void setMute();
 
+    /**
+     * 볼륨을 조절
+     */
     void setVolume();
 
     /**
@@ -57,11 +63,11 @@ public interface IPlaybackService {
     void getInfoInstance(Parent parent);
 
     /**
-     * 현재 플레이어의 인스턴스 초기화
+     * 플레이어를 제어하는데 필요한 인스턴스 초기화
      *
      * @param parent Parent
      */
-    void getPlaybackInstance(Parent parent);
+    void setPlaybackInstance(Parent parent);
 
     /**
      * 현재 곡의 Liked 상태를 DB에서 가져옴

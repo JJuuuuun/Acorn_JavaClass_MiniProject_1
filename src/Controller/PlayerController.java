@@ -4,10 +4,8 @@ import Service.CommonService;
 import Service.ICommonService;
 import Service.IPlaybackService;
 import Service.PlaybackService;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -58,7 +56,7 @@ public class PlayerController extends AbstractController implements Initializabl
     @Override
     public void setRoot(Parent root) {
         this.root = root;
-        playbackService.getPlaybackInstance(root);
+        playbackService.setPlaybackInstance(root);
     }
 
     public void prev() {

@@ -287,7 +287,7 @@ public class PlaybackService implements IPlaybackService {
     }
 
     @Override
-    public void getPlaybackInstance(Parent parent) {
+    public void setPlaybackInstance(Parent parent) {
         if (btnRepeat == null)
             btnRepeat = (Button) parent.lookup("#repeatBtn");
         if (btnPlay == null)
