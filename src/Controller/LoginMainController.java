@@ -70,7 +70,7 @@ public class LoginMainController extends AbstractController implements Initializ
 		});*/
 
 		btnlogout.setOnAction(e->{
-			ErrorMsg("Success", "Logout Success", "Successfuly Logout.");
+			ErrorMsg("Success", "Logout Success", "Successfully Logout.");
 			//0512 add
 			commonService.changeWindow(rootController.getRoot(), "Main", Pos.TOP_LEFT);
 			Controller mainController = (Controller) commonService.getController("main.fxml");
@@ -109,7 +109,7 @@ public class LoginMainController extends AbstractController implements Initializ
 		alert.setContentText(ContentTxt);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
-			ErrorMsg("Success", "Delete Success", "Successfuly Deleted");
+			ErrorMsg("Success", "Delete Success", "Successfully Deleted");
 			DeleteProc();
 		}
 

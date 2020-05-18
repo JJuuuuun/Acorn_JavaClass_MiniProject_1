@@ -11,7 +11,7 @@
    <children>
       <Accordion fx:id="QnATitles" layoutX="90.0" layoutY="36.0">
         <panes>
-          <TitledPane animated="false" text="회원가입" wrapText="true">
+          <TitledPane animated="false" text="How to make membership?" wrapText="true">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -19,7 +19,7 @@
                      </children></AnchorPane>
             </content>
           </TitledPane>
-          <TitledPane animated="false" text="비밀번호 변경" wrapText="true">
+          <TitledPane animated="false" text="I want to change my Password" wrapText="true">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -27,7 +27,7 @@
                      </children></AnchorPane>
             </content>
           </TitledPane>
-          <TitledPane animated="false" text="할인권은 어떻게 받나요?" wrapText="true">
+          <TitledPane animated="false" text="How can I have discount coupon?" wrapText="true">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -35,7 +35,7 @@
                      </children></AnchorPane>
             </content>
           </TitledPane>
-            <TitledPane animated="false" text="음악플레이어가 재생되지 않아요." wrapText="true">
+            <TitledPane animated="false" text="Music player does not play" wrapText="true">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -43,7 +43,7 @@
                      </children></AnchorPane>
               </content>
             </TitledPane>
-            <TitledPane animated="false" text="오늘 점심은 뭘 먹을까" wrapText="true">
+            <TitledPane animated="false" text="What is your launch menu?" wrapText="true">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -53,7 +53,7 @@
             </TitledPane>
         </panes>
       </Accordion>
-      <Label layoutX="115.0" layoutY="-1.0" prefHeight="30.0" prefWidth="171.0" text="자주 묻는 질문">
+      <Label layoutX="115.0" layoutY="-1.0" prefHeight="30.0" prefWidth="171.0" text="Q n A">
          <font>
             <Font size="25.0" />
          </font>

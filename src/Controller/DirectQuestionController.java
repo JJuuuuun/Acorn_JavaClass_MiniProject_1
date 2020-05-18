@@ -16,7 +16,7 @@ public class DirectQuestionController extends AbstractController implements Init
     @FXML ComboBox<String> Title_ComboBox;
     @FXML TextArea Question_TxtArea;
     IDirectQuestionService directQuestionService;
-    final String [] titles = {"회원가입", "주제1", "주제2", "기타"};
+    final String [] titles = {"Join", "Title1", "Title2", "ETC"};
 
 
     @Override
@@ -26,7 +26,7 @@ public class DirectQuestionController extends AbstractController implements Init
         for(String title : titles)
             Title_ComboBox.getItems().add(title);
 
-        Title_ComboBox.setPromptText("주제를 선택하세요!");
+        Title_ComboBox.setPromptText("Please check title");
 
         Title_ComboBox.setOnAction(e -> clearTxt());
     }

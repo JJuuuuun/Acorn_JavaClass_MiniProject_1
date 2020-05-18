@@ -17,11 +17,11 @@ public class QnAController extends AbstractController implements Initializable {
     @FXML Label title_4;
     @FXML Label title_5;
 
-    private final String titleStr_1 = "메뉴바에 회원가입 버튼을 클릭하세요.";
-    private final String titleStr_2 = "아직 구현되지 않았습니다..^^";
-    private final String titleStr_3 = "차빈이에게 물어보세요!";
-    private final String titleStr_4 = "담당자를 불러오겠습니다.";
-    private final String titleStr_5 = "서브웨이가 땡기는구나.";
+    private final String titleStr_1 = "There is join button on the menu bar";
+    private final String titleStr_2 = "It doesn't activate yet..^^";
+    private final String titleStr_3 = "Ask to cha bin!";
+    private final String titleStr_4 = "I'll ask who is in charge of this part";
+    private final String titleStr_5 = "Subway, it's so hot";
 
     IQnAService QnAService;
 

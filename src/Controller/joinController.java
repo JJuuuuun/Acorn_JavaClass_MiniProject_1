@@ -103,7 +103,7 @@ public class joinController extends AbstractController implements Initializable 
 		else {
 			String num = String.valueOf(Math.random()*10000).substring(0, 3);
 			InputProc(name, id, pw, song, num);
-			ErrorMsg("Success", "Register Successed.","Discount Code : "+num);
+			ErrorMsg("Success", "Register succeed.","Discount Code : "+num);
 
 			commonService.closeWindow(e);
 		}
@@ -172,7 +172,7 @@ public class joinController extends AbstractController implements Initializable 
 				textid.requestFocus();
 			}
 			else{
-				ErrorMsg("Success", "ID chech Successed", "You can use this ID");
+				ErrorMsg("Success", "ID check succeed", "You can use this ID");
 				btncheck.setDisable(true);
 				textpw.requestFocus();
 			}

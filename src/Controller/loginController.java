@@ -117,12 +117,12 @@ public class loginController extends AbstractController implements Initializable
 			else {
 				ResultSet rs = stmt.executeQuery(sql2);
 				if(!rs.getString(1).equals(pw)) {
-					ErrorMsg("Error", "Login Fail", "Worng Password");
+					ErrorMsg("Error", "Login Fail", "Wrong Password");
 					textpw.clear();
 					textpw.requestFocus();
 				}
 				else {
-					ErrorMsg("Success", "Login Success", "Successfuly Login");
+					ErrorMsg("Success", "Login Success", "Successfully Login");
 					success=1;
 				}
 			}

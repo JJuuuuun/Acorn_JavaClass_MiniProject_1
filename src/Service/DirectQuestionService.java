@@ -13,8 +13,8 @@ import java.util.List;
 
 public class DirectQuestionService implements IDirectQuestionService {
 
-    final String SUCCESS = "성공";
-    final String FAIL = "실패";
+    final String SUCCESS = "Success";
+    final String FAIL = "FAIL";
     final int TITLE = 0;
     final int QUESTION = 1;
 
@@ -34,17 +34,17 @@ public class DirectQuestionService implements IDirectQuestionService {
         if (btnId.equals("History_Btn")) {
             List<String> historyData = db.getData(userID);
             if (showHistory(event, historyData))
-                showAlert(SUCCESS, "이전 기록을 가져왔습니다.");
+                showAlert(SUCCESS, "Loaded history");
             else
-                showAlert(FAIL, "문의하신 기록이 없습니다.");
+                showAlert(FAIL, "You don't have any questions");
         } else if (btnId.equals("Send_Btn")) {
             List<String> sendData = sendToDB(event, userID);
             if (db.storeData(sendData)) {
-                showAlert(SUCCESS, "이용해 주셔서 감사합니다.");
+                showAlert(SUCCESS, "Thank you for using our services");
                 return true;
             }
             else
-                showAlert(FAIL, "죄송합니다. 전송에 실패하였습니다");
+                showAlert(FAIL, "Data send failure");
         }
 
         return false;
@@ -96,7 +96,7 @@ public class DirectQuestionService implements IDirectQuestionService {
             ComboBox<String> combo = (ComboBox) form.lookup("#Title_ComboBox");
             TextArea textArea = (TextArea) form.lookup("#Question_TxtArea");
 
-            combo.setPromptText("이전에 문의하신 내용입니다.");
+            combo.setPromptText("There are your questions");
             combo.setValue(null);
             String history = "";
             for (int i = 0; i < historyData.size(); i += 2) {
@@ -122,7 +122,7 @@ public class DirectQuestionService implements IDirectQuestionService {
     }
 
     private void showAlert(String head, String content) {
-        showAlert("결과", head, content);
+        showAlert("Result", head, content);
     }
 
 }
